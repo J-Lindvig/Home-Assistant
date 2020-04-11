@@ -1,0 +1,4 @@
+title: Film
+icon: mdi:library-movie
+cards:
+  - !include cards/movies/movies.yaml

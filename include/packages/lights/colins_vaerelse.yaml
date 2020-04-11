@@ -1,0 +1,24 @@
+colins_vaerelse:
+  light:
+    - platform: switch
+      name: Colins månelampe
+      entity_id: switch.colin_manelampe
+    
+    - platform: group
+      name: Colins værelse
+      entities:
+        - light.lampe_colin
+        - light.loftlampe_colin
+        - light.colins_manelampe
+
+  homeassistant:
+    customize:
+      light.lampe_colin:
+        friendly_name: Lampe
+        icon: mdi:lamp
+      light.loftlampe_colin:
+        friendly_name: Loftlampe
+        icon: mdi:ceiling-light
+      light.colins_manelampe:
+        friendly_name: Månelampe
+        icon: mdi:weather-night

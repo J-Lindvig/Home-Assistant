@@ -1,0 +1,30 @@
+stuen:
+  light:
+    - platform: group
+      name: Stuelampe
+      entities:
+        - light.stuelampe_1
+        - light.stuelampe_2
+    
+    - platform: switch
+      name: Lyset i reolen
+      entity_id: switch.lampe_i_reol
+    
+    - platform: group
+      name: Stuen
+      entities:
+        - light.stuelampe
+        - light.gulvlampe
+        - light.lyset_i_reolen
+        - light.laeselampe
+
+  homeassistant:
+    customize:
+      light.stuelampe:
+        icon: mdi:lamp
+      light.gulvlampe:
+        icon: mdi:floor-lamp
+      light.lyset_i_reolen:
+        icon: mdi:mushroom
+      light.laeselampe:
+        icon: mdi:floor-lamp

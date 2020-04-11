@@ -1,0 +1,54 @@
+# lovelace_gen
+{% macro element_style(top, left, fontsize) -%}
+      top: {{ top }}
+      left: {{ left }}
+      font-size: {{ fontsize }}
+      color: white
+      text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black
+      font-weight: bold
+{%- endmacro %}
+
+type: picture-elements
+image: /local/images/backgrounds/birthday_5x2.jpg
+elements:
+  - type: custom:state-attribute-element
+    entity: sensor.next_birthday
+    attribute: friendly_name
+    style:
+      {{ element_style("20%", "50%", "5vh") }}
+
+  - type: custom:state-attribute-element
+    entity: sensor.next_birthday
+    attribute: years_at_next_anniversary
+    suffix: " år"
+    style:
+      {{ element_style("45%", "50%", "5vh") }}
+
+  - type: state-label
+    entity: sensor.next_birthday
+    prefix: "om "
+    suffix: " dage"
+    style:
+      {{ element_style("70%", "50%", "7vh") }}
+    tap_action:
+      action: call-service
+      service: browser_mod.popup
+      service_data:
+        title: Kommende begivenheder
+        style:
+          border-radius: 20px
+          --ha-card-border-radius: 20px
+        card:
+          type: custom:auto-entities
+          card:
+            type: entities
+            show_header_toggle: false
+          filter:
+            include:
+              - domain: sensor
+                name: "*dag"
+          sort:
+            method: state
+            numeric: true
+            first: 1
+            count: 8

@@ -1,0 +1,24 @@
+gangen:
+  light:
+    - platform: group
+      name: Gangen
+      entities:
+        - light.gangen_1
+        - light.gangen_2
+        - light.gangen_3
+        - light.gangen_4
+        - light.gangen_5
+        - light.gangen_6
+        - light.gangen_7
+        - light.gangen_8
+        - light.gangen_9
+        - light.gangen_10
+        - light.gangen_11
+        - light.gangen_12
+        - light.gangen_13
+        - light.gangen_14
+
+  homeassistant:
+    customize:
+      light.gangen:
+        icon: mdi:track-light

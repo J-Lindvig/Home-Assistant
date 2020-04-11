@@ -1,0 +1,103 @@
+movies:
+  input_select:
+    movie:
+      name: "Vælg film"
+      icon: mdi:filmstrip
+      options:
+        - DUMMY
+    
+    movie_url:
+      name: "Movie URL"
+      options:
+        - DUMMY
+    
+    movie_cover:
+      name: "Movie Covers URL"
+      options:
+        - DUMMY
+
+  script:
+    # Clear the list of movies and call the reload shell
+    load_movies:
+      alias: "Genindlæs film"
+      sequence:
+        - service: input_select.set_options
+          data:
+            entity_id: input_select.movie
+            options: "Henter film... "
+        - service: shell_command.movies_load
+    
+    # Toggle script for play/pause movie
+    play_pause_movie:
+      alias: "Start/Pause film"
+      sequence:
+        - service_template: >-
+            {%- if is_state("media_player.stuens_tv", "off") or is_state("media_player.stuens_tv", "idle") -%}
+              script.play_movie
+            {%- elif is_state("media_player.stuens_tv", "playing") or is_state("media_player.stuens_tv", "paused") -%}
+              script.pause_movie
+            {%- endif -%}
+
+    # Play the movie
+    play_movie:
+      alias: "Start afspilning"
+      sequence:
+        - service: media_player.play_media
+          # Work: Dynamic media_player
+          # Work: Server as variable
+          data_template:
+            entity_id: media_player.stuens_tv
+            media_content_id: "{{- states('input_select.movie_url') -}}"
+            media_content_type: video
+    
+    # Pause the movie
+    pause_movie:
+      alias: "Pause/Play"
+      sequence:
+        - service: media_player.media_play_pause
+          # Work: Dynamic media_player
+          data:
+            entity_id: media_player.stuens_tv
+
+    # End movie
+    stop_movie:
+      alias: "stop afspilning"
+      sequence:
+        - service: media_player.media_stop
+          # Work: Dynamic media_player
+          data:
+            entity_id: media_player.stuens_tv
+
+  shell_command:
+    movies_load: "source /config/shell/movies_load.sh"
+
+  automation:
+    # Have choosen a movie - find the correct URL
+    - alias: "Valgt film - find URL"
+      trigger:
+        # Trigger when  movie is selected
+        - platform: state
+          entity_id: input_select.movie
+      action:
+        # Find the movie
+        - service: script.vlookup
+          data:
+            haystack: "input_select.movie"
+            result_list: "input_select.movie_url"
+    
+        - service: script.vlookup
+          data:
+            haystack: "input_select.movie"
+            result_list: "input_select.movie_cover"
+
+    # Load movies at startup
+    - alias: "Indlæs film ved opstart"
+      trigger:
+        - platform: homeassistant
+          event: start
+      action:
+        - service: input_select.set_options
+          data:
+            entity_id: input_select.movie
+            options: "Henter film... "
+        - service: shell_command.movies_load

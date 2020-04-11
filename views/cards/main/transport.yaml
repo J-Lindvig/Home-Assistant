@@ -1,0 +1,6 @@
+type: entities
+title: Transport
+show_header_toggle: false
+entities:
+  - sensor.bus_mod_odense
+  - sensor.bus_mod_faaborg

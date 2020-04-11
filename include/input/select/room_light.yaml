@@ -1,0 +1,5 @@
+room_light:
+  name: "Vælg rum"
+  icon: mdi:floor-plan
+  options:
+    - DUMMY

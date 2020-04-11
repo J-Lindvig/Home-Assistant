@@ -1,0 +1,12 @@
+cornelies_vaerelse:
+  light:
+    - platform: group
+      name: Cornelies værelse
+      entities:
+        - light.gulvlampe_cornelie
+
+  homeassistant:
+    customize:
+      light.gulvlampe_cornelie:
+        friendly_name: Gulvlampe
+        icon: mdi:floor-lamp

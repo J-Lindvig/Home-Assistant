@@ -1,0 +1,14 @@
+input_select.room_light
+Køkken
+Stuen
+Legeværelse
+Gangen
+Hjalte
+Emilio
+Colin
+Pigernes stue
+Cornelie
+Nathalie
+Badeværelser
+Indgang
+Havegang

@@ -1,0 +1,21 @@
+havegang:
+  light:
+    - platform: group
+      name: Havegang
+      entities:
+        - light.havegang_1
+        - light.havegang_2
+        - light.havegang_3
+        - light.havegang_4
+        - light.havegang_5
+        - light.havegang_6
+        - light.havegang_7
+        - light.havegang_8
+        - light.havegang_9
+        - light.havegang_10
+        - light.havegang_11
+
+  homeassistant:
+    customize:
+      light.havegang:
+        icon: mdi:wall-sconce-flat

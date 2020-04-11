@@ -1,0 +1,20 @@
+# lovelace_gen
+type: custom:stack-in-card
+{% if title | length %}
+title: {{ title }}
+{% endif %}
+cards:
+  {% for entity_row in entities %}
+  - type: horizontal-stack
+    cards:
+    {% for entity in entity_row %}
+      {% if  entity | length %}
+      - type: light
+        entity: {{ entity }}
+      {% else %}
+      - type: custom:gap-card
+        height: 1
+        size: 1
+      {% endif %}
+    {% endfor %}
+  {% endfor %}

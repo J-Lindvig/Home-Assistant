@@ -1,0 +1,30 @@
+rejseplanen:
+  sensor:
+    - platform: rejseplanen
+      name: Odense
+      stop_id: '430268500'
+      direction:
+        - 'Odense'
+    
+    - platform: rejseplanen
+      name: Faaborg
+      stop_id: '430268500'
+      direction:
+        - 'Faaborg'
+
+    - platform: template
+      sensors:
+        ##### BUSSER #####
+        bus_mod_faaborg:
+          friendly_name_template: >-
+            {{ state_attr('sensor.faaborg', 'route') }} mod {{ state_attr('sensor.faaborg', 'direction') }} om:
+          icon_template: mdi:bus-clock
+          value_template: >-
+            {{ states('sensor.faaborg') }} minut{% if states('sensor.faaborg') | int > 1 %}ter{%- endif %} ({{ strptime(state_attr('sensor.faaborg', 'due_at'), '%d.%m.%y %H:%M').timestamp() | timestamp_custom('%R') }})
+    
+        bus_mod_odense:
+          friendly_name_template: >-
+            {{ state_attr('sensor.odense', 'route') }} mod {{ state_attr('sensor.odense', 'direction') }} om:
+          icon_template: mdi:bus-clock
+          value_template: >-
+            {{ states('sensor.odense') }} minut{% if states('sensor.odense') | int > 1 %}ter{%- endif %} ({{ strptime(state_attr('sensor.odense', 'due_at'), '%d.%m.%y %H:%M').timestamp() | timestamp_custom('%R') }})

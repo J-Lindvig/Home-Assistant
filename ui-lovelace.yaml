@@ -1,0 +1,17 @@
+custom_header:
+  compact_mode: true
+
+title: Skovtrolden
+
+views:
+  - !include views/main.yaml
+#  - !include views/calendar.yaml
+  - !include views/room_lights.yaml
+#  - !include views/living_room.yaml
+  - !include views/movies.yaml
+#  - !include views/media.yaml
+#  - !include views/light_admin.yaml
+#  - !include views/services.yaml
+  - !include views/system.yaml
+#  - !include views/test.yaml
+#  - !include views/livemap.yaml

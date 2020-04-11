@@ -1,0 +1,134 @@
+# lovelace_gen
+{% macro vacuum_attribute_element(entity, attribute, prefix, suffix, top, x, side) -%}
+      - type: custom:state-attribute-element
+        entity: {{ entity }}
+        attribute: {{ attribute }}
+        {% if prefix | length -%}prefix: "{{ prefix }}: "{%- endif %}
+        {% if suffix | length -%}suffix: " {{ suffix }}"{%- endif %}
+        style:
+          top: {{ top }}
+          {{ side }}: {{ x }}
+          color: '#ffffff'
+          transform: translate(0%,-50%)
+          font-size: 2.4vh
+          font-weight: bold
+          text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black
+          border-{{ side }}-style: solid
+          border-color: '#222222'
+          padding-{{ side }}: 0.5vw
+          line-height: 6vh
+{%- endmacro %}
+
+{% macro vacuum_button_bottom(icon, x, service, entity) -%}
+      - type: icon
+        icon: {{ icon }}
+        tap_action:
+          action: call-service
+          service: {{ service }}
+          service_data:
+            entity_id: {{ entity }}
+        style:
+          transform: translate(-50%,0%)
+          position: absolute
+          bottom: 0px
+          left: {{ x }}
+          color: "#ffffff"
+          line-height: 2vw
+          --iron-icon-height: 3vh
+          --iron-icon-width: 3vh
+{%- endmacro %}
+
+{%- macro open_settings() -%}
+          action: call-service
+          service: browser_mod.popup
+          service_data:
+            title: Indstillinger
+            style:
+              border-radius: 20px
+              --ha-card-border-radius: 20px
+            card:
+              type: entities
+              entities:
+                - input_select.vacuum_room
+                - type: custom:state-attribute-element
+                  entity: sensor.vacuum_r2_d2
+                  attribute: fan_speed
+                - type: custom:slider-entity-row
+                  entity: input_number.vacuum_fan_speed
+                  full_row: true
+                  hide_state: true
+{%- endmacro %}
+
+{% macro top_icon(type, entity_or_icon, x) -%}
+      - type: {{ type }}
+        {{ 'icon: ' if 'mdi:' in entity_or_icon else 'entity: ' }}{{ entity_or_icon }}
+        style:
+          top: 1.8vh
+          left: {{ x }}
+          --iron-icon-height: 3vh
+          --iron-icon-width: 3vh
+        tap_action:
+          {{ open_settings() }}
+{%- endmacro %}
+
+type: custom:stack-in-card
+cards:
+  - type: picture-elements
+    image: /local/images/vacuum.png
+    elements:
+
+      # ROOM
+      - type: state-label
+        entity: input_select.vacuum_room
+        style:
+          top: 6.5vh
+          left: 50%
+          color: "#222222"
+          font-size: 4vh
+          font-weight: bold
+        tap_action:
+          {{ open_settings() }}
+
+      # STATE
+      - type: state-label
+        entity: sensor.vacuum_r2_d2
+        style:
+          transform: translate(-50%,0%)
+          position: absolute
+          top: 0px
+          left: 50%
+          color: "#ffffff"
+          font-size: 3vh
+          line-height: 2vh
+          text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black
+          padding-left: 50%
+          padding-right: 50%
+          border-color: rgb(34, 154, 210)
+          border-radius: 6px
+          background-color: rgba(34, 34, 34, 0.5)
+
+      {{ top_icon("icon", "mdi:floor-plan", "10%") }}
+      {{ top_icon("icon", "mdi:fan", "85%") }}
+      {{ top_icon("state-icon", "sensor.vacuum_fan_speed", "90%") }}
+
+      # Left side
+      {{ vacuum_attribute_element("sensor.vacuum_r2_d2", "status", "Status", "",  "60%", "2px", "left") }}
+      {{ vacuum_attribute_element("sensor.vacuum_r2_d2", "battery_level", "Batteri", "%", "45%", "2px", "left") }}
+      {{ vacuum_attribute_element("sensor.vacuum_r2_d2", "fan_speed", "Sugestyrke", "", "75%", "2px", "left") }}
+
+      # Right side
+      {{ vacuum_attribute_element("sensor.vacuum_r2_d2", "main_brush_left", "Børste", "t", "65%", "2px", "right") }}
+      {{ vacuum_attribute_element("sensor.vacuum_r2_d2", "side_brush_left", "Sidebørste", "t", "75%", "2px", "right") }}
+      {{ vacuum_attribute_element("sensor.vacuum_r2_d2", "filter_left", "Filter", "t", "55%", "2px", "right") }}
+      {{ vacuum_attribute_element("sensor.vacuum_r2_d2", "sensor_dirty_left", "Sensor", "t", "45%", "2px", "right") }}
+
+      {{ vacuum_button_bottom("mdi:broom", "50%", "vacuum.start", "vacuum.r2_d2") }}
+          padding-left: 50%
+          padding-right: 50%
+          border-color: rgb(34, 154, 210)
+          border-radius: 6px
+          background-color: rgba(34, 34, 34, 0.5)
+      {{ vacuum_button_bottom("mdi:play", "10%", "script.turn_on", "script.vacuum_room_start") }}
+      {{ vacuum_button_bottom("mdi:stop", "30%", "vacuum.stop", "vacuum.r2_d2") }}
+      {{ vacuum_button_bottom("mdi:home-map-marker", "70%", "vacuum.return_to_base", "vacuum.r2_d2") }}
+      {{ vacuum_button_bottom("mdi:wrench", "90%", "script.turn_on", "script.vacuum_service") }}

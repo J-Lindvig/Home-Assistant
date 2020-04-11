@@ -1,0 +1,80 @@
+birthday:
+  anniversaries:
+    sensors:
+    - name: Jacob fødselsdag
+      date: "1975-03-24"
+    - name: Rikke fødselsdag
+      date: "1976-03-10"
+    - name: Cornelie fødselsdag
+      date: "2003-08-22"
+    - name: Nathalie fødselsdag
+      date: "2003-08-22"
+    - name: Hjalte fødselsdag
+      date: "2007-03-22"
+    - name: Emilio fødselsdag
+      date: "2014-09-23"
+    - name: Colin fødselsdag
+      date: "2016-04-23"
+    - name: William fødselsdag
+      date: "2020-01-18"
+
+  group:
+    birthdays:
+      name: Fødselsdage
+      entities:
+        - sensor.jacob_fodselsdag
+        - sensor.rikke_fodselsdag
+        - sensor.cornelie_fodselsdag
+        - sensor.nathalie_fodselsdag
+        - sensor.hjalte_fodselsdag
+        - sensor.emilio_fodselsdag
+        - sensor.colin_fodselsdag
+  
+  sensor:
+    - platform: template
+      sensors:
+        next_birthday:
+          # Update once a day
+          entity_id: sensor.date
+          friendly_name_template: >-
+            {% set ns = namespace(entity_id="", prev=1000) -%}
+            {% for birthday in states.group.birthdays.attributes.entity_id -%}
+              {% if states(birthday) | int < ns.prev %}
+                {%- set ns.entity_id = birthday -%}
+                {%- set ns.prev = states(birthday) | int -%}
+              {% endif -%}
+            {% endfor %}
+            {%- if state_attr(ns.entity_id, "friendly_name").endswith('fødselsdag') -%}
+              {{ state_attr(ns.entity_id, "friendly_name")[:-11] }}
+            {% else %}
+              {{ state_attr(ns.entity_id, "friendly_name") }}
+            {% endif -%}
+          value_template: >-
+            {% set ns = namespace(entity_id="", prev=1000) %}
+            {% for birthday in states.group.birthdays.attributes.entity_id -%}
+              {% if states(birthday) | int < ns.prev %}
+                {%- set ns.entity_id = birthday -%}
+                {%- set ns.prev = states(birthday) | int -%}
+              {% endif -%}
+            {% endfor %}
+            {{ ns.prev }}
+          attribute_templates:
+            years_at_next_anniversary: >-
+              {% set ns = namespace(entity_id="", prev=1000) %}
+              {% for birthday in states.group.birthdays.attributes.entity_id -%}
+                {% if states(birthday) | int < ns.prev %}
+                  {%- set ns.entity_id = birthday -%}
+                  {%- set ns.prev = states(birthday) | int -%}
+                {% endif -%}
+              {% endfor %}
+              {{ state_attr(ns.entity_id, "years_at_next_anniversary") }}
+            hide_in_list: "true"
+
+  automation:
+    - alias: Birthday Update
+      trigger:
+      - platform: time
+        at: 00:01:00
+      action:
+      - service: homeassistant.update_entity
+        entity_id: sensor.next_birthday

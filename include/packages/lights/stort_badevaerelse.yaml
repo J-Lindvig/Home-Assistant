@@ -1,0 +1,18 @@
+stort_badevaerelse:
+  light:
+    - platform: group
+      name: Badeværelse, stort
+      entities:
+        - light.stort_1_1
+        - light.stort_1_3
+        - light.stort_2_1
+        - light.stort_2_3
+        - light.stort_3_1
+        - light.stort_3_2
+        - light.stort_3_3
+
+  homeassistant:
+    customize:
+      light.badevaerelse_stort:
+        friendly_name: Stort
+        icon: mdi:shower

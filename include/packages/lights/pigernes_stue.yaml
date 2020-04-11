@@ -1,0 +1,15 @@
+pigernes_stue:
+  light:
+    - platform: switch
+      name: Lys i reol
+      entity_id: switch.lampe_i_reol_ungdom
+
+    - platform: group
+      name: Pigernes stue
+      entities:
+        - light.lys_i_reol
+
+  homeassistant:
+    customize:
+      light.lys_i_reol:
+        icon: mdi:flash-circle

@@ -1,0 +1,3 @@
+var_set_values: "source /config/shell/tools.sh; var_set_values /config/include/variables/values"
+select_set_options: "source /config/shell/tools.sh; select_set_options /config/include/input/select/values"
+text_set_values: "source /config/shell/tools.sh; text_set_values /config/include/input/text/values"

@@ -1,0 +1,84 @@
+# lovelace_gen
+{% set rooms = {
+"Køkken":[ ["light.spisebord", "light.maleri", "light.legekokken", "light.kaffebar"], ["light.kokkeno", "", "light.kokkenskabe", "light.kokkenbord"] ],
+"Stuen":[ ["light.gulvlampe", "light.stuelampe", "light.lyset_i_reolen", "light.laeselampe"] ],
+"Legeværelse": [ ["light.uplight", "light.gulvlampe_i_legevaerelse"] ],
+"Gangen": [ ["", "light.gangen", ""] ],
+"Hjalte": [ ["light.hjaltes_loftslampe", "light.nanoleaf_hjalte"] ],
+"Emilio": [ ["", "light.loftlampe_emilio", ""] ],
+"Colin": [ ["light.lampe_colin", "light.loftlampe_colin", "light.colins_manelampe"] ],
+"Pigernes stue": [ ["", "light.lys_i_reol", ""] ],
+"Cornelie": [ ["", "light.gulvlampe_cornelie", ""] ],
+"Nathalie": [ ["light.nathalies_loftslamper", "light.nathalies_sengelamper"] ],
+"Badeværelser": [ ["light.badevaerelse_lille", "light.badevaerelse_stort"] ],
+"Indgang": [ ["light.lys_over_skabe", "light.loftlampe_i_indgang"] ],
+"Havegang": [ ["", "light.havegang", ""] ]
+} %}
+
+{% macro panel(row_of_entities) -%}
+        type: custom:stack-in-card
+        cards:
+          {% for entity_row in row_of_entities -%}
+          - type: horizontal-stack
+            cards:
+            {%- for entity in entity_row -%}
+              {%- if  entity | length %}
+              - type: light
+                entity: {{ entity }}
+              {%- else %}
+              - type: custom:gap-card
+                height: 1
+                size: 1
+              {% endif -%}
+            {% endfor %}
+          {% endfor %}
+{%- endmacro %}
+
+type: custom:stack-in-card
+title: Belysning
+cards:
+  - type: entities
+    entities:
+      - input_select.room_light
+  - type: custom:state-switch
+    entity: input_select.room_light
+    default: Køkken
+    states:
+      Køkken:
+        {{ panel(rooms["Køkken"]) }}
+        
+      Stuen:
+        {{ panel(rooms["Stuen"]) }}
+
+      Legeværelse:
+        {{ panel(rooms["Legeværelse"]) }}
+
+      Gangen:
+        {{ panel(rooms["Gangen"]) }}
+
+      Hjalte:
+        {{ panel(rooms["Hjalte"]) }}
+
+      Emilio:
+        {{ panel(rooms["Emilio"]) }}
+
+      Colin:
+        {{ panel(rooms["Colin"]) }}
+
+      Pigernes stue:
+        {{ panel(rooms["Pigernes stue"]) }}
+
+      Cornelie:
+        {{ panel(rooms["Cornelie"]) }}
+
+      Nathalie:
+        {{ panel(rooms["Nathalie"]) }}
+
+      Badeværelser:
+        {{ panel(rooms["Badeværelser"]) }}
+
+      Indgang:
+        {{ panel(rooms["Indgang"]) }}
+
+      Havegang:
+        {{ panel(rooms["Havegang"]) }}

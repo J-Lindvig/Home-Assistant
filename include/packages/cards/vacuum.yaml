@@ -1,0 +1,209 @@
+vacuum:
+  vacuum:
+    - platform: xiaomi_miio
+      host: !secret S50_IP
+      token: !secret S50_TOKEN
+      name: R2-D2
+
+  sensor:
+    - platform: template
+      sensors:
+        vacuum_fan_speed:
+          friendly_name: Sugestyrke
+          value_template: >-
+            {{ state_attr("vacuum.r2_d2", "fan_speed") }}
+          icon_template: >-
+            mdi:network-strength-{{ state_attr("vacuum.r2_d2", "fan_speed") - 100 }}
+
+        vacuum_r2_d2:
+          entity_id: vacuum.r2_d2
+          friendly_name_template: >-
+            {{ state_attr("vacuum.r2_d2", "friendly_name") }}
+          icon_template: >-
+            {{ state_attr("vacuum.r2_d2", "battery_icon") }}
+          value_template: >-
+            {%- if is_state("vacuum.r2_d2", "docked") -%}
+              Docked
+            {%- elif is_state("vacuum.r2_d2", "cleaning") -%}
+              Støvsuger
+            {%- elif is_state("vacuum.r2_d2", "paused") -%}
+              Pause
+            {%- elif is_state("vacuum.r2_d2", "idle") -%}
+              Tomgang
+            {%- elif is_state("vacuum.r2_d2", "Charger disconnected") -%}
+              Lader ikke
+            {%- else -%}
+              Ukendt
+            {%- endif -%}
+          attribute_templates:
+            battery_level: >-
+              {{ state_attr("vacuum.r2_d2", "battery_level") }}
+            battery_icon: >-
+              {{ state_attr("vacuum.r2_d2", "battery_icon") }}
+            cleaning_time: >-
+              {{ state_attr("vacuum.r2_d2", "cleaning_time") }}
+            cleaned_area: >-
+              {{ state_attr("vacuum.r2_d2", "cleaned_area") }}
+            fan_speed: >-
+              {%- set fan_speed = state_attr("vacuum.r2_d2", "fan_speed") | string -%}
+              {{ state_attr("input_select.vacuum_power", "options")[fan_speed[2:] | int -1]  }}
+            main_brush_left: >-
+              {{ state_attr("vacuum.r2_d2", "main_brush_left") }}
+            side_brush_left: >-
+              {{ state_attr("vacuum.r2_d2", "side_brush_left") }}
+            filter_left: >-
+              {{ state_attr("vacuum.r2_d2", "filter_left") }}
+            sensor_dirty_left: >-
+              {{ state_attr("vacuum.r2_d2", "sensor_dirty_left") }}
+            status: >-
+              {%- if is_state_attr("vacuum.r2_d2", "status", "Charging") and is_state_attr("vacuum.r2_d2", "battery_level", 100) -%}
+                Opladt
+              {%- elif is_state_attr("vacuum.r2_d2", "status", "Charging") -%}
+                Oplader
+              {%- elif is_state_attr("vacuum.r2_d2", "status", "Segment cleaning") -%}
+                Støvsuger i et rum
+              {%- elif is_state_attr("vacuum.r2_d2", "status", "Returning home") -%}
+                Kører hjem
+              {%- else -%}
+                {{ state_attr("vacuum.r2_d2", "status") }}
+              {%- endif -%}
+
+  input_select:
+    vacuum_room:
+      name: "Vælg rum"
+      icon: mdi:floor-plan
+      options:
+        - DUMMY
+  
+    vacuum_power:
+      name: "Vælg sugestyrke"
+      icon: mdi:fan
+      options:
+        - DUMMY
+
+  input_number:
+    vacuum_fan_speed:
+      name: Sugestyrke
+      icon: mdi:fan
+      initial: 101
+      min: 101
+      max: 104
+      step: 1
+
+  script:
+    # Start room-cleaning
+    vacuum_room_start:
+      alias: "Støvsug rum"
+      sequence:
+        - service: rest_command.clean_room
+          data_template:
+            entity: vacuum.r2_d2
+            # Find the selected room and use the indes to find the room number
+            room: >-
+              {%- for room in state_attr("input_select.vacuum_room", "options") -%}
+                {%- if room == states("input_select.vacuum_room") -%}
+                  {{ states("var.vacuum_rooms").split(",")[loop.index0] }}
+                {%- endif %}
+              {%- endfor %}
+    
+    # Drive the vacuum near dustbin for service
+    vacuum_service:
+      alias: "Kør R2-D2 ud i køkkenet"
+      sequence:
+        - service: vacuum.send_command
+          data:
+            entity_id: vacuum.r2_d2
+            command: app_goto_target
+            params: [20000,30500]
+        - wait_template: "{{ is_state('vacuum.r2_d2', 'idle') }}"
+        - service: tts.google_translate_say
+          data_template:
+            entity_id: media_player.kokkenet
+            message: >-
+              "{{ state_attr("vacuum.r2_d2", "friendly_name") }} er klar til at blive serviceret..."
+
+  rest_command:
+    clean_room:
+      url: !secret VACUUM_API
+      method: POST
+      headers:
+        authorization: !secret VACUUM_API_TOKEN
+        accept: 'application/json'
+      payload: '{ "entity_id": "{{ entity }}", "command": "app_segment_clean", "params": [{{ room }}] }'
+      content_type:  'application/json'
+
+  automation:
+    # Send the new suction setting to the vacuum
+    - alias: "Skift sugestyrke på støvsugeren"
+      trigger:
+        # Trigger - when a suction setting is choosen
+        platform: state
+        entity_id: input_select.vacuum_power
+      action:
+        service: vacuum.set_fan_speed
+        data_template:
+          entity_id: vacuum.r2_d2
+          # Find the index of the selected option (index starting from 1)
+          # Append this digit to 10 - ex. 101
+          fan_speed: >-
+            {% for needle in state_attr("input_select.vacuum_power", "options") %}
+              {% if needle == states("input_select.vacuum_power") %}
+                10{{ loop.index }}
+              {% endif %}
+            {%- endfor %}
+
+    - alias: "Sugestyrke slider"
+      trigger:
+        platform: state
+        entity_id: input_number.vacuum_fan_speed
+      action:
+        service: vacuum.set_fan_speed
+        data_template:
+          entity_id: vacuum.r2_d2
+          fan_speed: >-
+            {{ states("input_number.vacuum_fan_speed") | int }}
+
+    # We have changed the suction settings in the app
+    # and wish to match the new setting
+    - alias: "Match suge-menuen til støvsugeren"
+      trigger:
+        # Trigger - new suction
+        # and at start of HA
+        - platform: state
+          entity_id: sensor.vacuum_fan_speed
+      action:
+        - service: input_select.select_option
+          data_template:
+            entity_id: input_select.vacuum_power
+            # Get the last digit of the vacuums settings ( ex. 103 = 3 )
+            # Substract 1 and use this value as index on the options
+            option: >-
+              {{ state_attr("input_select.vacuum_power", "options")[state_attr("vacuum.r2_d2", "fan_speed") - 101] }}
+        - service: input_number.set_value
+          data_template:
+            entity_id: input_number.vacuum_fan_speed
+            value: >-
+              {{ state_attr("vacuum.r2_d2", "fan_speed") }}
+
+    # Set default fanspeed at startup
+    - alias: "Indstil standard sugestyrke"
+      trigger:
+        - platform: homeassistant
+          event: start
+      action:
+        - service: vacuum.set_fan_speed
+          data_template:
+            entity_id: vacuum.r2_d2
+            # Find the index of the selected option (index starting from 1)
+            # Append this digit to 10 - ex. 101
+            fan_speed: >-
+              {{ states("var.vacuum_default_fanspeed") | int }}
+        - service: automation.trigger
+          data_template:
+            entity_id: automation.match_suge_menuen_til_stovsugeren
+
+  var:
+    vacuum_rooms:
+      initial_value: "DUMMY"
+    vacuum_default_fanspeed:
+      initial_value: "DUMMY"

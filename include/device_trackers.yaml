@@ -1,0 +1,24 @@
+- platform: iphonedetect
+  consider_home: 600
+  new_device_defaults:
+    track_new_devices: false
+  hosts:
+    rikke_telefon: 192.168.0.130
+    rikke_ur: 192.168.0.131
+    cornelie_telefon: 192.168.0.150
+    nathalie_telefon: 192.168.0.160
+
+- platform: nmap_tracker
+  hosts: 192.168.0.100-129
+
+- platform: nmap_tracker
+  hosts: 192.168.0.140-149
+
+- platform: ping
+  hosts:
+    jacob_telefon_ping: 192.168.0.120
+    rikke_telefon_ping: 192.168.0.130
+    rikke_ur_ping: 192.168.0.131
+    cornelie_telefon_ping: 192.168.0.150
+    nathalie_telefon_ping: 192.168.0.160
+    hjalte_telefon_ping: 192.168.0.140

@@ -1,0 +1,13 @@
+type: entity-filter
+entities:
+  - person.jacob
+  - person.rikke
+  - person.cornelie
+  - person.nathalie
+  - person.hjalte
+show_empty: false
+state_filter:
+  - home
+card:
+  type: glance
+  show_state: false

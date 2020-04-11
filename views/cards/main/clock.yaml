@@ -1,0 +1,17 @@
+type: picture-elements
+image: /local/images/backgrounds/night_5x2.jpg
+elements:
+  - type: state-label
+    entity: sensor.time
+    style:
+      top: 40%
+      left: 50%
+      font-size: 10vh
+      color: white
+  - type: state-label
+    entity: sensor.dato
+    style:
+      top: 85%
+      left: 50%
+      font-size: 4vh
+      color: white

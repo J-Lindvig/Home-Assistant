@@ -1,0 +1,15 @@
+input_select.vacuum_room
+Køkken
+Kontor
+Legeværelse
+Soveværelse
+Stuen
+Indgang
+Gangen
+Lille badeværelse
+Stort badeværelse
+Colins værelse
+Emilios værelse
+Pigernes stue og gang
+Nathalies værelse
+Cornelies værelse

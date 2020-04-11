@@ -1,0 +1,20 @@
+legevaerelse:
+  light:
+    - platform: group
+      name: Gulvlampe i legeværelse
+      entities:
+        - light.gulvlampe_nederst
+        - light.gulvlampe_midt
+        - light.gulvlampe_overst
+    
+    - platform: group
+      name: Legeværelse
+      entities:
+        - light.uplight
+        - light.gulvlampe_i_legevaerelse
+
+  homeassistant:
+    customize:
+      light.gulvlampe_i_legevaerelse:
+        friendly_name: Gulvlampe
+        icon: mdi:floor-lamp-dual

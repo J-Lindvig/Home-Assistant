@@ -1,0 +1,48 @@
+type: custom:stack-in-card
+title: Filmdatabase
+cards:
+  - type: entities
+    entities:
+      - input_select.movie
+
+  - type: custom:card-templater
+    entities:
+      - input_select.movie_cover
+    card:
+      type: picture-elements
+      image_template: "{{ states('input_select.movie_cover') }}"
+      elements:
+        - !include
+          - movies_element.yaml
+          - side: "left"
+
+        - !include
+          - movies_element.yaml
+          - side: "right"
+
+  - type: horizontal-stack
+    cards:
+
+      - type: entity-button
+        entity: script.play_pause_movie
+        icon: mdi:play-pause
+        show_name: false
+        tap_action:
+          action: call-service
+          service: script.play_pause_movie
+
+      - type: entity-button
+        entity: script.stop_movie
+        icon: mdi:stop
+        show_name: false
+        tap_action:
+          action: call-service
+          service: script.stop_movie
+
+      - type: entity-button
+        entity: script.load_movies
+        icon: mdi:reload
+        show_name: false
+        tap_action:
+          action: call-service
+          service: script.load_movies

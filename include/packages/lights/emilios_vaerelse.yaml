@@ -1,0 +1,12 @@
+emilios_vaerelse:
+  light:
+    - platform: group
+      name: Emilios værelse
+      entities:
+        - light.loftlampe_emilio
+
+  homeassistant:
+    customize:
+      light.loftlampe_emilio:
+        friendly_name: Loftlampe
+        icon: mdi:ceiling-light

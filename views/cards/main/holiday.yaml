@@ -1,0 +1,21 @@
+type: picture-elements
+image: /local/images/backgrounds/ferie_5x2.jpg
+elements:
+  - type: custom:text-element
+    text: "Dage til ferie"
+    style:
+      top: 15%
+      left: 50%
+      font-size: 4vh
+      color: white
+      font-weight: bold
+      text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black
+
+  - type: state-label
+    entity: sensor.ferie
+    style:
+      top: 60%
+      left: 50%
+      font-size: 12vh
+      color: white
+      text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black

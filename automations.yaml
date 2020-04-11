@@ -1,0 +1,37 @@
+- id: '1586328747853'
+  alias: Boot
+  description: ''
+  trigger:
+  - event: start
+    platform: homeassistant
+  condition: []
+  action:
+  - data: {}
+    service: shell_command.var_set_values
+  - data: {}
+    service: shell_command.select_set_options
+  - data: {}
+    service: shell_command.text_set_values
+- id: '1586465710125'
+  alias: Reboot GW
+  description: Genstart IKEA Gateways hver nat
+  trigger:
+  - at: 03:00:00
+    platform: time
+  condition: []
+  action:
+  - data: {}
+    entity_id: switch.gateway_1
+    service: homeassistant.turn_off
+  - delay: 00:00:30
+  - data: {}
+    entity_id: switch.gateway_1
+    service: homeassistant.turn_on
+  - delay: 00:10:00
+  - data: {}
+    entity_id: switch.gateway_2
+    service: homeassistant.turn_off
+  - delay: 00:00:30
+  - data: {}
+    entity_id: switch.gateway_2
+    service: homeassistant.turn_on

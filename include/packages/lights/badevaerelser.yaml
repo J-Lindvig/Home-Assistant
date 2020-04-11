@@ -1,0 +1,7 @@
+badevaerelser:
+  light:
+    - platform: group
+      name: Badeværelser, samlet
+      entities:
+        - light.badevaerelse_lille
+        - light.badevaerelse_stort

@@ -1,0 +1,57 @@
+vlookup:
+  script:
+    # Find selected value and selects the value at same index in another list
+    # Variables: haystack and result_list
+    
+    # Haystack: A,B,C
+    # Result_List: A1, B1, C1
+    # Selection: B
+    # Selectin in Result_List: B1
+    vlookup:
+      alias: "VLOOKUP-gen"
+      sequence:
+        - service: input_select.select_option
+          data_template:
+            # From which list should we select the new value
+            entity_id: "{{ result_list }}"
+            # Go through every options (needles) in the haystack
+            # If the current needle is equal the selected option - we have found the right element
+            # Select the option in result_list at the same index 
+            option: >-
+              {% for needle in state_attr(haystack, "options") %}
+                {% if needle == states(haystack) %}
+                  {{ state_attr(result_list, "options")[loop.index0] }}
+                {% endif %}
+              {%- endfor %}
+
+    # Find given value in a given list and selects the value at same index in another list
+    # Variables: needle, haystack and result_list
+
+    # Haystack: A,B,C
+    # Result_List: A1, B1, C1
+    # Needle: B
+    # Selectin in Result_List: B1
+    vlookup_needle:
+      alias: "VLOOKUP-needle"
+      sequence:
+        - service: input_select.select_option
+          data_template:
+            # From which list should we select the new value
+            entity_id: "{{ result_list }}"
+            # Go through every options (needles) in the haystack
+            # If the current needle is equal the selected option - we have found the right element
+            # Select the option in result_list at the same index 
+            option: >-
+              {% for a_needle in state_attr(haystack, "options") %}
+                {% if a_needle == states(needle) %}
+                  {{ state_attr(result_list, "options")[loop.index0] }}
+                {% endif %}
+              {%- endfor %}
+
+    # Generic loop
+    loop:
+      alias: "Generic Loop"
+      sequence:
+        - delay: >-
+            {{ delay }}
+        - service_template: "{{ caller }}"

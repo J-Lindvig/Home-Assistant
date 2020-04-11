@@ -1,0 +1,54 @@
+kokken:
+  light:
+    - platform: group
+      name: Spisebord
+      entities:
+        - light.spisebord_1
+        - light.spisebord_2
+    
+    - platform: group
+      name: Kaffebar
+      entities:
+        - light.kaffebar_1
+        - light.kaffebar_2
+    
+    - platform: group
+      name: Køkkenø
+      entities:
+        - light.kokkeno_1
+        - light.kokkeno_2
+        - light.kokkeno_3
+    
+    - platform: group
+      name: Køkkenbord
+      entities:
+        - light.kokkenbord_1
+        - light.kokkenbord_2
+
+    - platform: group
+      name: Køkken
+      entities:
+        - light.spisebord
+        - light.kaffebar
+        - light.kokkeno
+        - light.kokkenbord
+        - light.kokkenskabe
+        - light.maleri
+        - light.legekokken
+
+  homeassistant:
+    customize:
+      light.spisebord:
+        icon: mdi:ceiling-light
+      light.kaffebar:
+        icon: mdi:ceiling-light
+      light.kokkeno:
+        icon: mdi:ceiling-light
+      light.kokkenskabe:
+        icon: mdi:ceiling-light
+      light.kokkenbord:
+        icon: mdi:ceiling-light
+      light.maleri:
+        icon: mdi:image-filter-frames
+      light.legekokken:
+        icon: mdi:fridge-outline

@@ -1,0 +1,20 @@
+# lovelace_gen
+type: icon
+icon: mdi:chevron-{{ side }}-box
+style:
+  transform: translate(0%,-50%)
+  top: 50%
+  {{ side }}: 2%
+  --iron-icon-height: 7vh
+  --iron-icon-width: 7vh
+  color: white
+  padding: 0.1vw
+  border-color: rgb(34, 154, 210)
+  background-color: rgba(34, 34, 34, 0.5)
+  border-radius: 10px
+
+tap_action:
+  action: call-service
+  service: input_select.select_{{ 'previous ' if 'left' in side else 'next' }}
+  service_data:
+    entity_id: input_select.movie
