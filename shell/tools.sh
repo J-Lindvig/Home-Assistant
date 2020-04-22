@@ -13,8 +13,8 @@ screen_toggle() {
 }
 
 screen_suspend () {
-    PID=$$
-  ssh $TOUCHPANEL_SSH "echo $SUDO_PASSWORD | sudo -S systemctl suspend"
+  PID=$$
+  ssh $TOUCHPANEL_SSH -E SSH_Log.log "echo $SUDO_PASSWORD | sudo -S systemctl suspend"
   sleep 2
   kill $PID
 }

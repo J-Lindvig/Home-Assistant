@@ -5,6 +5,12 @@ vacuum:
       token: !secret S50_TOKEN
       name: R2-D2
 
+  var:
+    vacuum_rooms:
+      initial_value: "21,17,18,16,22,23,19,25,26,28,27,24,29,30"
+    vacuum_default_fanspeed:
+      initial_value: "102"
+
   sensor:
     - platform: template
       sensors:
@@ -201,9 +207,3 @@ vacuum:
         - service: automation.trigger
           data_template:
             entity_id: automation.match_suge_menuen_til_stovsugeren
-
-  var:
-    vacuum_rooms:
-      initial_value: "DUMMY"
-    vacuum_default_fanspeed:
-      initial_value: "DUMMY"

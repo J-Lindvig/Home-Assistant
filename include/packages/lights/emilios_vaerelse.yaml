@@ -10,3 +10,18 @@ emilios_vaerelse:
       light.loftlampe_emilio:
         friendly_name: Loftlampe
         icon: mdi:ceiling-light
+
+  input_datetime:
+    emilio_track_start:
+      name: Emilio fra
+      icon: mdi:clock
+      initial: "04:30"
+      has_date: false
+      has_time: true
+    
+    emilio_track_end:
+      name: Emilio til
+      icon: mdi:clock
+      initial: "08:00"
+      has_date: false
+      has_time: true

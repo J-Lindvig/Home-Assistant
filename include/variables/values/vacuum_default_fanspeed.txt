@@ -1,2 +1,0 @@
-var.vacuum_default_fanspeed
-102

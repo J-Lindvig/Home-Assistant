@@ -8,13 +8,15 @@ cards:
     min_width: 33%
     max_width: 99%
     cards:
+      - !include cards/system/restart_gateways.yaml
+      - !include cards/system/batteries.yaml
+#      - !include cards/system/greentel.yaml
 #      - !include cards/system/automations.yaml
       - break
 
-      - !include cards/system/batteries.yaml
 #      - !include cards/system/printer.yaml
       - break
 
 #      - !include cards/system/emilio.yaml
 #      - !include cards/system/persons.yaml
-#      - !include cards/system/unavailable.yaml
+      - !include cards/system/unavailable.yaml

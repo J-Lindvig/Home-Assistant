@@ -1,0 +1,29 @@
+title: System
+icon: mdi:test-tube
+panel: false
+cards:
+  - type: custom:stack-in-card
+    mode: horizontal
+    title: Brændstofspriser
+    cards:
+      - type: sensor
+        entity: sensor.blyfri_95
+        icon: mdi:gas-station
+        name: Blyfri 95
+        graph: line
+        detail: 3
+
+      - type: sensor
+        entity: sensor.diesel
+        icon: mdi:gas-station
+        name: Diesel
+        graph: line
+        detail: 3
+
+  - type: history-graph
+    title: System
+    hours_to_show: 1
+    entities:
+      - sensor.disk_use_percent
+      - sensor.memory_use_percent
+      - sensor.swap_use_percent

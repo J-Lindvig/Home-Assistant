@@ -1,0 +1,19 @@
+type: custom:auto-entities
+show_empty: false
+card:
+  type: entities
+  title: Utilgængelige enheder
+  show_header_toggle: false
+filter:
+  include:
+    - domain: light
+      options:
+        secondary_info: last-change
+    - type: divider
+    - domain: media_player
+  exclude:
+    - state: "off"
+    - state: "on"
+    - state: "playing"
+    - state: "paused"
+    - state: "idle"

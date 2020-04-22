@@ -11,7 +11,8 @@ views:
   - !include views/movies.yaml
 #  - !include views/media.yaml
 #  - !include views/light_admin.yaml
-#  - !include views/services.yaml
+  - !include views/light_control.yaml
   - !include views/system.yaml
-#  - !include views/test.yaml
-#  - !include views/livemap.yaml
+  - !include views/gauges.yaml
+  - !include views/weather.yaml
+  - !include views/test.yaml

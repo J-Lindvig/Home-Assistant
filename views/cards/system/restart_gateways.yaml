@@ -1,0 +1,14 @@
+type: custom:restriction-card
+card:
+  type: entities
+  title: Genstart Gateways
+  entities:
+    - automation.restart_gateways_ha
+    - input_datetime.restart_time
+    - type: custom:fold-entity-row
+      head:
+        type: section
+        label: Gateway Switches
+      entities:
+        - switch.gateway_1
+        - switch.gateway_2

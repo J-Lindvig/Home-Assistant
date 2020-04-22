@@ -1,0 +1,19 @@
+benzin_diesel:
+  sensor:
+    - platform: scrape
+      name: Blyfri 95
+      resource: https://www.ok.dk/privat/produkter/priser
+      select: ".cell--val"
+      index: 1
+      value_template: >-
+        {{ value | replace (" kr.", "") | replace(',', '.') | float }}
+      unit_of_measurement: 'kr'
+    
+    - platform: scrape
+      name: Diesel
+      resource: https://www.ok.dk/privat/produkter/priser
+      select: ".cell--val"
+      index: 3
+      value_template: >-
+        {{ value | replace (" kr.", "") | replace(',', '.') | float }}
+      unit_of_measurement: 'kr'

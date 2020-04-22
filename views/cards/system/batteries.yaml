@@ -6,22 +6,29 @@ entities:
     card:
       type: custom:bar-card
       severity:
-      - value: 10
-        color: '#bf4040'
-      - value: 30
-        color: '#bf9540'
-      - value: 31
-        color: '#40bf40'
-      padding: 0px 8px 0px 0px
-      saturation: 50%
-      height: 16px
+        - color: Red
+          from: 0
+          to: 10
+        - color: Orange
+          from: 11
+          to: 30
+        - color: Green
+          from: 31
+          to: 100
+      positions:
+        icon: 'off'
+        indicator: inside
+        title: outside
+        value: 'off'
+      height: 2vh
       width: 50%
-      card_style:
-        box-shadow: 0 0
-      bar_style:
-        border-radius: 8px
-      indicator_style:
-        border-radius: 8px
+      style: |-
+        bar-card-value {
+          margin-right: auto;
+          font-size: 13px;
+          font-weight: bold;
+          text-shadow: 1px 1px #0005;
+        }
     filter:
       include:
       - domain: sensor

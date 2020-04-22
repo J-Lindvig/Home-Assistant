@@ -1,0 +1,94 @@
+toilet_alert:
+  var:
+    prev_volume:
+      initial_value: 0
+    toilet_string:
+      initial_value: "Colin er færdig på toilettet..."
+
+  automation:
+    - alias: "Toilet"
+      trigger:
+        - platform: state
+          entity_id: light.toilet_knap
+          from: "off"
+          to: "on"
+      condition:
+        condition: state  # 'day' condition: from sunrise until sunset
+        entity_id: sun.sun
+        state: 'above_horizon'
+      action:
+        - service: media_player.turn_on
+          data:
+            entity_id: media_player.kokken
+        - delay: '00:00:02'
+    
+        - service: var.set
+          data_template:
+            entity_id: var.prev_volume
+            value: >-
+              {{ state_attr("media_player.kokken", "volume_level") }}
+        - delay: "00:00:02"
+    
+        - service: media_player.volume_set
+          entity_id: media_player.kokken
+          data:
+            volume_level: 1
+    
+        - service: script.toilet_done
+          data:
+            delay: "00:00:20"
+
+    - alias: "Toilet_off"
+      trigger:
+        - platform: state
+          entity_id: light.test_lampe
+          from: "on"
+          to: "off"
+      action:
+        - service: media_player.turn_on
+          data:
+            entity_id: media_player.kokken
+        - delay: '00:00:02'
+
+        - service: media_player.volume_set
+          entity_id: media_player.kokken
+          data_template:
+            volume_level: >-
+              {{ states("var.prev_volume") | float }}
+
+        - service: script.turn_off
+          entity_id:
+            - script.toilet_done
+            - script.loop
+        - service: script.turn_off
+          entity_id:
+            - script.toilet_done
+            - script.loop
+        - service: script.turn_off
+          entity_id:
+            - script.toilet_done
+            - script.loop
+        - service: script.turn_off
+          entity_id:
+            - script.toilet_done
+            - script.loop
+        - service: script.turn_off
+          entity_id:
+            - script.toilet_done
+            - script.loop
+
+  script:
+    toilet_done:
+      alias: "Færdig på toilet"
+      sequence:
+        - service: tts.google_translate_say
+          entity_id: media_player.kokken
+          data_template:
+            message: >-
+              "{{ states('var.toilet_string') }}"
+    
+        - service: script.loop
+          data_template:
+            delay: >-
+              {{ delay }}
+            caller: "script.toilet_done"

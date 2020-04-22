@@ -1,0 +1,15 @@
+type: custom:fold-entity-row
+head: automation.natsaenkning
+entities:
+  - type: custom:slider-entity-row
+    entity: input_number.dim_high
+    name: Normalt
+  - type: custom:slider-entity-row
+    entity: input_number.dim_low
+    name: Lavt
+  - entity: input_datetime.dim_time
+  - type: section
+    label: "Antal grader som solen skal være under horisonten:"
+  - type: custom:slider-entity-row
+    entity: input_number.sun_elevation_light
+    full_row: true

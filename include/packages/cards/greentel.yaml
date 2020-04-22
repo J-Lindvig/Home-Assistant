@@ -1,0 +1,108 @@
+greentel:
+  sensor:
+    - platform: template
+      sensors:
+        talktime_left_percent:
+          friendly_name: "Taletid"
+          entity_id: sensor.greentel_status
+          unit_of_measurement: "%"
+          value_template: >-
+            {{ (100 - (state_attr("sensor.greentel_status", "Tale") | replace(',', '.') | float / state_attr("sensor.greentel_status", "Tale_MAX") | replace(',', '.') | float) * 100) | round(2) }}
+          icon_template: mdi:phone-in-talk
+          attribute_templates:
+            used: >-
+              {{ state_attr("sensor.greentel_status", "Tale") }}
+            total: >-
+              {{ state_attr("sensor.greentel_status", "Tale_MAX") }}
+        
+        talktime_used_percent:
+          friendly_name: "Taletid"
+          entity_id: sensor.greentel_status
+          unit_of_measurement: "%"
+          value_template: >-
+            {{ (100 - states('sensor.talktime_left_percent') | float) | round(2) }}
+          icon_template: mdi:phone-in-talk
+
+        data_left_percent:
+          friendly_name: "Data"
+          entity_id: sensor.greentel_status
+          unit_of_measurement: "%"
+          value_template: >-
+            {{ (100 - (state_attr("sensor.greentel_status", "Data") | replace(',', '.') | float / state_attr("sensor.greentel_status", "Data_MAX") | replace(',', '.') | float) * 100) | round(2) }}
+          icon_template: mdi:signal-cellular-3
+          attribute_templates:
+            used: >-
+              {{ state_attr("sensor.greentel_status", "Data") }}
+            total: >-
+              {{ state_attr("sensor.greentel_status", "Data_MAX") }}
+
+        data_used_percent:
+          friendly_name: "Data"
+          entity_id: sensor.greentel_status
+          unit_of_measurement: "%"
+          value_template: >-
+            {{ (100 - states('sensor.data_left_percent') | float) | round(2) }}
+          icon_template: mdi:signal-cellular-3
+
+        text_left_percent:
+          friendly_name: "SMS"
+          entity_id: sensor.greentel_status
+          unit_of_measurement: "%"
+          value_template: >-
+            {{ (100 - (state_attr("sensor.greentel_status", "SMS") | replace(',', '.') | float / state_attr("sensor.greentel_status", "SMS_MAX") | replace(',', '.') | float) * 100) | round(2) }}
+          icon_template: mdi:cellphone-text
+          attribute_templates:
+            used: >-
+              {{ state_attr("sensor.greentel_status", "SMS") }}
+            total: >-
+              {{ state_attr("sensor.greentel_status", "SMS_MAX") }}
+
+        text_used_percent:
+          friendly_name: "SMS"
+          entity_id: sensor.greentel_status
+          unit_of_measurement: "%"
+          value_template: >-
+            {{ (100 - states('sensor.text_left_percent') | float) | round(2) }}
+          icon_template: mdi:cellphone-text
+
+        modem_left_percent:
+          friendly_name: "Modem"
+          entity_id: sensor.greentel_status
+          unit_of_measurement: "%"
+          value_template: >-
+            {{ (100 - (state_attr("sensor.greentel_status", "Data_Modem") | replace(',', '.') | float / state_attr("sensor.greentel_status", "Data_Modem_MAX") | replace(',', '.') | float) * 100) | round(2) }}
+          icon_template: mdi:signal-4g
+          attribute_templates:
+            used: >-
+              {{ state_attr("sensor.greentel_status", "Data_Modem") }}
+            total: >-
+              {{ state_attr("sensor.greentel_status", "Data_Modem_MAX") }}
+
+        modem_used_percent:
+          friendly_name: "Modem"
+          entity_id: sensor.greentel_status
+          unit_of_measurement: "%"
+          value_template: >-
+            {{ (100 - states('sensor.modem_left_percent') | float) | round(2) }}
+          icon_template: mdi:signal-4g
+
+  shell_command:
+    greentel_scrape: "source /config/shell/tools.sh; _greentel_scrape"
+    greentel_get: "source /config/shell/tools.sh; get_greentel"
+
+  automation:
+    - alias: "Greentel hent værdier"
+      trigger:
+        - platform: homeassistant
+          event: start
+        - platform: time
+          at: "04:20:00"
+      action:
+        - service: shell_command.greentel_get
+
+    - alias: "Greentel scrape"
+      trigger:
+        - platform: time
+          at: "04:00:00"
+      action:
+        - service: shell_command.greentel_scrape

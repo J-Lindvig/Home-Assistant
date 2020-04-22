@@ -1,0 +1,142 @@
+light_control:
+  input_number:
+    timeout_forgotten_light:
+      name: Sluk glemt lys
+      icon: mdi:timer
+      initial: 10
+      min: 1
+      max: 15
+      step: 1
+    
+    timeout_arrived_night:
+      name: Sluk lyset ved ankomst
+      icon: mdi:timer
+      initial: 5
+      min: 1
+      max: 15
+      step: 1
+
+    sun_elevation_light:
+      name: Under horisonten
+      initial: 4
+      min: 0
+      max: 6
+      step: 1
+      icon: mdi:weather-sunset-down
+
+    dim_high:
+      name: Normal lysstyrke
+      icon: mdi:car-light-high
+      initial: 255
+      min: 1
+      max: 255
+      step: 1
+    
+    dim_low:
+      name: Laveste lysstyrke
+      icon: mdi:car-light-dimmed
+      initial: 10
+      min: 1
+      max: 255
+      step: 1
+
+  input_datetime:
+    dim_time:
+      name: Dæmp lyset tidligst
+      icon: mdi:clock
+      has_date: false
+      has_time: true
+    
+    night_start_time:
+      name: Natten starter tidligst kl.
+      icon: mdi:weather-sunset-down
+      has_date: false
+      has_time: true
+    
+    night_end_time:
+      name: Natten slutter
+      icon: mdi:clock
+      has_date: false
+      has_time: true
+
+  binary_sensor:
+    - platform: template
+      sensors:
+        night:
+          friendly_name: "Det er nat"
+          value_template: >-
+            {{
+              state_attr('sun.sun', 'elevation') <= (0 - states('input_number.sun_elevation_light') | float )
+              and
+              (
+                states('sensor.time') >= state_attr("input_datetime.dim_time", "timestamp") | int | timestamp_custom('%H:%M', false)
+                or
+                states('sensor.time') <= "12:00"
+              )
+            }}
+
+  automation:
+    - alias: "Natsænkning"
+      trigger:
+        # Trigger to turn on and off - binary sensor
+        - platform: state
+          entity_id: binary_sensor.night
+      action:
+        - service: script.night_brightness
+          data_template:
+            brightness: >-
+              {%- if is_state("binary_sensor.night", "on") %}
+                {{ states("input_number.dim_low") | int }}
+              {%- else -%}
+                {{ states("input_number.dim_high") | int }}
+              {%- endif %}
+
+    - alias: "Sluk glemt lys på værelser"
+      trigger:
+        # Trigger - state of the group of lights i the wanted rooms
+        - platform: state
+          entity_id:
+            - light.colins_vaerelse
+            - light.emilios_vaerelse
+          from: "off"
+          to: "on"
+          # Timeout value
+          for:
+            minutes: "{{ states('input_number.timeout_forgotten_light') | int }}"
+      action:
+        service: light.turn_off
+        # Turn the entity that was the trigger
+        data_template:
+          entity_id: "{{ trigger.entity_id }}"
+
+  script:
+    # Dim/undim lights when called
+    # Var: brightness
+    night_brightness:
+      alias: "Skru ned/op om aftenen"
+      sequence:
+        # Wait till lights are off in the bathrooms
+        # Wait max. 10 minutes and the continue
+        - wait_template: >-
+            {{ is_state("light.badevaerelser_samlet", "off") }}
+          timeout:
+            minutes: 10
+          continue_on_timeout: "true"
+    
+        # Turn on the lights with the new brigthness
+        # Wait 10 seconds for all the lights
+        - service: light.turn_on
+          data_template:
+            entity_id:
+              - light.badevaerelser_samlet
+              - light.gangen
+            brightness: "{{ brightness | int }}"
+        - delay:
+            seconds: 10
+
+        # Turn off the lights
+        - service: light.turn_off
+          data:
+            entity_id:
+              - light.badevaerelser_samlet
+              - light.gangen

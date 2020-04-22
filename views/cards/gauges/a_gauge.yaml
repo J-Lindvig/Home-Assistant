@@ -1,0 +1,8 @@
+# lovelace_gen
+
+type: custom:gauge-card
+entity: {{ entity }}
+title: {{ title }}
+measurement: GB
+attribute: {{ attribute }}
+max: 35

@@ -1,0 +1,33 @@
+restart_ha:
+  input_datetime:
+    restart_time:
+      name: Genstart systemet
+      icon: mdi:restart
+      initial: "03:00"
+      has_date: false
+      has_time: true
+
+  automation:
+    - alias: "Restart Gateways & HA"
+      trigger:
+        # Trigger - time equals time from GUI
+        - platform: template
+          value_template: >-
+            {{ states('sensor.time') == (state_attr("input_datetime.restart_time", "timestamp") | int | timestamp_custom('%H:%M', false)) }}
+      action:
+        # Gateway 2 & HA-Slave
+        - service: switch.turn_off
+          entity_id: switch.gateway_2
+        - delay: "00:00:30"
+        - service: switch.turn_on
+          entity_id: switch.gateway_2
+        - delay: "00:10:00"
+        - service: rest_command.restart_remote_ha
+        # Gateway 1 & HA-Master
+        - service: switch.turn_off
+          entity_id: switch.gateway_1
+        - delay: "00:00:30"
+        - service: switch.turn_on
+          entity_id: switch.gateway_1
+        - delay: "00:10:00"
+        - service: homeassistant.restart

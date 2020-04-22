@@ -1,0 +1,44 @@
+# lovelace_gen
+{% macro phone_gauge(entity, green, yellow, red) -%}
+  - type: vertical-stack
+    cards:
+      - type: gauge
+        entity: {{ entity }}_left_percent
+        severity:
+          green: {{ green }}
+          yellow: {{ yellow }}
+          red: {{ red }}
+      - type: sensor
+        entity: {{ entity }}_used_percent
+        graph: line
+        detail: 3
+        hours_to_show: 120
+{%- endmacro %}
+
+{% macro phone_gauge_new(title, attribute, yellow, red) -%}
+  - type: vertical-stack
+    cards:
+      - type: custom:gauge-card
+        entity: sensor.greentel_status
+        title: {{ title }}
+        measurement: GB
+        attribute: {{ attribute }}_left
+        max: 35
+{%- endmacro %}
+
+type: custom:stack-in-card
+mode: horizontal
+title: Greentel
+cards:
+  {{ phone_gauge("sensor.talktime", 31, 30, 10) }}
+  {{ phone_gauge("sensor.data",  31, 30, 10) }}
+
+type: custom:stack-in-card
+mode: horizontal
+title: TEST
+cards:
+  - !include
+    - a_gauge.yaml
+    - title: Data
+      entity: sensor.greentel_status
+      attribute: talk_hours_left

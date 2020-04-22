@@ -2,18 +2,13 @@
 automation: !include automations.yaml
 automation old: !include_dir_merge_list include/automations/
 
-#### B
-browser_mod:
-
 #### C
-# CONFIG
 config:
 
 #### D
 # DEFAULT_CONFIG
 # Configure a default setup of Home Assistant (frontend, api, etc)
 default_config:
-
 device_tracker: !include include/device_trackers.yaml
 
 #### F
@@ -43,11 +38,9 @@ lovelace:
 lovelace_gen:
 
 #### R
-# RECORDER
 recorder:
   db_url: !secret MYSQL_URL
   
-# REMOTE HOMEASSISTANT
 remote_homeassistant:
   instances:
   - host: 192.168.0.13
@@ -61,17 +54,17 @@ remote_homeassistant:
       - switch
       - sensor
 
+rest_command: !include_dir_merge_named include/rest_commands/
+
 #### S
 sensor: !include_dir_merge_list include/sensors/
 shell_command: !include_dir_merge_named include/shell_commands/
 
 #### T
-# TEXT TO SPEECH
 tts:
   - platform: google_translate
     language: "da"
 
-# TUYA
 tuya:
   username: !secret TUYA_USERNAME
   password: !secret TUYA_PASSWORD
@@ -79,5 +72,4 @@ tuya:
   platform: smart_life
 
 #### V
-# VARIABLE
 var: !include_dir_merge_named include/variables/

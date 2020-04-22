@@ -1,0 +1,15 @@
+- platform: template
+  sensors:
+    hp_3830_status_template:
+      friendly_name: HP 3830 status
+      icon_template: >-
+        {% if is_state("binary_sensor.hp_3830_status", "on") %}
+          mdi:printer-check
+        {% else %}
+          mdi:printer-alert
+        {% endif %}
+      device_class: power
+      value_template: >-
+        {% if not states("binary_sensor.hp_3830_status") == "unknown" and is_state("binary_sensor.hp_3830_status", "on") %}
+           true
+        {% endif %}

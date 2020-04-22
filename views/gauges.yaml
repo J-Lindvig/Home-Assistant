@@ -1,0 +1,15 @@
+title: Gauges
+icon: mdi:gauge
+panel: true
+cards:
+  - type: custom:layout-card
+    layout: vertical
+    max_columns: 3
+    min_width: 33%
+    max_width: 99%
+    cards:
+      - !include cards/gauges/greentel.yaml
+      - break
+
+      - !include cards/gauges/printer.yaml
+      - break

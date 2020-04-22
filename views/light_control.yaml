@@ -1,0 +1,5 @@
+title: System
+icon: mdi:tune
+panel: false
+cards:
+  - !include cards/light_control/night_dimming.yaml

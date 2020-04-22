@@ -1,0 +1,23 @@
+uv_index:
+  openuv:
+    api_key: 31865e708e6a20958134584634138f86
+
+  automation:
+    - alias: Opdater OpenUV halve time
+      trigger:
+        platform: time_pattern
+        minutes: "/60"
+      condition:
+        condition: numeric_state
+        entity_id: sun.sun
+        value_template: "{{ state.attributes.elevation }}"
+        above: 10
+      action:
+        service: openuv.update_uv_index_data
+
+    - alias: Opdater OpenUV beskyttelsesvindue
+      trigger:
+        platform: time
+        at: "02:12:00"
+      action:
+        service: openuv.update_protection_data

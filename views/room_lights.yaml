@@ -2,7 +2,7 @@
 
 {% set rooms = {
 "Køkken":[ ["light.spisebord", "light.maleri", "light.legekokken", "light.kaffebar"], ["light.kokkeno", "", "light.kokkenskabe", "light.kokkenbord"] ],
-"Stuen":[ ["light.gulvlampe", "light.stuelampe", "light.lyset_i_reolen", "light.laeselampe"] ],
+"Stuen":[ ["light.gulvlampe", "light.stuelampe", "light.laeselampe", ""] ],
 "Legeværelse": [ ["light.uplight", "light.gulvlampe_i_legevaerelse"] ],
 "Gangen": [ ["light.gangen"] ],
 "Hjalte": [ ["light.hjaltes_loftslampe", "light.nanoleaf_hjalte"] ],

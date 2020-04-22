@@ -1,7 +1,7 @@
 gangen:
   light:
     - platform: group
-      name: Gangen
+      name: Gangen 1-7
       entities:
         - light.gangen_1
         - light.gangen_2
@@ -10,6 +10,10 @@ gangen:
         - light.gangen_5
         - light.gangen_6
         - light.gangen_7
+
+    - platform: group
+      name: Gangen 8-14
+      entities:
         - light.gangen_8
         - light.gangen_9
         - light.gangen_10
@@ -17,6 +21,12 @@ gangen:
         - light.gangen_12
         - light.gangen_13
         - light.gangen_14
+
+    - platform: group
+      name: Gangen
+      entities:
+        - light.gangen_1_7
+        - light.gangen_8_14
 
   homeassistant:
     customize:

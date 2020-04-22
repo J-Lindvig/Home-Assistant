@@ -21,6 +21,7 @@ garbage:
       sensors:
         affald_hentes:
           friendly_name: "Affald:"
+          icon_template: mdi:trash-can
           value_template: >-
             {% if states('sensor.affald') <= states('sensor.affald_sommer') %}
               {% set days = state_attr('sensor.affald', 'days') %}

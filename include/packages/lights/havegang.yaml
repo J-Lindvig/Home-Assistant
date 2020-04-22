@@ -19,3 +19,48 @@ havegang:
     customize:
       light.havegang:
         icon: mdi:wall-sconce-flat
+
+  input_datetime:
+    patio_off_time:
+      name: Hvornår skal lyset slukkes
+      icon: mdi:clock
+      has_date: false
+      has_time: true
+    
+    patio_morning_time:
+      name: Tænding af havegangen
+      icon: mdi:clock
+      initial: "06:00"
+      has_date: false
+      has_time: true
+    
+    patio_morning_duration:
+      name: Hvor lang tid skal lyset være tændt
+      icon: mdi:timer-sand
+      initial: "00:20"
+      has_date: false
+      has_time: true
+    
+    patio_timeout_day:
+      name: Timeout for hvornår lyset skal slukkes om dagen
+      icon: mdi:timer-sand
+      initial: "00:01"
+      has_date: false
+      has_time: true
+
+  automation:
+    - alias: "Sluk havegangen når det er dag"
+      trigger:
+        - platform: state
+          entity_id:
+            - light.havegang
+          from: "off"
+          to: "on"
+      condition:
+        - condition: template
+          value_template: >-
+            {{ is_state("binary_sensor.night", "off") }}
+      action:
+        - service: light.turn_off
+          entity_id:
+            - light.havegang

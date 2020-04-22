@@ -16,7 +16,8 @@ cards:
 
       - !include cards/main/clock.yaml
       - !include cards/main/people_home.yaml
-      - !include cards/main/select_room_light.yaml
+#      - !include cards/main/select_room_light.yaml
+      - !include cards/gauges/greentel.yaml
       - break
 
       - !include cards/main/holiday.yaml
