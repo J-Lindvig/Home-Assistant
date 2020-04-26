@@ -24,13 +24,19 @@ persons:
       icon: mdi:account-group
 
   automation:
-    - alias: "Sluk ALT lys når huset er tomt"
+    - alias: "Sluk lys m.m. når huset er tomt"
       trigger:
         - platform: state
           entity_id: group.persons
           from: 'home'
           to: 'not_home'
       action:
-        service: light.turn_off
-        data:
-          entity_id: all
+        # Sluk lyset
+        - service: light.turn_off
+          data:
+            entity_id: all
+            
+        # SLuk cirkulationspumpen
+        - service: switch.turn_off
+          data:
+            entity_id: switch.cirkulationspumpe

@@ -27,3 +27,4 @@ home-assistant.log
 home-assistant_v2.db
 .uuid
 google_calendars.yaml
+edgeos.key

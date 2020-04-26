@@ -52,6 +52,10 @@ vlookup:
     loop:
       alias: "Generic Loop"
       sequence:
+        - service: system_log.write
+          data_template:
+            message: 'Generic loop: {{ delay }}'
+            level: error
         - delay: >-
             {{ delay }}
         - service_template: "{{ caller }}"

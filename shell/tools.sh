@@ -19,6 +19,11 @@ screen_suspend () {
   kill $PID
 }
 
+ssh_test() {
+#  ssh-keygen -N "" -f ./my.key
+  ssh $TOUCHPANEL_SSH -tt -i my.key -E ssh.log
+}
+
 # SELECT
 select_set_options() {
   _set_input $1 $BASE_URL$API_PATH$INPUT_SELECT $APITOKEN
@@ -94,7 +99,7 @@ get_greentel() {
     -H "Authorization: Bearer $APITOKEN" \
     -H "Content-Type: application/json" \
     -d "{\"state\": \"$(date +%s)\", \"attributes\": $(cat greentel.json)}" \
-    $BASE_URL$API_STATES_PATH/sensor.greentel_status
+    $BASE_URL$API_STATES_PATH/sensor.greentel
 
   rm -f greentel.json
 }
@@ -102,5 +107,8 @@ get_greentel() {
 _greentel_scrape() {
   curl -X POST \
     -d "api_key=$PARSEHUB_API_TOKEN" \
+    -d "start_url=$PARSEHUB_GREENTEL_URL" \
+    -d "start_value_override=$PARSEHUB_GREENTEL_CREDENTIALS" \
+    -d "send_email=0" \
     "https://www.parsehub.com/api/v2/projects/$PARSEHUB_PROJECT_TOKEN/run"
 }

@@ -1,8 +1,28 @@
 # lovelace_gen
-
 type: custom:gauge-card
 entity: {{ entity }}
+{% if title %}
 title: {{ title }}
-measurement: GB
+{% endif %}
+{% if measurement %}
+measurement: {{ measurement }}
+{% else %}
+measurement: ""
+{% endif %}
+{% if attribute %}
 attribute: {{ attribute }}
-max: 35
+{% endif %}
+{% if min %}
+min: {{ min }}
+{% endif %}
+{% if max %}
+max: {{ max }}
+{% endif %}
+{%- if severity_list -%}
+{% set severity_list = severity_list.split(",") %}
+{% set yellow = (max / 100) * severity_list[1] | int -%}
+severity:
+  red: {{ (max / 100) * severity_list[0] | int }}
+  yellow: {{ yellow }}
+  green: {{ yellow + 0.1 }}
+{% endif %}

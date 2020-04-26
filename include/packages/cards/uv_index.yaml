@@ -1,12 +1,19 @@
 uv_index:
   openuv:
-    api_key: 31865e708e6a20958134584634138f86
+    api_key: !secret OPENUV_API
+
+  sensor:
+    - platform: template
+      sensors:
+        uv_low:
+          friendly_name: "UV lavt"
+          value_template: 3
 
   automation:
     - alias: Opdater OpenUV halve time
       trigger:
         platform: time_pattern
-        minutes: "/60"
+        minutes: "/30"
       condition:
         condition: numeric_state
         entity_id: sun.sun

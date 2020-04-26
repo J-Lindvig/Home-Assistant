@@ -21,6 +21,7 @@ browsers:
     touchscreen_off: "source /config/shell/shell/tools.sh; screen_toggle off"
     touchscreen_on: "source /config/shell/tools.sh; screen_toggle on"
     touchscreen_suspend: "source /config/shell/tools.sh; screen_suspend"
+    ssh_test: "source /config/shell/tools.sh; ssh_test"
 
   automation:
     - alias: "Update prev_path_touchpanel"
@@ -40,7 +41,7 @@ browsers:
         platform: template
         value_template: >-
           {{ is_state_attr('sensor.touchpanel', 'path', states('var.prev_path_touchpanel')) }}
-        for: "00:00:10"
+        for: "00:00:30"
       action:
         service: browser_mod.navigate
         data_template:

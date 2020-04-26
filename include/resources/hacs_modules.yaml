@@ -30,6 +30,8 @@
 
 #### M
 - type: module
+  url: /hacsfiles/mini-graph-card/mini-graph-card-bundle.js
+- type: module
   url: /hacsfiles/lovelace-multiple-entity-row/multiple-entity-row.js
 
 #### R

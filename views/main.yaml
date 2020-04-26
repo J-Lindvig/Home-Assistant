@@ -21,5 +21,6 @@ cards:
       - break
 
       - !include cards/main/holiday.yaml
-      - !include cards/main/transport.yaml
+      - !include cards/weather/uv-index.yaml
+#      - !include cards/main/transport.yaml
       - !include cards/main/weather.yaml

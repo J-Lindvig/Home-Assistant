@@ -16,26 +16,24 @@ entities:
           from: 31
           to: 100
       positions:
-        icon: 'off'
+        icon: off
         indicator: inside
-        title: outside
-        value: 'off'
+        name: outside
+        value: inside
       height: 2vh
       width: 50%
-      style: |-
-        bar-card-value {
-          margin-right: auto;
-          font-size: 13px;
-          font-weight: bold;
-          text-shadow: 1px 1px #0005;
-        }
     filter:
       include:
-      - domain: sensor
-        attributes:
-          device_class: "battery"
-          unit_of_measurement: "%"
-        state: "< 31"
+        - domain: sensor
+          attributes:
+            device_class: "battery"
+            unit_of_measurement: "%"
+          state: "< 50"
+      exclude:
+        - attributes:
+            is_charging: false
+        - attributes:
+            is_charging: true
     sort:
       method: state
       numeric: true

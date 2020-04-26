@@ -4,6 +4,29 @@ panel: false
 cards:
   - type: custom:stack-in-card
     mode: horizontal
+    title: Printer og Scanner
+    cards:
+      - type: custom:bar-card
+        direction: up
+        columns: 4
+        width: 100%
+        height: 120px
+        positions:
+          icon: off
+          name: off
+          value: off
+        entities:
+          - entity: sensor.hp_3830_inkcartridge_black
+            color: black
+          - entity: sensor.hp_3830_inkcartridge_cyanmagentayellow
+            color: cyan
+          - entity: sensor.hp_3830_inkcartridge_cyanmagentayellow
+            color: magenta
+          - entity: sensor.hp_3830_inkcartridge_cyanmagentayellow
+            color: yellow
+
+  - type: custom:stack-in-card
+    mode: horizontal
     title: Brændstofspriser
     cards:
       - type: sensor
@@ -19,11 +42,3 @@ cards:
         name: Diesel
         graph: line
         detail: 3
-
-  - type: history-graph
-    title: System
-    hours_to_show: 1
-    entities:
-      - sensor.disk_use_percent
-      - sensor.memory_use_percent
-      - sensor.swap_use_percent

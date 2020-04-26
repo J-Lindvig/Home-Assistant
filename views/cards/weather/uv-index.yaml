@@ -1,0 +1,38 @@
+type: custom:mini-graph-card
+name: UV-index
+align_state: center
+hour24: true
+decimals: 2
+font_size: 200
+font_size_header: 24
+unit: " "
+animate: true
+points_per_hour: 2
+line_width: 2
+entities:
+  - entity: sensor.current_uv_index
+    show_legend: false
+  - entity: sensor.current_uv_index
+    fixed_value: true
+    show_legend: false
+    show_fill: false
+    color: "#6A1B9A"
+    show_points: false
+  - entity: sensor.uv_low
+    fixed_value: true
+    show_legend: false
+    show_fill: false
+    show_points: false
+show:
+  icon_adaptive_color: true
+color_thresholds:
+  - value: 3
+    color: "#558B2F"
+  - value: 6
+    color: "#F9A825"
+  - value: 8
+    color: "#EF6C00"
+  - value: 10
+    color: "#B71C1C"
+  - value: 100
+    color: "#6A1B9A"

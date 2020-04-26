@@ -15,7 +15,7 @@ elements:
     entity: sensor.next_birthday
     attribute: friendly_name
     style:
-      {{ element_style("20%", "50%", "5vh") }}
+      {{ element_style("15%", "50%", "1.8vw") }}
 
   - type: custom:state-attribute-element
     entity: sensor.next_birthday
@@ -26,10 +26,8 @@ elements:
 
   - type: state-label
     entity: sensor.next_birthday
-    prefix: "om "
-    suffix: " dage"
     style:
-      {{ element_style("70%", "50%", "7vh") }}
+      {{ element_style("70%", "50%", "5vh") }}
     tap_action:
       action: call-service
       service: browser_mod.popup

@@ -81,14 +81,19 @@ toilet_alert:
     toilet_done:
       alias: "Færdig på toilet"
       sequence:
-        - service: tts.google_translate_say
-          entity_id: media_player.kokken
-          data_template:
-            message: >-
-              "{{ states('var.toilet_string') }}"
+        - service: script.turn_off
+          entity_id: script.loop
+
+        - service: light.toggle
+          entity_id: light.legekokken
+
+#        - service: tts.google_translate_say
+#          entity_id: media_player.kokken
+#          data_template:
+#            message: >-
+#              "{{ states('var.toilet_string') }}"
     
         - service: script.loop
           data_template:
-            delay: >-
-              {{ delay }}
+            delay: "{{ delay }}"
             caller: "script.toilet_done"

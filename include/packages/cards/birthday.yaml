@@ -5,10 +5,10 @@ birthday:
       date: "1975-03-24"
     - name: Rikke fødselsdag
       date: "1976-03-10"
-    - name: Cornelie fødselsdag
+    - name: Cornelie & Nathalie fødselsdag
       date: "2003-08-22"
-    - name: Nathalie fødselsdag
-      date: "2003-08-22"
+#    - name: Nathalie fødselsdag
+#      date: "2003-08-22"
     - name: Hjalte fødselsdag
       date: "2007-03-22"
     - name: Emilio fødselsdag
@@ -24,8 +24,8 @@ birthday:
       entities:
         - sensor.jacob_fodselsdag
         - sensor.rikke_fodselsdag
-        - sensor.cornelie_fodselsdag
-        - sensor.nathalie_fodselsdag
+        - sensor.cornelie_nathalie_fodselsdag
+#        - sensor.nathalie_fodselsdag
         - sensor.hjalte_fodselsdag
         - sensor.emilio_fodselsdag
         - sensor.colin_fodselsdag
@@ -45,29 +45,41 @@ birthday:
               {% endif -%}
             {% endfor %}
             {%- if state_attr(ns.entity_id, "friendly_name").endswith('fødselsdag') -%}
-              {{ state_attr(ns.entity_id, "friendly_name")[:-11] }}
+              {{ state_attr(ns.entity_id, "friendly_name")[:-11] -}}
             {% else %}
-              {{ state_attr(ns.entity_id, "friendly_name") }}
-            {% endif -%}
+              {{ state_attr(ns.entity_id, "friendly_name") -}}
+            {% endif %}
           value_template: >-
-            {% set ns = namespace(entity_id="", prev=1000) %}
+            {%- set ns = namespace(entity_id="", prev=1000) -%}
             {% for birthday in states.group.birthdays.attributes.entity_id -%}
               {% if states(birthday) | int < ns.prev %}
                 {%- set ns.entity_id = birthday -%}
                 {%- set ns.prev = states(birthday) | int -%}
               {% endif -%}
-            {% endfor %}
-            {{ ns.prev }}
+            {% endfor -%}
+            {% if ns.prev > 0 %}
+              {%- if ns.prev > 1 -%}
+                om {{ ns.prev }} dage
+              {% else %}
+                i morgen
+              {% endif -%}
+            {% else %}
+              i dag...!!!
+            {% endif -%}
           attribute_templates:
             years_at_next_anniversary: >-
-              {% set ns = namespace(entity_id="", prev=1000) %}
+              {%- set ns = namespace(entity_id="", prev=1000) -%}
               {% for birthday in states.group.birthdays.attributes.entity_id -%}
                 {% if states(birthday) | int < ns.prev %}
                   {%- set ns.entity_id = birthday -%}
                   {%- set ns.prev = states(birthday) | int -%}
                 {% endif -%}
               {% endfor %}
-              {{ state_attr(ns.entity_id, "years_at_next_anniversary") }}
+              {% if ns.prev == 0 -%}
+                {{ state_attr(ns.entity_id, "years_at_next_anniversary") - 1 }}
+              {% else %}
+                {{ state_attr(ns.entity_id, "years_at_next_anniversary") }}
+              {% endif %}
             hide_in_list: "true"
 
   automation:
