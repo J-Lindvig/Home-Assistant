@@ -20,22 +20,40 @@ screen_suspend () {
 }
 
 ssh_test() {
-#  ssh-keygen -N "" -f ./my.key
-  ssh $TOUCHPANEL_SSH -tt -i my.key -E ssh.log
+  rm -f temp/chapters.txt
+  ffmpeg -i $1 -f ffmetadata temp/chapters.txt
+  grep "START" temp/chapters.txt | cut -d'=' -f2 | tr '\n' ',' | sed 's/.$//'
+}
+
+ssh_test_old() {
+  ffmpeg -i http://192.168.0.10/MyWeb/video/Film/Dansk%20tale/Vilde%20Rolf.m4v -f ffmetadata chapters.txt
+  cnt=0
+  start=""
+  while read -r line; do
+    a_start=$(echo $line | grep 'START'| cut -d'=' -f2);
+    if [ ${#a_start} -ge 1 ]; then
+      cnt=$((cnt+1))
+      if [[ "$cnt" -gt 1 ]]; then
+        start=$start"|"
+      fi
+      start="$start$((a_start/1000))"
+    fi
+  done < chapters.txt
+  echo $start > start.log
 }
 
 # SELECT
 select_set_options() {
-  _set_input $1 $BASE_URL$API_PATH$INPUT_SELECT $APITOKEN
+  _set_input $1 $BASE_URL$API_PATH$INPUT_SELECT
 }
 
 text_set_values() {
-  _set_input $1 $BASE_URL$API_PATH$INPUT_TEXT $APITOKEN
+  _set_input $1 $BASE_URL$API_PATH$INPUT_TEXT
 
 }
 
 var_set_values() {
-  _set_variable $1 $BASE_URL$API_PATH$VAR_SET $APITOKEN
+  _set_variable $1 $BASE_URL$API_PATH$VAR_SET
 }
 
 _set_input() {
@@ -52,14 +70,7 @@ _set_input() {
     done < "$d"
     query="$query]}"
 
-    echo $query
-
-    curl -X POST \
-    -H "Accept: application/json" \
-    -H "Authorization: Bearer $3" \
-    -H "Content-Type: application/json" \
-    -d "$query" \
-    $2
+    _send_data "$query" "$2"
   done
 }
 
@@ -77,15 +88,19 @@ _set_variable() {
     done < "$d"
     query="$query}"
 
-    echo $query
-
-    curl -X POST \
-    -H "Accept: application/json" \
-    -H "Authorization: Bearer $3" \
-    -H "Content-Type: application/json" \
-    -d "$query" \
-    $2
+    _send_data "$query" "$2"
   done
+}
+
+# $1 = query
+# $2 = URL
+_send_data() {
+  curl -X POST \
+  -H "Accept: application/json" \
+  -H "Authorization: Bearer $APITOKEN" \
+  -H "Content-Type: application/json" \
+  -d "$1" \
+  $2
 }
 
 # Greentel
@@ -94,12 +109,7 @@ get_greentel() {
 
   curl -X GET "https://www.parsehub.com/api/v2/projects/$PARSEHUB_PROJECT_TOKEN/last_ready_run/data?api_key=$PARSEHUB_API_TOKEN" | gunzip > greentel.json
 
-  curl -X POST \
-    -H "Accept: application/json" \
-    -H "Authorization: Bearer $APITOKEN" \
-    -H "Content-Type: application/json" \
-    -d "{\"state\": \"$(date +%s)\", \"attributes\": $(cat greentel.json)}" \
-    $BASE_URL$API_STATES_PATH/sensor.greentel
+  _send_data "{\"state\": \"$(date +%s)\", \"attributes\": $(cat greentel.json)}" $BASE_URL$API_STATES_PATH/sensor.greentel
 
   rm -f greentel.json
 }

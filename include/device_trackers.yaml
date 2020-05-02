@@ -1,3 +1,5 @@
+#### Iponedetect
+# IP addresses known being iOS
 - platform: iphonedetect
   consider_home: 600
   new_device_defaults:
@@ -8,12 +10,14 @@
     cornelie_telefon: 192.168.0.150
     nathalie_telefon: 192.168.0.160
 
+#### NMAP
+# IP-scopes with non-iOS units
 - platform: nmap_tracker
   hosts: 192.168.0.100-129
-
 - platform: nmap_tracker
   hosts: 192.168.0.140-149
 
+#### Ping
 - platform: ping
   hosts:
     jacob_telefon_ping: 192.168.0.120

@@ -59,6 +59,25 @@ light_control:
       has_date: false
       has_time: true
 
+  input_select:
+    room_light:
+      name: "Vælg rum"
+      icon: mdi:floor-plan
+      options:
+        - Køkken
+        - Stuen
+        - Legeværelse
+        - Gangen
+        - Hjalte
+        - Emilio
+        - Colin
+        - Pigernes stue
+        - Cornelie
+        - Nathalie
+        - Badeværelser
+        - Indgang
+        - Havegang
+
   binary_sensor:
     - platform: template
       sensors:

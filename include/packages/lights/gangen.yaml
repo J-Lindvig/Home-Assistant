@@ -32,3 +32,26 @@ gangen:
     customize:
       light.gangen:
         icon: mdi:track-light
+
+  automation:
+    - alias: "Sync gangens lys"
+      trigger:
+        - platform: state
+          entity_id:
+            - light.gangen_1_7
+            - light.gangen_8_14
+      action:
+        - service_template: >-
+            {%- if trigger.to_state.state == "on" %}
+              light.turn_on
+            {% else %}
+              light.turn_off
+            {% endif %}
+          data_template:
+            entity_id: light.gangen
+            brightness: >-
+              {%- if is_state("binary_sensor.night", "on") %}
+                {{ states("input_number.dim_low") | int }}
+              {%- else -%}
+                {{ states("input_number.dim_high") | int }}
+              {%- endif %}

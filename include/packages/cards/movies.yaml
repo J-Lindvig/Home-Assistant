@@ -1,18 +1,87 @@
 movies:
+
+  sensor:
+    # Load timecodes of the selected movie
+    - platform: command_line
+      name: timecodes
+      scan_interval: 86400
+      command: "source /config/shell/movies_load.sh; load_timecodes {{ states('input_select.movie_url') }}"
+
+    # Sensor to store movie data
+    - platform: template
+      sensors:
+        movie_data:
+          friendly_name_template: "{{ states('input_select.movie') }}"
+          entity_id:
+            - input_select.movie
+          value_template: "TEST"
+          entity_picture_template: "{{ states('input_select.movie_cover') }}"
+          attribute_templates:
+            url: "{{ states('input_select.movie_url') }}"
+            chapters: "{{ ( states('sensor.timecodes').split(',') | length ) - 1 }}"
+            timecodes: "{{ states('sensor.timecodes') }}"
+            duration: >-
+              {%- set last = ( states('sensor.timecodes').split(',') | length) -1 -%}
+              {{ states('sensor.timecodes').split(',')[last] | int }}
+            duration_hhmmss: >-
+              {%- set last = state_attr('input_select.movie_timecodes', "options") | length - 1 %}
+              {%- set time = state_attr('input_select.movie_timecodes', "options")[last] | int %}
+              {%- set HH = ((time % 86400) / 3600) | int %}
+              {%- set MM = ((time % 3600) / 60) | int %}
+              {%- set SS = ( time % 60 ) %}
+              {%- if HH < 10 %}0{% endif %}{{ HH }}:
+              {%- if MM < 10 %}0{% endif %}{{ MM }}:
+              {%- if SS < 10 %}0{% endif %}{{ SS }}
+
   input_select:
+    # Dropdown with movietitle
+    # VISIBLE
     movie:
       name: "Vælg film"
       icon: mdi:filmstrip
       options:
         - DUMMY
-    
+
+    # List of synchronized URLs of the movies
+    # HIDDEN
     movie_url:
       name: "Movie URL"
       options:
         - DUMMY
-    
+
+    # List of synchronized URLs of the moviecover
+    # HIDDEN
     movie_cover:
       name: "Movie Covers URL"
+      options:
+        - DUMMY
+
+    # List of chapters in a movie
+    # Used as slider and buttons
+    # HIDDEN
+    movie_chapters:
+      name: "Movie Chapters"
+      options:
+        - DUMMY
+
+    # List of timecodes of the moviechapters
+    # HIDDEN
+    movie_timecodes:
+      name: "Movie timecodes"
+      options:
+        - DUMMY
+
+    # Dropdown with friendly names of chromecasts
+    # VISIBLE
+    chromecasts:
+      name: "Chromecasts"
+      options:
+        - DUMMY
+
+    # List of synchronized entity of chromecasts
+    # HIDDEN
+    chromecasts_entities:
+      name: "Chromecasts entities"
       options:
         - DUMMY
 
@@ -25,16 +94,16 @@ movies:
           data:
             entity_id: input_select.movie
             options: "Henter film... "
-        - service: shell_command.movies_load
-    
+        - service: shell_command.movies_load_all
+
     # Toggle script for play/pause movie
     play_pause_movie:
       alias: "Start/Pause film"
       sequence:
         - service_template: >-
-            {%- if is_state("media_player.stuens_tv", "off") or is_state("media_player.stuens_tv", "idle") -%}
+            {%- if is_state(states('input_select.chromecasts_entities'), "off") or is_state(states('input_select.chromecasts_entities'), "idle") -%}
               script.play_movie
-            {%- elif is_state("media_player.stuens_tv", "playing") or is_state("media_player.stuens_tv", "paused") -%}
+            {%- elif is_state(states('input_select.chromecasts_entities'), "playing") or is_state(states('input_select.chromecasts_entities'), "paused") -%}
               script.pause_movie
             {%- endif -%}
 
@@ -43,52 +112,134 @@ movies:
       alias: "Start afspilning"
       sequence:
         - service: media_player.play_media
-          # Work: Dynamic media_player
-          # Work: Server as variable
           data_template:
-            entity_id: media_player.stuens_tv
+            entity_id: "{{ states('input_select.chromecasts_entities') }}"
             media_content_id: "{{- states('input_select.movie_url') -}}"
             media_content_type: video
-    
+
     # Pause the movie
     pause_movie:
       alias: "Pause/Play"
       sequence:
         - service: media_player.media_play_pause
-          # Work: Dynamic media_player
-          data:
-            entity_id: media_player.stuens_tv
+          data_template:
+            entity_id: "{{ states('input_select.chromecasts_entities') }}"
 
     # End movie
     stop_movie:
       alias: "stop afspilning"
       sequence:
         - service: media_player.media_stop
-          # Work: Dynamic media_player
-          data:
-            entity_id: media_player.stuens_tv
+          data_template:
+            entity_id: "{{ states('input_select.chromecasts_entities') }}"
+
+  #   # Find selected value and selects the value at same index in another list
+  #   # Variables: haystack and result_list
+  #   # Haystack: A,B,C
+  #   # Result_List: A1, B1, C1
+  #   # Selection: B
+  #   # Selectin in Result_List: B1
+  #   vlookup:
+  #     alias: "VLOOKUP-gen"
+  #     sequence:
+  #       - service: input_select.select_option
+  #         data_template:
+  #           # From which list should we select the new value
+  #           entity_id: "{{ result_list }}"
+  #           # Go through every options (needles) in the haystack
+  #           # If the current needle is equal the selected option - we have found the right element
+  #           # Select the option in result_list at the same index 
+  #           option: >-
+  #             {% for needle in state_attr(haystack, "options") %}
+  #               {% if needle == states(haystack) %}
+  #                 {{ state_attr(result_list, "options")[loop.index0] }}
+  #               {% endif %}
+  #             {%- endfor %}
+
+  # rest_command:
+  #   set_options_fix:
+  #     url: !secret DYNAMIC_LIST_URL
+  #     method: POST
+  #     headers:
+  #       authorization: !secret API_TOKEN
+  #       accept: "application/json"
+  #       content-type: "application/json"
+  #     payload: '{{ payload }}'
+
 
   shell_command:
-    movies_load: "source /config/shell/movies_load.sh"
+    # Load the movies from the NAS
+    movies_load_all: "source /config/shell/movies_load.sh; load_all_movies"
 
   automation:
-    # Have choosen a movie - find the correct URL
+    # Chapter changed
+    # Find the corresponding timecode and seek in the movie
+    - alias: "Kapitel skift"
+      trigger:
+        - platform: state
+          entity_id: input_select.movie_chapters
+      action:
+        - service: script.vlookup
+          data:
+            haystack: "input_select.movie_chapters"
+            result_list: "input_select.movie_timecodes"
+        - service: media_player.media_seek
+          data_template:
+            entity_id: "{{ states('input_select.chromecasts_entities') }}"
+            seek_position: "{{ states('input_select.movie_timecodes') }}"
+
+    # Chromecasts choosen
+    # Synchronize the list with entities
+    - alias: "Chromecast valgt"
+      trigger:
+        - platform: state
+          entity_id: input_select.chromecasts
+      action:
+        - service: script.vlookup
+          data:
+            haystack: "input_select.chromecasts"
+            result_list: "input_select.chromecasts_entities"
+
+    # Have choosen a movie
+    # Find the correct URL
     - alias: "Valgt film - find URL"
       trigger:
-        # Trigger when  movie is selected
         - platform: state
           entity_id: input_select.movie
       action:
-        # Find the movie
+        # Find the the URL of the movie
         - service: script.vlookup
           data:
             haystack: "input_select.movie"
             result_list: "input_select.movie_url"
-    
+
+        # Find the cover URL of the movie
         - service: script.vlookup
           data:
             haystack: "input_select.movie"
             result_list: "input_select.movie_cover"
+
+        # Extract the timecodes from the movie file
+        - service: homeassistant.update_entity
+          data:
+            entity_id: sensor.timecodes
+
+        # Update the collection of movie data
+        - service: homeassistant.update_entity
+          data:
+            entity_id: sensor.movie_data
+
+        # Load the chapters into the dropdown from the timecodes
+        - service: rest_command.set_options_fix
+          data_template:
+            payload: >-
+              {"entity_id":"input_select.movie_chapters","options":[{% for n in range(1, states('sensor.timecodes').split(',') | length) %}{% if not loop.first %},{% endif %}"{{ loop.index }}"{% endfor %}]}
+
+        # Load the timecodes into the slider
+        - service: rest_command.set_options_fix
+          data_template:
+            payload: >-
+              {"entity_id":"input_select.movie_timecodes","options":[{% for timecode in states('sensor.timecodes').split(',') %}{% if not loop.first %},{% endif %}"{{ timecode }}"{% endfor %}]}
 
     # Load movies at startup
     - alias: "Indlæs film ved opstart"
@@ -100,4 +251,14 @@ movies:
           data:
             entity_id: input_select.movie
             options: "Henter film... "
-        - service: shell_command.movies_load
+        - service: script.load_movies
+        - service: homeassistant.update_entity
+          data:
+            entity_id: sensor.movie_data
+
+  homeassistant:
+    customize:
+      input_select.movie_chapters:
+        icon: mdi:bookmark
+      input_select.chromecasts:
+        icon: mdi:google-chrome

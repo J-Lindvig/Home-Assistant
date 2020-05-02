@@ -1,0 +1,10 @@
+media_players:
+  group:
+    chromecasts:
+      name: Chromecasts
+      entities:
+        - media_player.stuens_tv
+        - media_player.cornelies_tv
+        - media_player.hjaltes_tv
+        - media_player.pigernes_tv
+        - media_player.sovetryne_tv

@@ -1,0 +1,14 @@
+clock:
+  sensor:
+    - platform: time_date
+      display_options:
+        - 'time'
+        - 'date'
+    
+    - platform: template
+      sensors:
+        dato:
+          friendly_name: "Dagens dato"
+          value_template: >-
+            {% set timestamp = strptime(states('sensor.date'), '%Y-%m-%d').timestamp() %}
+            {{ states("var.weekdays_dk").split(",")[timestamp | timestamp_custom('%w') | int - 1] -}}dag den {{ timestamp | timestamp_custom('%-d.') }} {{states("var.months_dk").split(",")[timestamp | timestamp_custom('%-m') | int - 1] }} {{ timestamp | timestamp_custom('%Y') }}

@@ -1,0 +1,2 @@
+var.trash
+det er i morgen der hentes affald.

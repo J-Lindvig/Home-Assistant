@@ -1,5 +1,0 @@
-input_select.vacuum_power
-Stille
-Standard
-Medium
-Turbo

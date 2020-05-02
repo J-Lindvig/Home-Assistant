@@ -18,7 +18,7 @@ entities:
     show_fill: false
     color: "#6A1B9A"
     show_points: false
-  - entity: sensor.uv_low
+  - entity: sensor.uv_sun
     fixed_value: true
     show_legend: false
     show_fill: false

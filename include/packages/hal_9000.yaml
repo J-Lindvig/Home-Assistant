@@ -1,0 +1,73 @@
+hal_9000:
+
+  var:
+    morning:
+    greetings:
+    reminder:
+    trash:
+    recycle:
+
+  automation:
+    - alias: "Godmorgen"
+      trigger:
+        - platform: time
+          at: "09:00:00"
+      action:
+        - service: media_player.play_media
+          entity_id: media_player.kokken
+          data:
+            media_content_id: 'http://soundbible.com/grab.php?id=1510&type=mp3'
+            media_content_type: music
+
+        - delay: "00:00:05"
+
+        - service: tts.google_translate_say
+          entity_id: media_player.kokken
+          data_template:
+            message: >-
+              Godmorgen.
+              Det er i dag {{ states('sensor.dato') }}.
+              Klokken er {{ now().strftime("%-H:%-M") }} og der er lige nu {{ state_attr('weather.smhi_brobyvaerk', 'temperature') }} grader i {{ state_attr('weather.smhi_brobyvaerk', 'friendly_name') }}.....
+              
+              Det bliver i dag
+              {% if state_attr('weather.smhi_brobyvaerk', 'forecast')[0].temperature == state_attr('weather.smhi_brobyvaerk', 'forecast')[0].templow %}
+                op til
+              {% else %}
+                mellem {{ state_attr('weather.smhi_brobyvaerk', 'forecast')[0].templow }} og 
+              {% endif %}
+              {{ state_attr('weather.smhi_brobyvaerk', 'forecast')[0].temperature }} grader.
+              {% if state_attr('weather.smhi_brobyvaerk', 'forecast')[0].precipitation > 0 %}
+                Der forventes at falde {{ state_attr('weather.smhi_brobyvaerk', 'forecast')[0].precipitation }} mm regn i løbet af dagen.
+              {% endif %}
+
+    - alias: "Meddel om Affald/Genbrug"
+      trigger:
+        - platform: time
+          at: "17:00:00"
+      condition:
+        condition: or
+        conditions:
+          - condition: template
+            value_template: >-
+              {{ is_state_attr('sensor.affald_hentes', 'days', '1') }}
+          - condition: template
+            value_template: >-
+              {{ is_state_attr('sensor.genbrug_hentes', 'days', '1') }}
+      action:
+        - service: tts.google_translate_say
+          entity_id: media_player.kokken
+          data_template:
+            message: >-
+              {% set len = states('var.greetings').split("|") | length %}
+              {% set ran_idx = range(0, len) | random() %}
+              {{ states('var.greetings').split("|")[ran_idx] }}
+              
+              {% set len = states('var.reminder').split("|") | length %}
+              {% set ran_idx = range(0, len) | random() %}
+              {{ states('var.reminder').split("|")[ran_idx] }}
+
+              {%- if is_state_attr('sensor.affald_hentes', 'days', '1') %}
+                {{ states('var.trash') }}
+              {% else %}
+                {{ states('var.recycle') }}
+              {% endif -%}

@@ -35,13 +35,11 @@ toilet_alert:
             volume_level: 1
     
         - service: script.toilet_done
-          data:
-            delay: "00:00:20"
 
     - alias: "Toilet_off"
       trigger:
         - platform: state
-          entity_id: light.test_lampe
+          entity_id: light.toilet_knap
           from: "on"
           to: "off"
       action:
@@ -59,41 +57,37 @@ toilet_alert:
         - service: script.turn_off
           entity_id:
             - script.toilet_done
-            - script.loop
+            - script.toilet_loop
         - service: script.turn_off
           entity_id:
             - script.toilet_done
-            - script.loop
+            - script.toilet_loop
         - service: script.turn_off
           entity_id:
             - script.toilet_done
-            - script.loop
+            - script.toilet_loop
         - service: script.turn_off
           entity_id:
             - script.toilet_done
-            - script.loop
+            - script.toilet_loop
         - service: script.turn_off
           entity_id:
             - script.toilet_done
-            - script.loop
+            - script.toilet_loop
 
   script:
     toilet_done:
       alias: "Færdig på toilet"
       sequence:
-        - service: script.turn_off
-          entity_id: script.loop
-
-        - service: light.toggle
-          entity_id: light.legekokken
-
-#        - service: tts.google_translate_say
-#          entity_id: media_player.kokken
-#          data_template:
-#            message: >-
-#              "{{ states('var.toilet_string') }}"
-    
-        - service: script.loop
+        - service: tts.google_translate_say
+          entity_id: media_player.kokken
           data_template:
-            delay: "{{ delay }}"
-            caller: "script.toilet_done"
+            message: >-
+              "{{ states('var.toilet_string') }}"
+    
+        - service: script.toilet_loop
+
+    toilet_loop:
+      sequence:
+        - delay: "00:00:20"
+        - service: script.toilet_done

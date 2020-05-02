@@ -1,3 +1,7 @@
+############################################################
+####      HomeAssistant Configuration by J-Lindvig      ####
+############################################################
+
 #### A
 automation: !include automations.yaml
 automation old: !include_dir_merge_list include/automations/
@@ -6,41 +10,31 @@ automation old: !include_dir_merge_list include/automations/
 config:
 
 #### D
-# DEFAULT_CONFIG
-# Configure a default setup of Home Assistant (frontend, api, etc)
 default_config:
 device_tracker: !include include/device_trackers.yaml
 
 #### F
-# FRONTEND
+ffmpeg:
 frontend:
   themes: !include_dir_merge_named themes
-
-#### G
-group: !include_dir_merge_named include/groups/
 
 #### H
 homeassistant:
   customize: !include_dir_merge_named include/customize/
   packages: !include_dir_merge_named include/packages/
 
-#### I
-input_select: !include_dir_merge_named include/input/select/
-
 ##### L
 light: !include_dir_merge_list include/lights/
-# LOVELACE MODE
 lovelace:
   mode: yaml
   resources: !include_dir_merge_list include/resources/
 
-# LOVELACE GEN
 lovelace_gen:
 
 #### R
 recorder:
   db_url: !secret MYSQL_URL
-  
+
 remote_homeassistant:
   instances:
   - host: 192.168.0.13
@@ -57,7 +51,6 @@ remote_homeassistant:
 rest_command: !include_dir_merge_named include/rest_commands/
 
 #### S
-sensor: !include_dir_merge_list include/sensors/
 shell_command: !include_dir_merge_named include/shell_commands/
 
 #### T

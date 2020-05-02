@@ -1,9 +1,23 @@
 type: custom:stack-in-card
+mode: horizontal
 title: Filmdatabase
 cards:
-  - type: entities
-    entities:
-      - input_select.movie
+  - type: custom:stack-in-card
+    mode: vertical
+    cards:
+      - type: entities
+        entities:
+          - input_select.movie
+      - type: custom:multiple-entity-row
+        entity: input_select.movie_chapters
+        name: Kapitler
+      - type: custom:slider-entity-row
+        entity: input_select.movie_chapters
+        full_row: true
+        hide_state: true
+      - type: entities
+        entities:
+          - input_select.chromecasts
 
   - type: custom:card-templater
     entities:
@@ -22,8 +36,17 @@ cards:
 
   - type: horizontal-stack
     cards:
+      - type: button
+        entity: script.play_pause_movie
+        icon: mdi:skip-previous
+        show_name: false
+        tap_action:
+          action: call-service
+          service: input_select.select_previous
+          service_data:
+            entity_id: input_select.movie_chapters
 
-      - type: entity-button
+      - type: button
         entity: script.play_pause_movie
         icon: mdi:play-pause
         show_name: false
@@ -31,7 +54,7 @@ cards:
           action: call-service
           service: script.play_pause_movie
 
-      - type: entity-button
+      - type: button
         entity: script.stop_movie
         icon: mdi:stop
         show_name: false
@@ -39,7 +62,17 @@ cards:
           action: call-service
           service: script.stop_movie
 
-      - type: entity-button
+      - type: button
+        entity: script.play_pause_movie
+        icon: mdi:skip-next
+        show_name: false
+        tap_action:
+          action: call-service
+          service: input_select.select_next
+          service_data:
+            entity_id: input_select.movie_chapters
+
+      - type: button
         entity: script.load_movies
         icon: mdi:reload
         show_name: false

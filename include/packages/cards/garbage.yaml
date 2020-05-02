@@ -23,14 +23,13 @@ garbage:
           friendly_name: "Affald:"
           icon_template: mdi:trash-can
           value_template: >-
-            {% if states('sensor.affald') <= states('sensor.affald_sommer') %}
-              {% set days = state_attr('sensor.affald', 'days') %}
-              {% set next_date = state_attr('sensor.affald', 'next_date') %}
+            {%- if states('sensor.affald') <= states('sensor.affald_sommer') %}
+              {%- set days = state_attr('sensor.affald', 'days') %}
+              {%- set next_date = state_attr('sensor.affald', 'next_date') %}
             {%- else -%}
               {% set days = state_attr('sensor.affald_sommer', 'days') %}
               {% set next_date = state_attr('sensor.affald_sommer', 'next_date') %}
             {%- endif -%}
-    
             {% if days == 0 %}
               i dag
             {%- elif days == 1 %}
@@ -40,6 +39,13 @@ garbage:
                 om {{ ((time_stamp - as_timestamp(now())) / ( 60 * 60 * 24 )) | round(0, 'ceil') }} dage (
               {{- states("var.weekdays_dk").split(",")[time_stamp | timestamp_custom('%w') | int - 1] }}dag den {{ time_stamp | timestamp_custom('%-d.') }}{{ states("var.months_dk").split(",")[time_stamp | timestamp_custom('%-m') | int - 1] }})
             {%- endif -%}
+          attribute_templates:
+            days: >-
+              {%- if states('sensor.affald') <= states('sensor.affald_sommer') %}
+                {{ state_attr('sensor.affald', 'days') }}
+              {%- else -%}
+                {{ state_attr('sensor.affald_sommer', 'days') }}
+              {%- endif -%}
 
         genbrug_hentes:
           friendly_name: "Genbrug:"
@@ -57,3 +63,6 @@ garbage:
               om {{ ((time_stamp - as_timestamp(now())) / ( 60 * 60 * 24 )) | round(0, 'ceil') }} dage (
               {{- states("var.weekdays_dk").split(",")[time_stamp | timestamp_custom('%w') | int - 1] }}dag den {{ time_stamp | timestamp_custom('%-d.') }}{{ states("var.months_dk").split(",")[time_stamp | timestamp_custom('%-m') | int - 1] }})
             {%- endif -%}
+          attribute_templates:
+            days: >-
+              {{ state_attr('sensor.genbrug', 'days') }}

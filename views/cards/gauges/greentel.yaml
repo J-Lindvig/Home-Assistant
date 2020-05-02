@@ -29,13 +29,38 @@ cards:
               severity_list: "10, 30"
   - type: horizontal-stack
     cards:
-      - type: sensor
-        entity: sensor.talk_hours_used
+#      - type: sensor
+#        entity: sensor.talk_hours_used
+#        unit: timer
+#        graph: line
+#        hours_to_show: 168
+      - type: custom:mini-graph-card
+        hours_to_show: 168
+        hour24: true
         unit: timer
-        graph: line
+        points_per_hour: 0.2
+        animate: true
+        entities:
+          - entity: sensor.talk_hours_used
+            show_legend: false
+#          - entity: sensor.talk_hours_max
+#            show_legend: false
+#            fixed_value: true
+#            show_fill: false
+#      - type: sensor
+#        entity: sensor.data_used
+#        unit: GB
+#        graph: line
+#        hours_to_show: 168
+      - type: custom:mini-graph-card
         hours_to_show: 168
-      - type: sensor
-        entity: sensor.data_used
+        hour24: true
         unit: GB
-        graph: line
-        hours_to_show: 168
+        points_per_hour: 0.2
+        entities:
+          - entity: sensor.data_used
+            show_legend: false
+#          - entity: sensor.data_max
+#            show_legend: false
+#            fixed_value: true
+#            show_fill: false

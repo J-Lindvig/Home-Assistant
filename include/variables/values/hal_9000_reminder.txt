@@ -1,0 +1,2 @@
+var.reminder
+I skal huske på at |I skal være opmærksomme på at

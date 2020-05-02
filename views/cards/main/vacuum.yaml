@@ -57,6 +57,8 @@
                   entity: input_number.vacuum_fan_speed
                   full_row: true
                   hide_state: true
+            deviceID:
+              - this
 {%- endmacro %}
 
 {% macro top_icon(type, entity_or_icon, x) -%}

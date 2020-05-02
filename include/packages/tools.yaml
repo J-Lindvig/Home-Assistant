@@ -1,4 +1,15 @@
-vlookup:
+tools:
+
+  rest_command:
+    set_options_fix:
+      url: !secret DYNAMIC_LIST_URL
+      method: POST
+      headers:
+        authorization: !secret API_TOKEN
+        accept: "application/json"
+        content-type: "application/json"
+      payload: '{{ payload }}'
+
   script:
     # Find selected value and selects the value at same index in another list
     # Variables: haystack and result_list

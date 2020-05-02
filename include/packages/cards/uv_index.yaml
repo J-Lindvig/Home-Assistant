@@ -5,9 +5,18 @@ uv_index:
   sensor:
     - platform: template
       sensors:
-        uv_low:
-          friendly_name: "UV lavt"
-          value_template: 3
+        uv_sun:
+          friendly_name: "UV sensor med UV grænse og sol info"
+          value_template: 3.5
+          attribute_templates:
+            protection_start_time: >-
+              {{ state_attr('binary_sensor.protection_window', 'start_time').timestamp() | timestamp_custom('%R') }}
+            protection_end_time: >-
+              {{ state_attr('binary_sensor.protection_window', 'end_time').timestamp() | timestamp_custom('%R') }}
+            next_rising: >-
+              {{ (strptime(state_attr('sun.sun', 'next_rising').replace('+00:00',''), '%Y-%m-%dT%H:%M:%S').timestamp() + 7200)  | timestamp_custom('%R') }}
+            next_setting: >-
+              {{ (strptime(state_attr('sun.sun', 'next_setting').replace('+00:00',''), '%Y-%m-%dT%H:%M:%S').timestamp() + 7200) | timestamp_custom('%R') }}
 
   automation:
     - alias: Opdater OpenUV halve time

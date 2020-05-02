@@ -6,8 +6,14 @@ greentel:
           friendly_name: "Taletid"
           entity_id: sensor.greentel
           value_template: >-
-            {{ state_attr("sensor.greentel", "talk_hours") }}
+            {{ state_attr("sensor.greentel", "talk_hours_used") }}
           icon_template: mdi:phone-in-talk
+
+        talk_hours_max:
+          friendly_name: "Taletid, max"
+          entity_id: sensor.greentel
+          value_template: >-
+            {{ state_attr("sensor.greentel", "talk_hours_max") }}
 
         data_used:
           friendly_name: "Data"
@@ -15,6 +21,12 @@ greentel:
           value_template: >-
             {{ state_attr("sensor.greentel", "data_used") }}
           icon_template: mdi:signal-cellular-3
+
+        data_max:
+          friendly_name: "Data, max"
+          entity_id: sensor.greentel
+          value_template: >-
+            {{ state_attr("sensor.greentel", "data_max") }}
 
         modem_used_percent:
           friendly_name: "Modem"
@@ -32,6 +44,8 @@ greentel:
       trigger:
         - platform: time_pattern
           minutes: "/52"
+        - platform: homeassistant
+          event: start
       action:
         - service: shell_command.greentel_get
 
