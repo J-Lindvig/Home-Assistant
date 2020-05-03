@@ -118,6 +118,7 @@ load_movie_covers() {
     cnt=$((cnt+1))
 
     # Initialize the image file with the title and path
+#    file="$IMAGE_PATH$line.png"
     file="$IMAGE_PATH$line.jpg"
 
     # If the image is not present, then fetch the iMDB
@@ -130,7 +131,7 @@ load_movie_covers() {
         "https://www.imdb.com/find" -o $TEMP_PATH/cover_file
 
       # Extract the URL of the primary image and change the dimensions
-      cover_url=`grep "primary_photo" $TEMP_PATH/cover_file | cut -d'>' -f4 | cut -d'=' -f2 | cut -d'"' -f2 | sed -r 's/V1_.*_AL/V1_SY1000_SX640_AL/g'`
+      cover_url=`grep "primary_photo" $TEMP_PATH/cover_file | cut -d'>' -f4 | cut -d'=' -f2 | cut -d'"' -f2 | sed -r 's/V1_.*_AL/V1_UX400_CR0,0,400,566_AL/g'`
 
       # If the URL is greater then 5 chars, then we found a URL
       # and we should now download it to the www folder
@@ -138,6 +139,7 @@ load_movie_covers() {
       # Else use the unknown cover 
       if [ ${#cover_url} -ge 5 ]; then
         curl "$cover_url" -o "/config/www/$file"
+#        ffmpeg -i "$cover_url" -y -an -q 0 -vf scale="'if(gt(iw,ih),-1,320):if(gt(iw,ih),452,-1)', crop=320:452:exact=1" /config/www/$file
       else
         file="$IMAGE_PATH$UNKNOWN_COVER"
       fi

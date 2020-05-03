@@ -20,9 +20,12 @@ screen_suspend () {
 }
 
 ssh_test() {
-  rm -f temp/chapters.txt
-  ffmpeg -i $1 -f ffmetadata temp/chapters.txt
-  grep "START" temp/chapters.txt | cut -d'=' -f2 | tr '\n' ',' | sed 's/.$//'
+  PATH_TO_VID="http://192.168.0.10/MyWeb/video/Film/Dansk%20tale/Adventures%20Of%20Tintin.mp4"
+  PATH_TO_OUT_DIR="/config/www/images/covers"
+#  ffmpeg -ss 1024 -i "$PATH_TO_VID" -f image2 -s "640x480" -vframes 1 $PATH_TO_OUT_DIR/Batman.png
+
+  ffmpeg -ss 1024.32 -i "$PATH_TO_VID" -vframes 1 -vf scale=-1:240 out_3.png
+
 }
 
 ssh_test_old() {

@@ -1,23 +1,6 @@
 type: custom:stack-in-card
-mode: horizontal
-title: Filmdatabase
+mode: vertical
 cards:
-  - type: custom:stack-in-card
-    mode: vertical
-    cards:
-      - type: entities
-        entities:
-          - input_select.movie
-      - type: custom:multiple-entity-row
-        entity: input_select.movie_chapters
-        name: Kapitler
-      - type: custom:slider-entity-row
-        entity: input_select.movie_chapters
-        full_row: true
-        hide_state: true
-      - type: entities
-        entities:
-          - input_select.chromecasts
 
   - type: custom:card-templater
     entities:
@@ -34,6 +17,26 @@ cards:
           - movies_element.yaml
           - side: "right"
 
+        - type: conditional
+          conditions:
+            - entity: input_select.movie_cover
+              state: "/local/images/covers/unknown.jpg"
+          elements:
+            - type: state-label
+              entity: input_select.movie
+              style:
+                top: 30%
+                left: 50%
+                font-size: 1.3vw
+                color: white
+                text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black
+                font-weight: bold
+
+  - type: custom:slider-entity-row
+    entity: input_select.movie_chapters
+#    full_row: true
+#    hide_state: true
+    name: Kapitel
   - type: horizontal-stack
     cards:
       - type: button
@@ -45,7 +48,7 @@ cards:
           service: input_select.select_previous
           service_data:
             entity_id: input_select.movie_chapters
-
+    
       - type: button
         entity: script.play_pause_movie
         icon: mdi:play-pause
@@ -53,7 +56,7 @@ cards:
         tap_action:
           action: call-service
           service: script.play_pause_movie
-
+    
       - type: button
         entity: script.stop_movie
         icon: mdi:stop
@@ -61,7 +64,7 @@ cards:
         tap_action:
           action: call-service
           service: script.stop_movie
-
+    
       - type: button
         entity: script.play_pause_movie
         icon: mdi:skip-next
@@ -71,7 +74,7 @@ cards:
           service: input_select.select_next
           service_data:
             entity_id: input_select.movie_chapters
-
+    
       - type: button
         entity: script.load_movies
         icon: mdi:reload

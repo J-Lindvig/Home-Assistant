@@ -2,4 +2,15 @@ title: Film
 icon: mdi:library-movie
 panel: true
 cards:
-  - !include cards/movies/movies.yaml
+  - type: custom:layout-card
+    layout: vertical
+    max_columns: 3
+#    min_width: 33%
+#    max_width: 99%
+    column_width: [33%,32%,33%]
+    cards:
+      - !include cards/movies/movie_selection.yaml
+      - break
+      - !include cards/movies/movies.yaml
+      - break
+      - !include cards/movies/chromecast.yaml

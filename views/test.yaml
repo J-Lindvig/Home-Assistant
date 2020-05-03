@@ -1,7 +1,18 @@
+# lovelace_gen
 title: System
 icon: mdi:test-tube
 panel: false
 cards:
+
+  - type: custom:stack-in-card
+    mode: horizontal
+    cards:
+      {% for n in range(0,5) %}
+      - type: picture-entity
+        entity: person.jacob
+        image: https://www.home-assistant.io/images/lovelace/lovelace_picture_entity.gif
+      {% endfor %}
+
   - type: custom:stack-in-card
     mode: horizontal
     title: Brændstofspriser
