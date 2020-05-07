@@ -20,29 +20,33 @@ screen_suspend () {
 }
 
 ssh_test() {
-  PATH_TO_VID="http://192.168.0.10/MyWeb/video/Film/Dansk%20tale/Adventures%20Of%20Tintin.mp4"
-  PATH_TO_OUT_DIR="/config/www/images/covers"
-#  ffmpeg -ss 1024 -i "$PATH_TO_VID" -f image2 -s "640x480" -vframes 1 $PATH_TO_OUT_DIR/Batman.png
+  rm -f $TEMP_PATH/tmp_file $TEMP_PATH/dates_file $TEMP_PATH/events_file $TEMP_PATH/combined_file
+  
+  curl https://designflag.dk/om-flag/flagdage/ -o $TEMP_PATH/tmp_file
+  
+  YEAR=$(grep "<h1>Officielle flagdage 2020</h1>" $TEMP_PATH/tmp_file | cut -d' ' -f3 | cut -d'<' -f1)
+ 
+  grep '<td style="text-align: left;" valign="top" width="102">\|<td style="text-align: left;" valign="top" width="550">' $TEMP_PATH/tmp_file | cut -d'>' -f2 | cut -d'<' -f1 | awk 'NF' | sed '{N; s/\n/|/}' > $TEMP_PATH/combined_file
+  
+  day=$(echo "26. maj 2020" | cut -d'.' -f1); month=$(echo "26. maj 2020" | cut -d' ' -f2); if [ "$month" = "maj" ]; then month=5; fi; date -d "2020-$month-$day" +"%s"
+  
+#  grep -E '<td style="text-align: left;" valign="top" width="102">[0-9].*</td>' $TEMP_PATH/tmp_file | cut -d'>' -f2 | cut -d'<' -f1 > $TEMP_PATH/dates_file
+  
+#  grep -E '<td style="text-align: left;" valign="top" width="550">.*</td>' $TEMP_PATH/tmp_file | cut -d'>' -f2 | cut -d'<' -f1 | awk 'NF' > $TEMP_PATH/events_file
+ 
+#  paste -d '\n' $TEMP_PATH/dates_file $TEMP_PATH/events_file > $TEMP_PATH/combined_file
+  
+#  cnt=0
+  # QUERY="{\"entity_id\": \"sensor.flag_days_DK\", \"events\": [ {"
+  #   while read line; do
+  #     cnt=$((cnt+1))
+  #     if [[ "$cnt" -gt 2 ]]; then
+  #       query="$query,\"$l\""
+  #     fi
+  #   done < "$d"
+  #   query="$query}"
 
-  ffmpeg -ss 1024.32 -i "$PATH_TO_VID" -vframes 1 -vf scale=-1:240 out_3.png
-
-}
-
-ssh_test_old() {
-  ffmpeg -i http://192.168.0.10/MyWeb/video/Film/Dansk%20tale/Vilde%20Rolf.m4v -f ffmetadata chapters.txt
-  cnt=0
-  start=""
-  while read -r line; do
-    a_start=$(echo $line | grep 'START'| cut -d'=' -f2);
-    if [ ${#a_start} -ge 1 ]; then
-      cnt=$((cnt+1))
-      if [[ "$cnt" -gt 1 ]]; then
-        start=$start"|"
-      fi
-      start="$start$((a_start/1000))"
-    fi
-  done < chapters.txt
-  echo $start > start.log
+#    _send_data "$query" "$2"
 }
 
 # SELECT

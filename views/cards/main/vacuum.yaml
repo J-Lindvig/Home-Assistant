@@ -54,7 +54,7 @@
                   entity: sensor.vacuum_r2_d2
                   attribute: fan_speed
                 - type: custom:slider-entity-row
-                  entity: input_number.vacuum_fan_speed
+                  entity: input_select.vacuum_power
                   full_row: true
                   hide_state: true
             deviceID:

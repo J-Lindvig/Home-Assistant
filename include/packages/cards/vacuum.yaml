@@ -17,11 +17,16 @@ vacuum:
     - platform: template
       sensors:
         vacuum_fan_speed:
+          entity_id: vacuum.r2_d2
           friendly_name: Sugestyrke
           value_template: >-
-            {{ state_attr("vacuum.r2_d2", "fan_speed") }}
+            {%- for needle in state_attr('vacuum.r2_d2', 'fan_speed_list') %}
+              {%- if needle == state_attr("vacuum.r2_d2", "fan_speed") %}
+                {{ loop.index0 }}
+              {% endif %}
+            {%- endfor %}
           icon_template: >-
-            mdi:network-strength-{{ state_attr("vacuum.r2_d2", "fan_speed") - 100 }}
+            mdi:network-strength-{{ (state_attr('sensor.vacuum_r2_d2', 'fan_speed_index') | int) + 1 }}
 
         vacuum_r2_d2:
           entity_id: vacuum.r2_d2
@@ -31,7 +36,7 @@ vacuum:
             {{ state_attr("vacuum.r2_d2", "battery_icon") }}
           value_template: >-
             {%- if is_state("vacuum.r2_d2", "docked") -%}
-              Docked
+              I dock
             {%- elif is_state("vacuum.r2_d2", "cleaning") -%}
               Støvsuger
             {%- elif is_state("vacuum.r2_d2", "paused") -%}
@@ -52,9 +57,20 @@ vacuum:
               {{ state_attr("vacuum.r2_d2", "cleaning_time") }}
             cleaned_area: >-
               {{ state_attr("vacuum.r2_d2", "cleaned_area") }}
+            fan_speed_index: >-
+              {%- for needle in state_attr('vacuum.r2_d2', 'fan_speed_list') %}
+                {%- if needle == state_attr("vacuum.r2_d2", "fan_speed") %}
+                  {{ loop.index0 }}
+                {% endif %}
+              {%- endfor %}
+            fan_speed_num: >-
+              {%- for needle in state_attr('vacuum.r2_d2', 'fan_speed_list') %}
+                {%- if needle == state_attr("vacuum.r2_d2", "fan_speed") %}
+                  10{{ loop.index }}
+                {% endif %}
+              {%- endfor %}
             fan_speed: >-
-              {%- set fan_speed = state_attr("vacuum.r2_d2", "fan_speed") | string -%}
-              {{ state_attr("input_select.vacuum_power", "options")[fan_speed[2:] | int -1]  }}
+              {{ state_attr('input_select.vacuum_power', "options")[states('sensor.vacuum_fan_speed') | int] }}
             main_brush_left: >-
               {{ state_attr("vacuum.r2_d2", "main_brush_left") }}
             side_brush_left: >-
@@ -108,15 +124,6 @@ vacuum:
         - Standard
         - Medium
         - Turbo
-
-  input_number:
-    vacuum_fan_speed:
-      name: Sugestyrke
-      icon: mdi:fan
-      initial: 101
-      min: 101
-      max: 104
-      step: 1
 
   script:
     # Start room-cleaning
@@ -181,17 +188,6 @@ vacuum:
               {% endif %}
             {%- endfor %}
 
-    - alias: "Sugestyrke slider"
-      trigger:
-        platform: state
-        entity_id: input_number.vacuum_fan_speed
-      action:
-        service: vacuum.set_fan_speed
-        data_template:
-          entity_id: vacuum.r2_d2
-          fan_speed: >-
-            {{ states("input_number.vacuum_fan_speed") | int }}
-
     # We have changed the suction settings in the app
     # and wish to match the new setting
     - alias: "Match suge-menuen til støvsugeren"
@@ -207,12 +203,11 @@ vacuum:
             # Get the last digit of the vacuums settings ( ex. 103 = 3 )
             # Substract 1 and use this value as index on the options
             option: >-
-              {{ state_attr("input_select.vacuum_power", "options")[state_attr("vacuum.r2_d2", "fan_speed") - 101] }}
-        - service: input_number.set_value
-          data_template:
-            entity_id: input_number.vacuum_fan_speed
-            value: >-
-              {{ state_attr("vacuum.r2_d2", "fan_speed") }}
+              {%- for needle in state_attr('vacuum.r2_d2', 'fan_speed_list') %}
+                {%- if needle == state_attr("vacuum.r2_d2", "fan_speed") %}
+                {{ state_attr("input_select.vacuum_power", "options")[ loop.index0] }}
+                {% endif %}
+              {%- endfor %}
 
     # Set default fanspeed at startup
     - alias: "Indstil standard sugestyrke"
@@ -225,8 +220,7 @@ vacuum:
             entity_id: vacuum.r2_d2
             # Find the index of the selected option (index starting from 1)
             # Append this digit to 10 - ex. 101
-            fan_speed: >-
-              {{ states("var.vacuum_default_fanspeed") | int }}
+            fan_speed: "{{ states('var.vacuum_default_fanspeed') | int }}"
         - delay: "00:00:20"
         - service: automation.trigger
           data_template:

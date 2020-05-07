@@ -34,8 +34,6 @@ cards:
 
   - type: custom:slider-entity-row
     entity: input_select.movie_chapters
-#    full_row: true
-#    hide_state: true
     name: Kapitel
   - type: horizontal-stack
     cards:

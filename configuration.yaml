@@ -25,6 +25,13 @@ homeassistant:
 
 ##### L
 light: !include_dir_merge_list include/lights/
+logger:
+  default: error
+  logs:
+    homeassistant.components.script: debug
+    homeassistant.components.automation: debug
+    homeassistant.core: fatal
+
 lovelace:
   mode: yaml
   resources: !include_dir_merge_list include/resources/

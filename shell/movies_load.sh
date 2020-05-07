@@ -44,11 +44,6 @@ _cleanup() {
 _init() {
   _cleanup
 
-  # Placeholder for our coming queries
-  movie_query=""
-  movie_url_query=""
-  movie_cover_query=""
-
   # Fetch the HTML-page with the movies
   # adjust to your needs
   curl $NAS_MOVIE_URL -o $TEMP_PATH/tmp_file
@@ -139,7 +134,6 @@ load_movie_covers() {
       # Else use the unknown cover 
       if [ ${#cover_url} -ge 5 ]; then
         curl "$cover_url" -o "/config/www/$file"
-#        ffmpeg -i "$cover_url" -y -an -q 0 -vf scale="'if(gt(iw,ih),-1,320):if(gt(iw,ih),452,-1)', crop=320:452:exact=1" /config/www/$file
       else
         file="$IMAGE_PATH$UNKNOWN_COVER"
       fi
