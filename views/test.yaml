@@ -1,4 +1,5 @@
 # lovelace_gen
+{% set persons = ['Jacob', 'Rikke', 'Cornelie', 'Nathalie', 'Hjalte'] %}
 title: System
 icon: mdi:test-tube
 panel: false
@@ -7,11 +8,19 @@ cards:
   - type: custom:stack-in-card
     mode: horizontal
     cards:
-      {% for n in range(0,5) %}
+    {% for name in persons %}
       - type: picture-entity
-        entity: person.jacob
-        image: https://www.home-assistant.io/images/lovelace/lovelace_picture_entity.gif
-      {% endfor %}
+        entity: person.{{ name | lower }}
+        image: /local/images/persons/{{ name }}.jpg
+        show_name: false
+        show_state: false
+        state_filter:
+          "home": brightness(110%) saturate(1.2)
+          "not_home": brightness(50%) hue-rotate(45deg)
+    {% endfor %}
+
+  - type: weather-forecast
+    entity: weather.smhi_brobyvaerk
 
   - type: custom:stack-in-card
     mode: horizontal
@@ -30,3 +39,8 @@ cards:
         name: Diesel
         graph: line
         detail: 3
+
+  - type: media-control
+    entity: media_player.kokken_skaerm
+  - type: media-control
+    entity: media_player.stuens_tv

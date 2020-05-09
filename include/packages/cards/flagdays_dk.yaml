@@ -5,7 +5,9 @@ flagdays_dk:
   automation:
     - alias: Opdater flagdage
       trigger:
-        platform: time
-        at: "00:38:00"
+        - platform: time
+          at: "00:38:00"
+        - platform: homeassistant
+          event: start
       action:
         service: shell_command.flagdays_update

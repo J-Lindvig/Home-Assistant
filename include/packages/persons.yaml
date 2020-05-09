@@ -2,15 +2,15 @@ persons:
   homeassistant:
     customize:
       person.jacob:
-        entity_picture: https://graph.facebook.com/1222707029/picture?type=large
+        entity_picture: /local/images/persons/Jacob.jpg
       person.rikke:
-        entity_picture: https://graph.facebook.com/1194766185/picture?type=large
+        entity_picture: /local/images/persons/Rikke.jpg
       person.cornelie:
-        entity_picture: https://graph.facebook.com/100010709629019/picture?type=large
+        entity_picture: /local/images/persons/Cornelie.jpg
       person.nathalie:
-        entity_picture: https://graph.facebook.com/100010724498055/picture?type=large
+        entity_picture: /local/images/persons/Nathalie.jpg
       person.hjalte:
-        entity_picture: https://graph.facebook.com/100047863312955/picture?type=large
+        entity_picture: /local/images/persons/Hjalte.jpg
   
   group:
     persons:
@@ -35,8 +35,3 @@ persons:
         - service: light.turn_off
           data:
             entity_id: all
-            
-        # SLuk cirkulationspumpen
-        - service: switch.turn_off
-          data:
-            entity_id: switch.cirkulationspumpe
