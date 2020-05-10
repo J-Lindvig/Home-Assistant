@@ -1,11 +1,8 @@
-# type: custom:stack-in-card
-# cards:
-#   - !include birthday.yaml
-  
 type: custom:state-switch
 entity: input_select.cards_to_slide
-default: birthday.yaml
-transition: flip
+default: clock.yaml
+transition: slide-left
+transition_time: 1000
 states:
   birthday.yaml:
     !include slides/birthday.yaml

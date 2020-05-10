@@ -11,7 +11,7 @@ slides:
     - alias: "Next slide"
       trigger:
         - platform: time_pattern
-          seconds: "/5"
+          seconds: "/15"
       action:
         - service: input_select.select_next
           data:
