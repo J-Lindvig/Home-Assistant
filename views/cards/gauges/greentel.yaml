@@ -1,7 +1,6 @@
 # lovelace_gen
 type: custom:stack-in-card
 mode: vertical
-title: Greentel
 cards:
   - type: horizontal-stack
     cards:

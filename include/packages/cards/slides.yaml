@@ -1,0 +1,18 @@
+slides:
+  input_select:
+    cards_to_slide:
+      name: "Kort til skifte mellem"
+      options:
+        - birthday.yaml
+        - clock.yaml
+        - holiday.yaml
+
+  automation:
+    - alias: "Next slide"
+      trigger:
+        - platform: time_pattern
+          seconds: "/5"
+      action:
+        - service: input_select.select_next
+          data:
+            entity_id: input_select.cards_to_slide

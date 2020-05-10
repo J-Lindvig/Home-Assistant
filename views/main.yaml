@@ -9,18 +9,15 @@ cards:
     min_width: 33%
     max_width: 99%
     cards:
-      - !include cards/main/birthday.yaml
+      - !include cards/main/transport.yaml
       - !include cards/main/garbage.yaml
       - !include cards/main/vacuum.yaml
       - break
 
-      - !include cards/main/clock.yaml
+      - !include cards/main/slides.yaml
       - !include cards/main/people_home.yaml
-#      - !include cards/main/select_room_light.yaml
       - !include cards/gauges/greentel.yaml
       - break
 
-      - !include cards/main/holiday.yaml
       - !include cards/weather/uv-index.yaml
-#      - !include cards/main/transport.yaml
       - !include cards/main/weather.yaml

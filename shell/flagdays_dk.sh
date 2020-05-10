@@ -40,16 +40,16 @@ else
 fi
 
 # Initial cleanup
-rm -f $TEMP_PATH/tmp_file $TEMP_PATH/combined_file
+rm -f $TEMP_PATH/flag_tmp_file $TEMP_PATH/combined_file
 
 # Fecth the HTML page
-curl https://designflag.dk/om-flag/flagdage/ -o $TEMP_PATH/tmp_file
+curl https://designflag.dk/om-flag/flagdage/ -o $TEMP_PATH/flag_tmp_file
 
 # Extract the Year
-YEAR=$(grep "<h1>Officielle flagdage 2020</h1>" $TEMP_PATH/tmp_file | cut -d' ' -f3 | cut -d'<' -f1)
+YEAR=$(grep "<h1>Officielle flagdage 2020</h1>" $TEMP_PATH/flag_tmp_file | cut -d' ' -f3 | cut -d'<' -f1)
 
 # Extract the data - combine the 2 columns on 1 line - store in a file
-grep '<td style="text-align: left;" valign="top" width="102">\|<td style="text-align: left;" valign="top" width="550">' $TEMP_PATH/tmp_file | cut -d'>' -f2 | cut -d'<' -f1 | awk 'NF' | sed '{N; s/\n/|/}' > $TEMP_PATH/combined_file
+grep '<td style="text-align: left;" valign="top" width="102">\|<td style="text-align: left;" valign="top" width="550">' $TEMP_PATH/flag_tmp_file | cut -d'>' -f2 | cut -d'<' -f1 | awk 'NF' | sed '{N; s/\n/|/}' > $TEMP_PATH/combined_file
 
 # Prepare the placeholders
 STATE=-1
@@ -126,4 +126,4 @@ echo $QUERY > $TEMP_PATH/log
 _send_data "$QUERY" "$BASE_URL$API_STATES_PATH/sensor.flagday_dk"
 
 # Cleanup on exit
-#rm -f $TEMP_PATH/tmp_file $TEMP_PATH/combined_file
+rm -f $TEMP_PATH/flag_tmp_file $TEMP_PATH/combined_file
