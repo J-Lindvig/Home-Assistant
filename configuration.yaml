@@ -24,7 +24,6 @@ homeassistant:
   packages: !include_dir_merge_named include/packages/
 
 ##### L
-light: !include_dir_merge_list include/lights/
 logger:
   default: error
   logs:

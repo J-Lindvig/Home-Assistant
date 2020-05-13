@@ -1,3 +1,7 @@
+############################################################
+####     HACS Resources Configuration by J-Lindvig      ####
+############################################################
+
 #### A
 - type: module
   url: /hacsfiles/lovelace-auto-entities/auto-entities.js

@@ -120,8 +120,6 @@ done < $TEMP_PATH/combined_file
 # Finish the query
 QUERY="$QUERY, $ATTR ] } }"
 
-echo $QUERY > $TEMP_PATH/log
-
 # Send the query to the API
 _send_data "$QUERY" "$BASE_URL$API_STATES_PATH/sensor.flagday_dk"
 
