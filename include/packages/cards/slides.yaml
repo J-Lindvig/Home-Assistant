@@ -4,7 +4,7 @@ slides:
       name: "Kort til skifte mellem"
       options:
         - birthday.yaml
-        - clock.yaml
+#        - clock.yaml
         - holiday.yaml
 
   automation:

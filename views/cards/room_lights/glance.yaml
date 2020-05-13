@@ -1,0 +1,138 @@
+# lovelace_gen
+
+# Make a 2D array ( a list containing lists) with the rooms and
+# their lights.
+# The first element is the entity for all entities i a room, ex:
+# light.kokken is a light group which contains all lights in the kitchen
+# If a room only has 1 light, then there is only 1 element int the list
+{% set rooms = {
+  "Køkken": ["light.kokken", "light.spisebord", "light.maleri", "light.legekokken", "light.kaffebar", "light.kokkeno", "light.kokkenskabe", "light.kokkenbord"],
+  "Stuen": ["light.stuen", "light.gulvlampe", "light.stuelampe", "light.laeselampe"],
+  "Legeværelse": ["light.legevaerelse", "light.uplight", "light.gulvlampe_i_legevaerelse"],
+  "Gangen": ["light.gangen"],
+  "Hjalte": ["light.hjaltes_vaerelse", "light.hjaltes_loftslampe", "light.nanoleaf_hjalte"],
+  "Emilio": ["light.emilios_vaerelse", "light.loftlampe_emilio"],
+  "Colin": ["light.colins_vaerelse", "light.lampe_colin", "light.loftlampe_colin", "light.colins_manelampe"],
+  "Pigernes stue": ["light.pigernes_stue"],
+  "Cornelie": ["light.cornelies_vaerelse", "light.gulvlampe_cornelie"],
+  "Nathalie": ["light.nathalies_vaerelse", "light.nathalies_loftslamper", "light.nathalies_sengelamper"],
+  "Badeværelser": ["light.badevaerelser_samlet", "light.badevaerelse_lille", "light.badevaerelse_stort"],
+  "Indgang": ["light.indgang", "light.loftlampe_i_indgang", "light.lys_over_skabe"],
+  "Havegang": ["light.havegang"]
+} %}
+
+# Macro that makes a Glance card
+# It takes a string that it uses to find the wanted room in the list of rooms
+{%- macro glance(room) %}
+        type: glance
+        show_state: false
+        entities:
+        # If the list contains more than 1 element
+        # Loop all elements - except the first,
+        # which is the enity of the entire room
+        # Call the macro entity with the pregiven string "room"
+        # and the current light
+        #
+        # else call the macro entity with the pregiven string "room"
+        # and the first element in the found list with the key "room"
+        {%- if (rooms[room] | length ) > 1 %}
+          {%- for light in rooms[room] %}
+            {%- if not loop.first -%}
+              {{ entity(room, light) }}
+            {%- endif %}
+          {%- endfor %}
+        {%- else -%}
+          {{ entity(room, rooms[room][0]) }}
+        {%- endif %}
+{% endmacro %}
+
+# Macro entity takes a string og the wanted room
+# and a entity of the given light
+#
+# The macro macro makes an enity and calls
+# the macro open_slider with the room
+{%- macro entity(room, light) %}
+          - entity: {{ light }}
+            tap_action:
+              action: toggle
+            hold_action:
+              {{ open_slider(room) }}
+            double_tap_action:
+              {{ open_slider(room) }}
+{% endmacro %}
+
+# open_slider takes a string with the wanted room
+{%- macro open_slider(room) -%}
+              action: call-service
+              service: browser_mod.popup
+              service_data:
+                title: Indstilling af lys
+                style:
+                  border-radius: 20px
+                  --ha-card-border-radius: 20px
+                card:
+                  type: entities
+                  # The title of the room
+                  title: {{ room }}
+                  show_header_toggle: true
+                  entities:
+                  # If the list contains more than 1 element
+                  # Loop all elements - except the first,
+                  # which is the enity of the entire room
+                  # Make a slider-entity- element with the given light
+                  #
+                  # else make a slider-entity- element with the
+                  # first element in the found list with the key "room"
+                  {%- if (rooms[room] | length ) > 1 %}
+                    {%- for light in rooms[room] %}
+                      {%- if not loop.first %}
+                    - type: custom:slider-entity-row
+                      entity: {{ light }}
+                      {%- endif %}
+                    {%- endfor %}
+                  {% else %}
+                    - type: custom:slider-entity-row
+                      entity: {{ rooms[room][0] }}
+                  {% endif %}  
+                deviceID:
+                  - this
+{%- endmacro %}
+
+# Stack the vertical
+type: custom:stack-in-card
+cards:
+  # input_select to choose the room
+  - type: entities
+    entities:
+      - input_select.room_light
+  # state-switch to change the card
+  - type: custom:state-switch
+    entity: input_select.room_light
+    states:
+      # Call the macro with the string
+      Køkken:
+        {{ glance("Køkken") }}
+      Stuen:
+        {{ glance("Stuen") }}
+      Legeværelse:
+        {{ glance("Legeværelse") }}
+      Gangen:
+        {{ glance("Gangen") }}
+      Hjalte:
+        {{ glance("Hjalte") }}
+      Emilio:
+        {{ glance("Emilio") }}
+      Colin:
+        {{ glance("Colin") }}
+      Pigernes stue:
+        {{ glance("Pigernes stue") }}
+      Cornelie:
+        {{ glance("Cornelie") }}
+      Nathalie:
+        {{ glance("Nathalie") }}
+      Badeværelser:
+        {{ glance("Badeværelser") }}
+      Indgang:
+        {{ glance("Indgang") }}
+      Havegang:
+        {{ glance("Havegang") }}

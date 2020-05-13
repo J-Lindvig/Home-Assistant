@@ -23,7 +23,8 @@ cards:
   - type: custom:layout-card
     layout: vertical
     max_columns: 3
-    max_width: [31%,35%,31%]
+    min_width: 33%
+    max_width: 99%
     cards:
       - !include
         - cards/room_lights/buttons.yaml

@@ -4,3 +4,6 @@ show_header_toggle: false
 entities:
   - sensor.affald_hentes
   - sensor.genbrug_hentes
+header:
+  type: picture
+  image: /local/images/headers/ffv.jpg

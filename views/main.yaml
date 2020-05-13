@@ -10,14 +10,16 @@ cards:
     max_width: 99%
     cards:
       - !include cards/main/transport.yaml
-      - !include cards/main/garbage.yaml
+      - !include cards/room_lights/glance.yaml
+      - break
+
+
+      - !include cards/main/people_home.yaml
+      - !include cards/main/slides/clock.yaml
+      - !include cards/main/slides.yaml
       - !include cards/main/vacuum.yaml
       - break
 
-      - !include cards/main/slides.yaml
-      - !include cards/main/people_home.yaml
-      - !include cards/gauges/greentel.yaml
-      - break
-
+      - !include cards/main/garbage.yaml
       - !include cards/weather/uv-index.yaml
       - !include cards/main/weather.yaml

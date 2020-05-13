@@ -1,0 +1,7 @@
+rm_3_mini:
+  remote:
+    - platform: broadlink
+      host: !secret RM_3_MINI_IP
+      mac: !secret RM_3_MINI_MAC
+      type: rm_mini
+      name: RM Mini 3 Stuen

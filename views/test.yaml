@@ -1,9 +1,55 @@
 # lovelace_gen
+
 {% set persons = ['Jacob', 'Rikke', 'Cornelie', 'Nathalie', 'Hjalte'] %}
+
+{% set rooms = {
+  "Køkken": ["light.kokken", "light.spisebord", "light.maleri", "light.legekokken", "light.kaffebar", "light.kokkeno", "light.kokkenskabe", "light.kokkenbord"]
+} %}
+
+{%- macro open_slider(room) -%}
+          action: call-service
+          service: browser_mod.popup
+          service_data:
+            title: Indstilling af lys
+            style:
+              border-radius: 20px
+              --ha-card-border-radius: 20px
+            card:
+              type: entities
+              title: {{ room }}
+              show_header_toggle: true
+              entities:
+              {%- for light in rooms[room] %}
+                {%- if not loop.first %}
+                - type: custom:slider-entity-row
+                  entity: {{ light }}
+                  #full_row: false
+                  toggle: true
+                {%- endif %}
+              {% endfor %}
+            deviceID:
+              - this
+{%- endmacro %}
+
 title: System
 icon: mdi:test-tube
 panel: false
 cards:
+
+  - type: glance
+    title: Køkken
+    show_state: false
+    columns: 4
+    entities:
+    {%- for light in rooms["Køkken"] %}
+      {%- if not loop.first %}
+      - entity: {{ light }}
+        tap_action:
+          action: toggle
+        hold_action:
+          {{ open_slider("Køkken") }}
+      {%- endif %}  
+    {%- endfor %}
 
   - type: custom:stack-in-card
     mode: horizontal
@@ -21,6 +67,7 @@ cards:
 
   - type: weather-forecast
     entity: weather.smhi_brobyvaerk
+    show_forecast: 7 days
 
   - type: custom:stack-in-card
     mode: horizontal
