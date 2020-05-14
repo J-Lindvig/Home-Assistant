@@ -1,0 +1,6 @@
+type: custom:card-templater
+entities:
+  - input_select.pictures
+card:
+  type: picture
+  image_template: "/local/images/slides/{{ states('input_select.pictures') }}"

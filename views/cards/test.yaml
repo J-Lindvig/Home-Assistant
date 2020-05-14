@@ -3,7 +3,6 @@ title: System
 icon: mdi:test-tube
 panel: false
 cards:
-
   - type: custom:stack-in-card
     mode: horizontal
     cards:

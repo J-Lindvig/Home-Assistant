@@ -2,13 +2,19 @@
     "CUSA00124": {
         "locked": false,
         "media_content_type": "app",
-        "media_image_url": "https://store.playstation.com/store/api/chihiro/00_09_000/container/DK/en/19/EP4345-CUSA00124_00-VIAPLAYFULLAPP00/1589245824000/image",
+        "media_image_url": "https://store.playstation.com/store/api/chihiro/00_09_000/container/DK/en/19/EP4345-CUSA00124_00-VIAPLAYFULLAPP00/1589418028000/image",
         "media_title": "Viaplay"
+    },
+    "CUSA00126": {
+        "locked": false,
+        "media_content_type": "app",
+        "media_image_url": "https://store.playstation.com/store/api/chihiro/00_09_000/container/DK/en/19/EP4183-CUSA00126_00-AIV00000000000EU/1589333465000/image",
+        "media_title": "Amazon Prime Video"
     },
     "CUSA00127": {
         "locked": false,
         "media_content_type": "app",
-        "media_image_url": "https://store.playstation.com/store/api/chihiro/00_09_000/container/DK/en/19/EP4350-CUSA00127_00-NETFLIXPOLLUX001/1588815266000/image",
+        "media_image_url": "https://store.playstation.com/store/api/chihiro/00_09_000/container/DK/en/19/EP4350-CUSA00127_00-NETFLIXPOLLUX001/1589333532000/image",
         "media_title": "Netflix"
     },
     "CUSA00411": {

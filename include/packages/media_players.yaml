@@ -8,3 +8,38 @@ media_players:
         - media_player.hjaltes_tv
         - media_player.pigernes_tv
         - media_player.sovetryne_tv
+
+  binary_sensor:
+    - platform: ping
+      host: 192.168.0.110
+      name: Vestel TV
+
+  script:
+    vestel_tv_switch:
+      sequence:
+        - service_template: >-
+            script.vestel_tv_{{ to_state }}
+
+    vestel_tv_on:
+      sequence:
+        - condition: state
+          entity_id: binary_sensor.vestel_tv
+          state: 'off'
+        - service: remote.send_command
+          data:
+            entity_id: remote.rm_mini_3
+            device: Vestel TV
+            command: Power
+        - wait_template: "{{ is_state('binary_sensor.vestel_tv', 'on') }}"
+
+    vestel_tv_off:
+      sequence:
+        - condition: state
+          entity_id: binary_sensor.vestel_tv
+          state: 'on'
+        - service: remote.send_command
+          data:
+            entity_id: remote.rm_mini_3
+            device: Vestel TV
+            command: Power
+        - wait_template: "{{ is_state('binary_sensor.vestel_tv', 'off') }}"
