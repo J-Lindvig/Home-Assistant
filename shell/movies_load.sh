@@ -63,40 +63,26 @@ load_all_movies() {
 # Load movie titles from txt file, form a JSON query
 # and send it to HomeAssistant
 load_movies() {
-  # Prepare the query
-  movie_query="{\"entity_id\":\"input_select.movie\",\"options\":["
-
-  # Initialize a counter
-  cnt=0
-  # Read every line with a movie title
-  while read movie_line; do
-    # add to counter
-    cnt=$((cnt+1))
-    # If this is the 2nd run, append a "," as delimiter
-    if [[ "$cnt" -gt 1 ]]; then
-      movie_query="$movie_query,"
-    fi
-    # Append the current title
-    movie_query="$movie_query\"$movie_line\""
-  done < $TEMP_PATH/movies_file
-  # Finalize the query
-  movie_query="$movie_query]}"
+  # prepare the query
+  #
+  # make a online, paste....
+  # replace the | with json
+  # finish the query
+  movie_query="{\"entity_id\":\"input_select.movie\",\"options\":[\"$(cat $TEMP_PATH/movies_file | paste -sd '|' - | sed 's/|/\",\"/g')\"]}"
 
   # Send the query wth a API call
   _send_data "$movie_query" "$BASE_URL$API_PATH$INPUT_SELECT"
 }
 
 load_movie_urls() {
-  movie_url_query="{\"entity_id\":\"input_select.movie_url\",\"options\":["
-  cnt=0
-  while read movie_url_line; do
-    cnt=$((cnt+1))
-    if [[ "$cnt" -gt 1 ]]; then
-      movie_url_query="$movie_url_query,"
-    fi
-    movie_url_query="$movie_url_query\"$NAS_MOVIE_URL${movie_url_line// /$'%20'}\""
-  done < $TEMP_PATH/movie_urls_file
-  movie_url_query="$movie_url_query]}"
+  # Prepare the query string
+  #
+  # Add NAS_MOVIE_URL at the begining of the line with "awk -v nas="$NAS_MOVIE_URL" '{print nas$0}'""
+  # Simple urlencode "sed 's/ /%20/g'"
+  # Make a oneliner separeted with | "paste -sd '|' - "
+  # Replace | with JSON delimiter "sed "s/|/\",\"/g""
+  # Finish the query
+  movie_url_query="{\"entity_id\":\"input_select.movie_url\",\"options\":[\"$(cat $TEMP_PATH/movie_urls_file | awk -v nas="$NAS_MOVIE_URL" '{print nas$0}' | sed 's/ /%20/g' | paste -sd '|' - | sed "s/|/\",\"/g")\"]}"
 
   _send_data "$movie_url_query" "$BASE_URL$API_PATH$INPUT_SELECT"
 }
@@ -104,16 +90,9 @@ load_movie_urls() {
 # Fetch the cover of the movie from iMDB
 # if no cover use the $UNKNOWN_COVER
 load_movie_covers() {
-  # Prepare the query
-  movie_cover_query="{\"entity_id\":\"input_select.movie_cover\",\"options\":["
-  cnt=0
-
   # Read the movietitles
   while read line; do
-    cnt=$((cnt+1))
-
     # Initialize the image file with the title and path
-#    file="$IMAGE_PATH$line.png"
     file="$IMAGE_PATH$line.jpg"
 
     # If the image is not present, then fetch the iMDB
@@ -139,13 +118,9 @@ load_movie_covers() {
       fi
     fi
 
-    if [[ "$cnt" -gt 1 ]]; then
-      movie_cover_query="$movie_cover_query,"
-    fi
-  
-    movie_cover_query="$movie_cover_query\"/local/$file\""
+    movie_cover_query="$movie_cover_query,\"/local/$file\""
   done < $TEMP_PATH/movies_file
-  movie_cover_query="$movie_cover_query]}"
+  movie_cover_query="{\"entity_id\":\"input_select.movie_cover\",\"options\":[${movie_cover_query:1}]}"
 
 _send_data "$movie_cover_query" "$BASE_URL$API_PATH$INPUT_SELECT"
 }
