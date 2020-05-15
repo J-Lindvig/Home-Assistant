@@ -37,7 +37,7 @@ source /config/shell_secrets.txt
 
 # CLEANUP
 _cleanup() {
-  rm -f $TEMP_PATH/tmp_file $TEMP_PATH/movies_file $TEMP_PATH/movie_urls_file $TEMP_PATH/cover_file $TEMP_PATH/chapters.txt
+  rm -f $TEMP_PATH/movies_tmp_file $TEMP_PATH/movies_file $TEMP_PATH/movie_urls_file $TEMP_PATH/movies_cover_file $TEMP_PATH/movies_chapters.txt
 }
 
 # INIT
@@ -46,11 +46,11 @@ _init() {
 
   # Fetch the HTML-page with the movies
   # adjust to your needs
-  curl $NAS_MOVIE_URL -o $TEMP_PATH/tmp_file
+  curl $NAS_MOVIE_URL -o $TEMP_PATH/movies_tmp_file
   
   # Store the movies and their URLs in 2 separate, but synchronized, files
-  grep "i_file.gif" $TEMP_PATH/tmp_file | cut -d'>' -f9 | cut -d'<' -f1 > $TEMP_PATH/movie_urls_file
-  grep "i_file.gif" $TEMP_PATH/tmp_file | cut -d'>' -f9 | cut -d'.' -f1 > $TEMP_PATH/movies_file
+  grep "i_file.gif" $TEMP_PATH/movies_tmp_file | cut -d'>' -f9 | cut -d'<' -f1 > $TEMP_PATH/movie_urls_file
+  grep "i_file.gif" $TEMP_PATH/movies_tmp_file | cut -d'>' -f9 | cut -d'.' -f1 > $TEMP_PATH/movies_file
 }
 
 load_all_movies() {
@@ -123,10 +123,10 @@ load_movie_covers() {
         --silent \
         --data-urlencode "s=tt" \
         --data-urlencode "q=$line" \
-        "https://www.imdb.com/find" -o $TEMP_PATH/cover_file
+        "https://www.imdb.com/find" -o $TEMP_PATH/movies_cover_file
 
       # Extract the URL of the primary image and change the dimensions
-      cover_url=`grep "primary_photo" $TEMP_PATH/cover_file | cut -d'>' -f4 | cut -d'=' -f2 | cut -d'"' -f2 | sed -r 's/V1_.*_AL/V1_UX400_CR0,0,400,566_AL/g'`
+      cover_url=`grep "primary_photo" $TEMP_PATH/movies_cover_file | cut -d'>' -f4 | cut -d'=' -f2 | cut -d'"' -f2 | sed -r 's/V1_.*_AL/V1_UX400_CR0,0,400,566_AL/g'`
 
       # If the URL is greater then 5 chars, then we found a URL
       # and we should now download it to the www folder
@@ -152,23 +152,23 @@ _send_data "$movie_cover_query" "$BASE_URL$API_PATH$INPUT_SELECT"
 
 load_timecodes() {
   # Initial cleanup
-  rm -f $TEMP_PATH/chapters.txt
+  rm -f $TEMP_PATH/movies_chapters.txt
 
-  # Extract the metadata from the given URL, store it in chapters.txt
-  ffmpeg -i $1 -f ffmetadata $TEMP_PATH/chapters.txt
+  # Extract the metadata from the given URL, store it in movies_chapters.txt
+  ffmpeg -i $1 -f ffmetadata $TEMP_PATH/movies_chapters.txt
 
   # Exctract the timebase - often 1/1000, but not allways
-  timebase=$(grep -m 1 "TIMEBASE" $TEMP_PATH/chapters.txt | cut -d'/' -f2)
+  timebase=$(grep -m 1 "TIMEBASE" $TEMP_PATH/movies_chapters.txt | cut -d'/' -f2)
 
   # Extract the timecodes ( Start of chapters) and divide it with the timebase
-  timecodes=$(grep "START" $TEMP_PATH/chapters.txt | cut -d'=' -f2 | awk -v t="$timebase" '{print $1/t}' | tr '\n' ',' | sed 's/.$//')
+  timecodes=$(grep "START" $TEMP_PATH/movies_chapters.txt | cut -d'=' -f2 | awk -v t="$timebase" '{print $1/t}' | tr '\n' ',' | sed 's/.$//')
 
   # Extract the end of the last chapter ( duration )
   # and divide it with the timebase
-  duration=$(tac $TEMP_PATH/chapters.txt | grep -m 1 "END" | cut -d'=' -f2 | awk -v t="$timebase" '{print $1/t}')
+  duration=$(tac $TEMP_PATH/movies_chapters.txt | grep -m 1 "END" | cut -d'=' -f2 | awk -v t="$timebase" '{print $1/t}')
 
   # Cleanup
-  rm -f $TEMP_PATH/chapters.txt
+  rm -f $TEMP_PATH/movies_chapters.txt
 
   # Append duration to timecode and echo it to the sensor
   echo $timecodes","$duration

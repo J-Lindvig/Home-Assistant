@@ -36,8 +36,6 @@ icon: mdi:test-tube
 panel: false
 cards:
 
-  - !include cards/main/slideshow.yaml
-
   - type: glance
     title: Køkken
     show_state: false

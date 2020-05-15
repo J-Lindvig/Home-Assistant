@@ -16,3 +16,11 @@ slides:
         - service: input_select.select_next
           data:
             entity_id: input_select.cards_to_slide
+
+  input_number:
+    slides_timeout:
+      name: Skift kort
+      initial: 15
+      min: 5
+      max: 300
+      step: 5

@@ -13,7 +13,6 @@ cards:
       - !include cards/room_lights/glance.yaml
       - break
 
-
       - !include cards/main/people_home.yaml
       - !include cards/main/slides/clock.yaml
       - !include cards/main/slides.yaml

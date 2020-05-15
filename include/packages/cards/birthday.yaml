@@ -7,8 +7,6 @@ birthday:
       date: "1976-03-10"
     - name: Cornelie & Nathalie fødselsdag
       date: "2003-08-22"
-#    - name: Nathalie fødselsdag
-#      date: "2003-08-22"
     - name: Hjalte fødselsdag
       date: "2007-03-22"
     - name: Emilio fødselsdag
@@ -22,14 +20,13 @@ birthday:
     birthdays:
       name: Fødselsdage
       entities:
-        - sensor.jacob_fodselsdag
-        - sensor.rikke_fodselsdag
-        - sensor.cornelie_nathalie_fodselsdag
-#        - sensor.nathalie_fodselsdag
-        - sensor.hjalte_fodselsdag
-        - sensor.emilio_fodselsdag
-        - sensor.colin_fodselsdag
-  
+        - anniversaries.anniversary_jacob_fodselsdag
+        - anniversaries.anniversary_rikke_fodselsdag
+        - anniversaries.anniversary_cornelie_nathalie_fodselsdag
+        - anniversaries.anniversary_hjalte_fodselsdag
+        - anniversaries.anniversary_emilio_fodselsdag
+        - anniversaries.anniversary_colin_fodselsdag
+
   sensor:
     - platform: template
       sensors:
