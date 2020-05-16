@@ -1,20 +1,28 @@
 garbage:
   garbage_collection:
     sensors:
-      - name: Affald
+      - name: Affald normal
         frequency: even-weeks
         collection_days:
           - wed
+        expire_after: "12:00"
       - name: Affald sommer
         frequency: odd-weeks
         first_month: jul
         last_month: aug
         collection_days:
           - wed
+        expire_after: "12:00"
       - name: Genbrug
         frequency: odd-weeks
         collection_days:
           - thu
+        expire_after: "16:00"
+      - name: Affald
+        frequency: group
+        entities:
+          - sensor.affald_normal
+          - sensor.affald_sommer
 
   sensor:
     - platform: template
@@ -23,43 +31,29 @@ garbage:
           friendly_name: "Affald:"
           icon_template: mdi:trash-can
           value_template: >-
-            {%- if states('sensor.affald') <= states('sensor.affald_sommer') %}
-              {%- set days = state_attr('sensor.affald', 'days') %}
-              {%- set next_date = state_attr('sensor.affald', 'next_date') %}
-            {%- else -%}
-              {% set days = state_attr('sensor.affald_sommer', 'days') %}
-              {% set next_date = state_attr('sensor.affald_sommer', 'next_date') %}
-            {%- endif -%}
-            {% if days == 0 %}
+            {% if state_attr('sensor.affald', 'days') == 0 %}
               i dag
-            {%- elif days == 1 %}
+            {%- elif state_attr('sensor.affald', 'days') == 1 %}
               i morgen
             {%- else -%}
-              {% set time_stamp = as_timestamp(next_date | regex_replace(":[0-9][0-9][0-9].*$","")) %}
-                om {{ ((time_stamp - as_timestamp(now())) / ( 60 * 60 * 24 )) | round(0, 'ceil') }} dage (
+              {% set time_stamp = as_timestamp(state_attr('sensor.affald', 'next_date') | regex_replace(":[0-9][0-9][0-9].*$","")) %}
+              om {{ ((time_stamp - as_timestamp(now())) / ( 60 * 60 * 24 )) | round(0, 'ceil') }} dage (
               {{- states("var.weekdays_dk").split(",")[time_stamp | timestamp_custom('%w') | int - 1] }}dag den {{ time_stamp | timestamp_custom('%-d.') }}{{ states("var.months_dk").split(",")[time_stamp | timestamp_custom('%-m') | int - 1] }})
             {%- endif -%}
           attribute_templates:
             days: >-
-              {%- if states('sensor.affald') <= states('sensor.affald_sommer') %}
-                {{ state_attr('sensor.affald', 'days') }}
-              {%- else -%}
-                {{ state_attr('sensor.affald_sommer', 'days') }}
-              {%- endif -%}
+              {{ state_attr('sensor.affald_test', 'days') }}
 
         genbrug_hentes:
           friendly_name: "Genbrug:"
           icon_template: mdi:recycle
           value_template: >-
-            {% set days = state_attr('sensor.genbrug', 'days') %}
-            {% set next_date = state_attr('sensor.genbrug', 'next_date') %}
-    
-            {% if days == 0 %}
+            {% if state_attr('sensor.genbrug', 'days') == 0 %}
               i dag
-            {%- elif days == 1 %}
+            {%- elif state_attr('sensor.genbrug', 'days') == 1 %}
               i morgen
             {%- else -%}
-              {% set time_stamp = as_timestamp(next_date | regex_replace(":[0-9][0-9][0-9].*$","")) %}
+              {% set time_stamp = as_timestamp(state_attr('sensor.genbrug', 'next_date') | regex_replace(":[0-9][0-9][0-9].*$","")) %}
               om {{ ((time_stamp - as_timestamp(now())) / ( 60 * 60 * 24 )) | round(0, 'ceil') }} dage (
               {{- states("var.weekdays_dk").split(",")[time_stamp | timestamp_custom('%w') | int - 1] }}dag den {{ time_stamp | timestamp_custom('%-d.') }}{{ states("var.months_dk").split(",")[time_stamp | timestamp_custom('%-m') | int - 1] }})
             {%- endif -%}
