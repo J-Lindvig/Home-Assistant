@@ -34,24 +34,61 @@
           position: absolute
           top: 2vh
           left: {{ x }}
-          --iron-icon-height: 3vh
-          --iron-icon-width: 3vh
+          color: "#ffffff"
+          font-size: 2.5vh
+          --iron-icon-height: 2.3vh
+          --iron-icon-width: 2.3vh
 {%- endmacro %}
 
-{%- macro open_settings() -%}
+{%- macro room_arrow(direction) -%}
+      - type: icon
+        icon: mdi:chevron-{{ direction }}-circle
+        style:
+          transform: translate(0%,-50%)
+          position: absolute
+          top: 6vh
+          {{ direction }}: 10%
+          color: "#222222"
+          --iron-icon-height: 4vh
+          --iron-icon-width: 4vh
+        tap_action:
           action: call-service
-          service: browser_mod.popup
+          service: input_select.select_{{ 'previous' if 'left' in direction else 'next' }}
           service_data:
-            title: Indstillinger
-            style:
-              border-radius: 20px
-              --ha-card-border-radius: 20px
-            card:
-              type: entities
-              entities:
-                - input_select.vacuum_room
-            deviceID:
-              - this
+            entity_id: input_select.vacuum_room
+{%- endmacro %}
+
+{%- macro vacuum_maintenance(name, entity, max) -%}
+          - entity: vacuum.r2_d2
+            name: {{ name }}
+            attribute: {{ entity }}
+            max: {{ max }}
+            tap_action:
+              action: call-service
+              service: browser_mod.popup
+              service_data:
+                title: Indstillinger
+                large: false
+                style:
+                  border-radius: 20px
+                  --ha-card-border-radius: 20px
+                card:
+                  type: custom:stack-in-card
+                  cards:
+                    - type: entities
+                      entities:
+                        - switch.vacuum_dnd
+                        - type: custom:stack-in-card
+                          mode: horizontal
+                          cards:
+                            - type: custom:time-picker-card
+                              entity: input_datetime.vacuum_dnd_start
+                              name: Start
+                            - type: custom:time-picker-card
+                              entity: input_datetime.vacuum_dnd_end
+                              name: Slut
+                deviceID:
+                  - this
 {%- endmacro %}
 
 type: custom:stack-in-card
@@ -60,6 +97,7 @@ cards:
     image: /local/images/vacuum.png
     elements:
 
+      # Vacuum suction power - tap to increase 
       - type: custom:bar-card
         entity: sensor.vacuum_fan_speed
         direction: up
@@ -78,6 +116,8 @@ cards:
           right: 2.5%
           position: absolute
           transform: translate(0%,-50%)
+          font-size: 2.3vh
+          text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black
         tap_action:
           action: call-service
           service: input_select.select_next
@@ -86,25 +126,13 @@ cards:
 
       - type: custom:bar-card
         entities:
-          - entity: vacuum.r2_d2
-            name: Sensorer
-            attribute: sensor_dirty_left
-            max: 30
-          - entity: vacuum.r2_d2
-            name: Filter
-            attribute: filter_left
-            max: 150
-          - entity: vacuum.r2_d2
-            name: Børste
-            attribute: main_brush_left
-            max: 300
-          - entity: vacuum.r2_d2
-            name: Filter
-            attribute: side_brush_left
-            max: 200
+          {{ vacuum_maintenance("Sensorer", "sensor_dirty_left", 30) }}
+          {{ vacuum_maintenance("Filter", "filter_left", 150) }}
+          {{ vacuum_maintenance("Børste", "main_brush_left", 300) }}
+          {{ vacuum_maintenance("Sidebørste", "side_brush_left", 200) }}
         entity_row: true
         width: 7vw
-        height: 3vh
+        height: 3.3vh
         color: "#222222"
         positions:
           icon: off
@@ -115,6 +143,7 @@ cards:
           left: 0%
           position: absolute
           transform: translate(0%,-50%)
+          text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black
 
       # STATE
       - type: state-label
@@ -131,43 +160,30 @@ cards:
           {{ banner_background() }}
 
       # ROOM
-      - type: icon
-        icon: mdi:chevron-left-circle
-        style:
-          top: 6.5vh
-          left: 20%
-          color: "#222222"
-          font-size: 4vh
-          font-weight: bold
-        tap_action:
-          action: call-service
-          service: input_select.select_previous
-          service_data:
-            entity_id: input_select.vacuum_room
-      - type: icon
-        icon: mdi:chevron-right-circle
-        style:
-          top: 6.5vh
-          left: 80%
-          color: "#222222"
-          font-size: 4vh
-          font-weight: bold
-        tap_action:
-          action: call-service
-          service: input_select.select_next
-          service_data:
-            entity_id: input_select.vacuum_room
-
+      {{ room_arrow("left") }}
+      {{ room_arrow("right") }}
       - type: state-label
         entity: input_select.vacuum_room
         style:
-          top: 6.5vh
+          top: 6vh
           left: 50%
           color: "#222222"
           font-size: 4vh
           font-weight: bold
         tap_action:
-          {{ open_settings() }}
+          action: call-service
+          service: browser_mod.popup
+          service_data:
+            title: Vælg rum
+            style:
+              border-radius: 20px
+              --ha-card-border-radius: 20px
+            card:
+              type: entities
+              entities:
+                - input_select.vacuum_room
+            deviceID:
+              - this
 
       {{ top_icon("state-icon", "sensor.vacuum_battery", "80%") }}
       {{ top_icon("state-label", "sensor.vacuum_battery", "85%") }}

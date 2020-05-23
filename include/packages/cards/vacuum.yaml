@@ -32,12 +32,7 @@ vacuum:
         vacuum_fan_speed:
           entity_id: sensor.vacuum_r2_d2
           friendly_name_template: "{{ state_attr('sensor.vacuum_r2_d2', 'fan_speed') }}"
-          value_template: >-
-            {%- for needle in state_attr('vacuum.r2_d2', 'fan_speed_list') %}
-              {%- if needle == state_attr("vacuum.r2_d2", "fan_speed") %}
-                {{ loop.index0 }}
-              {% endif %}
-            {%- endfor %}
+          value_template: "{{ state_attr('sensor.vacuum_r2_d2', 'fan_speed_index') }}"
 
         vacuum_r2_d2:
           entity_id: vacuum.r2_d2
@@ -73,7 +68,13 @@ vacuum:
                 {% endif %}
               {%- endfor %}
             fan_speed: >-
-              {{ state_attr('input_select.vacuum_power', "options")[states('sensor.vacuum_fan_speed') | int] }}
+              {% set ns = namespace(index=0) -%}
+              {%- for needle in state_attr('vacuum.r2_d2', 'fan_speed_list') %}
+                {%- if needle == state_attr("vacuum.r2_d2", "fan_speed") %}
+                  {% set ns.index = loop.index0 %}
+                {% endif %}
+              {%- endfor %}
+              {{ state_attr('input_select.vacuum_power', "options")[ns.index] }}
             status: >-
               {%- if is_state_attr("vacuum.r2_d2", "status", "Charging") and is_state_attr("vacuum.r2_d2", "battery_level", 100) -%}
                 Opladt
@@ -90,6 +91,20 @@ vacuum:
               {%- else -%}
                 {{ state_attr("vacuum.r2_d2", "status") }}
               {%- endif -%}
+
+  switch:
+    - platform: template
+      switches:
+        vacuum_dnd:
+          friendly_name: "DND støvsuger "
+          value_template: "{{ state_attr('vacuum.r2_d2', 'do_not_disturb') }}"
+          turn_on:
+            service: script.vacuum_save_dnd
+          turn_off:
+            service: rest_command.vacuum_command
+            data:
+              entity: vacuum.r2_d2
+              command: close_dnd_timer
 
   input_select:
     vacuum_room:
@@ -110,7 +125,7 @@ vacuum:
         - Pigernes stue m.m.
         - Nathalies værelse
         - Cornelies værelse
-  
+
     vacuum_power:
       name: "Vælg sugestyrke"
       icon: mdi:fan
@@ -120,16 +135,44 @@ vacuum:
         - Medium
         - Turbo
 
+  input_datetime:
+    vacuum_dnd_start:
+      name: Vacuum DND start
+      has_date: false
+      has_time: true
+      initial: "22:00"
+    vacuum_dnd_end:
+      name: Vacuum DND end
+      has_date: false
+      has_time: true
+      initial: "08:00"
+
   script:
+    # Save DND timer
+    vacuum_save_dnd:
+      alias: "Gem DND timer"
+      sequence:
+        - service: rest_command.vacuum_command
+          data_template:
+            entity: vacuum.r2_d2
+            command: set_dnd_timer
+            params: >-
+              {%- set start_h = states('input_datetime.vacuum_dnd_start')[1:2] if states('input_datetime.vacuum_dnd_start')[:2].startswith('0') else states('input_datetime.vacuum_dnd_start')[:2] -%}
+              {%- set start_m = states('input_datetime.vacuum_dnd_start')[4:-3] if states('input_datetime.vacuum_dnd_start')[3:-3].startswith('0') else states('input_datetime.vacuum_dnd_start')[3:-3] -%}
+              {%- set end_h = states('input_datetime.vacuum_dnd_end')[1:2] if states('input_datetime.vacuum_dnd_end')[:2].startswith('0') else states('input_datetime.vacuum_dnd_end')[:2] -%}
+              {%- set end_m = states('input_datetime.vacuum_dnd_end')[4:-3] if states('input_datetime.vacuum_dnd_end')[3:-3].startswith('0') else states('input_datetime.vacuum_dnd_end')[3:-3] -%}
+              {{ start_h }}, {{ start_m }}, {{ end_h }}, {{ end_m }}
+
     # Start room-cleaning
     vacuum_room_start:
       alias: "Støvsug rum"
       sequence:
-        - service: rest_command.clean_room
+        - service: rest_command.vacuum_command
           data_template:
             entity: vacuum.r2_d2
+            command: app_segment_clean
             # Find the selected room and use the index to find the room number
-            room: >-
+            params: >-
               {%- for room in state_attr("input_select.vacuum_room", "options") -%}
                 {%- if room == states("input_select.vacuum_room") -%}
                   {{ states("var.vacuum_room_ids").split(",")[loop.index0] }}
@@ -155,16 +198,26 @@ vacuum:
               "{{ state_attr("vacuum.r2_d2", "friendly_name") }} er klar til at blive serviceret..."
 
   rest_command:
-    clean_room:
+    vacuum_command:
       url: !secret VACUUM_API
       method: POST
       headers:
         authorization: !secret VACUUM_API_TOKEN
         accept: 'application/json'
-      payload: '{ "entity_id": "{{ entity }}", "command": "app_segment_clean", "params": [{{ room }}] }'
+      payload: '{ "entity_id": "{{ entity }}", "command": "{{ command }}", "params": [{{ params }}] }'
       content_type: 'application/json'
 
   automation:
+    # The DND has changed - send it to the vacuum
+    - alias: "Skift DND på støvsugeren"
+      trigger:
+        platform: state
+        entity_id:
+          - input_datetime.vacuum_dnd_start
+          - input_datetime.vacuum_dnd_end
+      action:
+        - service: script.vacuum_save_dnd
+
     # Send the new suction setting to the vacuum
     - alias: "Skift sugestyrke på støvsugeren"
       trigger:
@@ -192,7 +245,6 @@ vacuum:
     - alias: "Match suge-menuen til støvsugeren"
       trigger:
         # Trigger - new suction
-        # and at start of HA
         - platform: state
           entity_id: sensor.vacuum_fan_speed
       action:
@@ -207,16 +259,24 @@ vacuum:
                 {{ state_attr("input_select.vacuum_power", "options")[ loop.index0] }}
                 {% endif %}
               {%- endfor %}
-        - service: homeassistant.update_entity
-          data:
-            entity_id: sensor.vacuum_fan_speed
+#        - service: homeassistant.update_entity
+#          data:
+#            entity_id: sensor.vacuum_fan_speed
 
     # Set default fanspeed at startup
-    - alias: "Indstil standard sugestyrke"
+    - alias: "Indstil støvsugeren"
       trigger:
         - platform: homeassistant
           event: start
       action:
+        - service: input_datetime.set_datetime
+          data_template:
+            entity_id: input_datetime.vacuum_dnd_start
+            time: "{{ state_attr('vacuum.r2_d2', 'do_not_disturb_start') }}"
+        - service: input_datetime.set_datetime
+          data_template:
+            entity_id: input_datetime.vacuum_dnd_end
+            time: "{{ state_attr('vacuum.r2_d2', 'do_not_disturb_end') }}"
         - service: vacuum.set_fan_speed
           data_template:
             entity_id: vacuum.r2_d2

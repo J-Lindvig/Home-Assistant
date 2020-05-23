@@ -26,6 +26,9 @@
 {%- macro glance(room) %}
         type: glance
         show_state: false
+        {%- if (rooms[room] | length) > 4 %}
+        columns: 4
+        {%- endif %}
         entities:
         # If the list contains more than 1 element
         # Loop all elements - except the first,
