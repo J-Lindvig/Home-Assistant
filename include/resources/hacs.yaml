@@ -25,6 +25,8 @@
   url: /hacsfiles/lovelace-gap-card/gap-card.js
 - type: module
   url: /hacsfiles/gauge-card/gauge-card.js
+- type: module
+  url: /hacsfiles/lovelace-gui-sandbox/gui-sandbox.js
   
 #### L
 - type: module

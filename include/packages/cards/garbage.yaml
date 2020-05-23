@@ -5,6 +5,7 @@ garbage:
         frequency: even-weeks
         collection_days:
           - wed
+        move_country_holidays: DK
         expire_after: "12:00"
       - name: Affald sommer
         frequency: odd-weeks
@@ -12,11 +13,13 @@ garbage:
         last_month: aug
         collection_days:
           - wed
+        move_country_holidays: DK
         expire_after: "12:00"
       - name: Genbrug
         frequency: odd-weeks
         collection_days:
           - thu
+        move_country_holidays: DK
         expire_after: "16:00"
       - name: Affald
         frequency: group

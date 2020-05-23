@@ -27,9 +27,10 @@ homeassistant:
 logger:
   default: error
   logs:
-    homeassistant.components.script: debug
-    homeassistant.components.automation: debug
+    homeassistant.components.script: error
+    homeassistant.components.automation: error
     homeassistant.core: fatal
+    homeassistant.components.mqtt: debug
 
 lovelace:
   mode: yaml
@@ -40,6 +41,8 @@ lovelace_gen:
 #### R
 recorder:
   db_url: !secret MYSQL_URL
+  purge_keep_days: 7
+  auto_purge: true
 
 remote_homeassistant:
   instances:
@@ -72,3 +75,6 @@ tuya:
 
 #### V
 var: !include_dir_merge_named include/variables/
+
+#### W
+wake_on_lan:

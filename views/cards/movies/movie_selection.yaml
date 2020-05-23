@@ -1,3 +1,4 @@
 type: entities
 entities:
+  - input_select.movie_letter
   - input_select.movie

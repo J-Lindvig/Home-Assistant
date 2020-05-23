@@ -36,6 +36,8 @@ icon: mdi:test-tube
 panel: false
 cards:
 
+  - type: custom:gui-sandbox
+
   - type: glance
     title: Køkken
     show_state: false

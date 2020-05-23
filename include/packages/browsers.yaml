@@ -18,10 +18,9 @@ browsers:
         name: PC-J-Lindvig-Linux
 
   shell_command:
-    touchscreen_off: "source /config/shell/shell/tools.sh; screen_toggle off"
+    touchscreen_off: "source /config/shell/tools.sh; screen_toggle off"
     touchscreen_on: "source /config/shell/tools.sh; screen_toggle on"
     touchscreen_suspend: "source /config/shell/tools.sh; screen_suspend"
-    ssh_test: "source /config/shell/tools.sh; ssh_test"
 
   automation:
     - alias: "Update prev_path_touchpanel"

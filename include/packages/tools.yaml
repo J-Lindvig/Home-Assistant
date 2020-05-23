@@ -1,5 +1,8 @@
 tools:
 
+  shell_command:
+    shell_test: "source /config/shell/tools.sh; shell_test"
+
   rest_command:
     set_options_fix:
       url: !secret DYNAMIC_LIST_URL
@@ -9,6 +12,15 @@ tools:
         accept: "application/json"
         content-type: "application/json"
       payload: '{{ payload }}'
+
+    create_boolean:
+      url: "http://192.168.0.12:8123/api/states/input_boolean.{{ entity }}"
+      method: POST
+      headers:
+        authorization: !secret API_TOKEN
+        accept: "application/json"
+        content-type: "application/json"
+      payload: "{{ payload }}"
 
   script:
     # Find selected value and selects the value at same index in another list

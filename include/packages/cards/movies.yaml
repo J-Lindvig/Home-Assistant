@@ -42,6 +42,14 @@ movies:
       options:
         - DUMMY
 
+    # Dropdown with first char of movietitle
+    # VISIBLE
+    movie_letter:
+      name: "Filmens forbogstav"
+      icon: mdi:alphabetical
+      options:
+        - DUMMY
+
     # List of synchronized URLs of the movies
     # HIDDEN
     movie_url:
@@ -172,6 +180,24 @@ movies:
     movies_load_all: "source /config/shell/movies_load.sh; load_all_movies"
 
   automation:
+    # Have chosed a letter
+    - alias: "Valgt bogstav"
+      trigger:
+        - platform: state
+          entity_id: input_select.movie_letter
+      action:
+        - service: input_select.select_option
+          data_template:
+            entity_id: input_select.movie
+            option: >-
+              {%- set ns = namespace(char=states('input_select.movie_letter')) -%}
+              {%- for movie in state_attr('input_select.movie', 'options') -%}
+                {%- if (movie | list | first) == ns.char -%}
+                  {{ movie }}
+                  {%- set ns.char = "" -%}
+                {%- endif %}
+              {%- endfor %}
+
     # Chapter changed
     # Find the corresponding timecode and seek in the movie
     - alias: "Kapitel skift"
@@ -218,6 +244,12 @@ movies:
           data:
             haystack: "input_select.movie"
             result_list: "input_select.movie_cover"
+
+        # Sync the lettet dropdown
+        - service: input_select.select_option
+          data_template:
+            entity_id: input_select.movie_letter
+            option: "{{ states('input_select.movie') | list | first }}"
 
         # Extract the timecodes from the movie file
         - service: homeassistant.update_entity

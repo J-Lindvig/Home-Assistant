@@ -2,6 +2,14 @@
 
 source /config/shell_secrets.txt
 
+function file_exists_web(){
+  if [[ `wget --max-redirect=0 -S --spider "$1"  2>&1 | grep 'HTTP/1.1 200 OK'` ]]; then
+    return 0
+  else
+    return 1
+  fi
+}
+
 # DUCKDNS
 duckdns_update() {
   curl "https://www.duckdns.org/update?domains=$DUCKDNS_DOMAINS&token=$DUCKDNS_TOKEN&ip="
@@ -13,40 +21,15 @@ screen_toggle() {
 }
 
 screen_suspend () {
-  PID=$$
-  ssh $TOUCHPANEL_SSH -E SSH_Log.log "echo $SUDO_PASSWORD | sudo -S systemctl suspend"
-  sleep 2
-  kill $PID
+#  PID=$$
+#  ssh $TOUCHPANEL_SSH "echo $SUDO_PASSWORD | sudo -S systemctl suspend"
+  ssh $TOUCHPANEL_SSH "echo $SUDO_PASSWORD | sudo -S pm-suspend"
+#  sleep 2
+#  kill $PID
 }
 
-ssh_test() {
-  rm -f $TEMP_PATH/tmp_file $TEMP_PATH/dates_file $TEMP_PATH/events_file $TEMP_PATH/combined_file
-  
-  curl https://designflag.dk/om-flag/flagdage/ -o $TEMP_PATH/tmp_file
-  
-  YEAR=$(grep "<h1>Officielle flagdage 2020</h1>" $TEMP_PATH/tmp_file | cut -d' ' -f3 | cut -d'<' -f1)
- 
-  grep '<td style="text-align: left;" valign="top" width="102">\|<td style="text-align: left;" valign="top" width="550">' $TEMP_PATH/tmp_file | cut -d'>' -f2 | cut -d'<' -f1 | awk 'NF' | sed '{N; s/\n/|/}' > $TEMP_PATH/combined_file
-  
-  day=$(echo "26. maj 2020" | cut -d'.' -f1); month=$(echo "26. maj 2020" | cut -d' ' -f2); if [ "$month" = "maj" ]; then month=5; fi; date -d "2020-$month-$day" +"%s"
-  
-#  grep -E '<td style="text-align: left;" valign="top" width="102">[0-9].*</td>' $TEMP_PATH/tmp_file | cut -d'>' -f2 | cut -d'<' -f1 > $TEMP_PATH/dates_file
-  
-#  grep -E '<td style="text-align: left;" valign="top" width="550">.*</td>' $TEMP_PATH/tmp_file | cut -d'>' -f2 | cut -d'<' -f1 | awk 'NF' > $TEMP_PATH/events_file
- 
-#  paste -d '\n' $TEMP_PATH/dates_file $TEMP_PATH/events_file > $TEMP_PATH/combined_file
-  
-#  cnt=0
-  # QUERY="{\"entity_id\": \"sensor.flag_days_DK\", \"events\": [ {"
-  #   while read line; do
-  #     cnt=$((cnt+1))
-  #     if [[ "$cnt" -gt 2 ]]; then
-  #       query="$query,\"$l\""
-  #     fi
-  #   done < "$d"
-  #   query="$query}"
-
-#    _send_data "$query" "$2"
+shell_test() {
+  whoami > whoami
 }
 
 # SELECT
@@ -109,6 +92,14 @@ _send_data() {
   -d "$1" \
   $2
 }
+
+_get_states() {
+  curl -X GET \
+  -H "Authorization: Bearer $APITOKEN" \
+  -H "Content-Type: application/json" \
+  $BASE_URL$API_STATES_PATH/input_select.vacuum_room
+}
+
 
 # Greentel
 get_greentel() {

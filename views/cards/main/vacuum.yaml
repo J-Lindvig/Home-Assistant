@@ -1,25 +1,13 @@
 # lovelace_gen
-{% macro vacuum_attribute_element(entity, attribute, prefix, suffix, top, x, side) -%}
-      - type: custom:state-attribute-element
-        entity: {{ entity }}
-        attribute: {{ attribute }}
-        {% if prefix | length -%}prefix: "{{ prefix }}: "{%- endif %}
-        {% if suffix | length -%}suffix: " {{ suffix }}"{%- endif %}
-        style:
-          top: {{ top }}
-          {{ side }}: {{ x }}
-          color: '#ffffff'
-          transform: translate(0%,-50%)
-          font-size: 2.4vh
-          font-weight: bold
-          text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black
-          border-{{ side }}-style: solid
-          border-color: '#222222'
-          padding-{{ side }}: 0.5vw
-          line-height: 6vh
+{% macro banner_background() -%}
+          padding-left: 50%
+          padding-right: 50%
+          border-color: rgb(34, 154, 210)
+          border-radius: 6px
+          background-color: rgba(34, 34, 34, 0.5)
 {%- endmacro %}
 
-{% macro vacuum_button_bottom(icon, x, service, entity) -%}
+{% macro bottom_button(icon, x, service, entity) -%}
       - type: icon
         icon: {{ icon }}
         tap_action:
@@ -38,6 +26,18 @@
           --iron-icon-width: 3vh
 {%- endmacro %}
 
+{% macro top_icon(type, entity_or_icon, x) -%}
+      - type: {{ type }}
+        {{ 'icon: ' if 'mdi:' in entity_or_icon else 'entity: ' }}{{ entity_or_icon }}
+        style:
+          transform: translate(0%,-50%)
+          position: absolute
+          top: 2vh
+          left: {{ x }}
+          --iron-icon-height: 3vh
+          --iron-icon-width: 3vh
+{%- endmacro %}
+
 {%- macro open_settings() -%}
           action: call-service
           service: browser_mod.popup
@@ -50,27 +50,8 @@
               type: entities
               entities:
                 - input_select.vacuum_room
-                - type: custom:state-attribute-element
-                  entity: sensor.vacuum_r2_d2
-                  attribute: fan_speed
-                - type: custom:slider-entity-row
-                  entity: input_select.vacuum_power
-                  full_row: true
-                  hide_state: true
             deviceID:
               - this
-{%- endmacro %}
-
-{% macro top_icon(type, entity_or_icon, x) -%}
-      - type: {{ type }}
-        {{ 'icon: ' if 'mdi:' in entity_or_icon else 'entity: ' }}{{ entity_or_icon }}
-        style:
-          top: 1.8vh
-          left: {{ x }}
-          --iron-icon-height: 3vh
-          --iron-icon-width: 3vh
-        tap_action:
-          {{ open_settings() }}
 {%- endmacro %}
 
 type: custom:stack-in-card
@@ -79,17 +60,61 @@ cards:
     image: /local/images/vacuum.png
     elements:
 
-      # ROOM
-      - type: state-label
-        entity: input_select.vacuum_room
+      - type: custom:bar-card
+        entity: sensor.vacuum_fan_speed
+        direction: up
+        entity_row: true
+        width: 6.5vw
+        height: 15vh
+        color: "#222222"
+        min: 0
+        max: 3
+        positions:
+          icon: off
+          name: inside
+          value: off
         style:
-          top: 6.5vh
-          left: 50%
-          color: "#222222"
-          font-size: 4vh
-          font-weight: bold
+          top: 52%
+          right: 2.5%
+          position: absolute
+          transform: translate(0%,-50%)
         tap_action:
-          {{ open_settings() }}
+          action: call-service
+          service: input_select.select_next
+          service_data:
+            entity_id: input_select.vacuum_power
+
+      - type: custom:bar-card
+        entities:
+          - entity: vacuum.r2_d2
+            name: Sensorer
+            attribute: sensor_dirty_left
+            max: 30
+          - entity: vacuum.r2_d2
+            name: Filter
+            attribute: filter_left
+            max: 150
+          - entity: vacuum.r2_d2
+            name: Børste
+            attribute: main_brush_left
+            max: 300
+          - entity: vacuum.r2_d2
+            name: Filter
+            attribute: side_brush_left
+            max: 200
+        entity_row: true
+        width: 7vw
+        height: 3vh
+        color: "#222222"
+        positions:
+          icon: off
+          name: inside
+          value: off
+        style:
+          top: 50%
+          left: 0%
+          position: absolute
+          transform: translate(0%,-50%)
 
       # STATE
       - type: state-label
@@ -103,34 +128,53 @@ cards:
           font-size: 3vh
           line-height: 2vh
           text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black
-          padding-left: 50%
-          padding-right: 50%
-          border-color: rgb(34, 154, 210)
-          border-radius: 6px
-          background-color: rgba(34, 34, 34, 0.5)
+          {{ banner_background() }}
 
-      {{ top_icon("icon", "mdi:floor-plan", "10%") }}
-      {{ top_icon("icon", "mdi:fan", "85%") }}
-      {{ top_icon("state-icon", "sensor.vacuum_fan_speed", "90%") }}
+      # ROOM
+      - type: icon
+        icon: mdi:chevron-left-circle
+        style:
+          top: 6.5vh
+          left: 20%
+          color: "#222222"
+          font-size: 4vh
+          font-weight: bold
+        tap_action:
+          action: call-service
+          service: input_select.select_previous
+          service_data:
+            entity_id: input_select.vacuum_room
+      - type: icon
+        icon: mdi:chevron-right-circle
+        style:
+          top: 6.5vh
+          left: 80%
+          color: "#222222"
+          font-size: 4vh
+          font-weight: bold
+        tap_action:
+          action: call-service
+          service: input_select.select_next
+          service_data:
+            entity_id: input_select.vacuum_room
 
-      # Left side
-      {{ vacuum_attribute_element("sensor.vacuum_r2_d2", "status", "Status", "",  "60%", "2px", "left") }}
-      {{ vacuum_attribute_element("sensor.vacuum_r2_d2", "battery_level", "Batteri", "%", "45%", "2px", "left") }}
-      {{ vacuum_attribute_element("sensor.vacuum_r2_d2", "fan_speed", "Sugestyrke", "", "75%", "2px", "left") }}
+      - type: state-label
+        entity: input_select.vacuum_room
+        style:
+          top: 6.5vh
+          left: 50%
+          color: "#222222"
+          font-size: 4vh
+          font-weight: bold
+        tap_action:
+          {{ open_settings() }}
 
-      # Right side
-      {{ vacuum_attribute_element("sensor.vacuum_r2_d2", "main_brush_left", "Børste", "t", "65%", "2px", "right") }}
-      {{ vacuum_attribute_element("sensor.vacuum_r2_d2", "side_brush_left", "Sidebørste", "t", "75%", "2px", "right") }}
-      {{ vacuum_attribute_element("sensor.vacuum_r2_d2", "filter_left", "Filter", "t", "55%", "2px", "right") }}
-      {{ vacuum_attribute_element("sensor.vacuum_r2_d2", "sensor_dirty_left", "Sensor", "t", "45%", "2px", "right") }}
+      {{ top_icon("state-icon", "sensor.vacuum_battery", "80%") }}
+      {{ top_icon("state-label", "sensor.vacuum_battery", "85%") }}
 
-      {{ vacuum_button_bottom("mdi:broom", "50%", "vacuum.start", "vacuum.r2_d2") }}
-          padding-left: 50%
-          padding-right: 50%
-          border-color: rgb(34, 154, 210)
-          border-radius: 6px
-          background-color: rgba(34, 34, 34, 0.5)
-      {{ vacuum_button_bottom("mdi:play", "10%", "script.turn_on", "script.vacuum_room_start") }}
-      {{ vacuum_button_bottom("mdi:stop", "30%", "vacuum.stop", "vacuum.r2_d2") }}
-      {{ vacuum_button_bottom("mdi:home-map-marker", "70%", "vacuum.return_to_base", "vacuum.r2_d2") }}
-      {{ vacuum_button_bottom("mdi:wrench", "90%", "script.turn_on", "script.vacuum_service") }}
+      {{ bottom_button("mdi:broom", "50%", "vacuum.start", "vacuum.r2_d2") }}
+          {{ banner_background() }}
+      {{ bottom_button("mdi:play", "10%", "script.turn_on", "script.vacuum_room_start") }}
+      {{ bottom_button("mdi:stop", "30%", "vacuum.stop", "vacuum.r2_d2") }}
+      {{ bottom_button("mdi:home-map-marker", "70%", "vacuum.return_to_base", "vacuum.r2_d2") }}
+      {{ bottom_button("mdi:wrench", "90%", "script.turn_on", "script.vacuum_service") }}

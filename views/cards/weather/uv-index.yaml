@@ -2,6 +2,7 @@ type: custom:mini-graph-card
 name: UV-index
 align_state: center
 hour24: true
+hours_to_show: 12
 decimals: 2
 font_size: 200
 font_size_header: 24
