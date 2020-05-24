@@ -2,6 +2,19 @@
 ####             Vacuum Package by J-Lindvig            ####
 ############################################################
 #
+# FUNCTIONS:
+# ----------------------------------------------------------
+# + Cleaning in specified room ( must be supported on vacuum)
+#   + Soon multiple rooms in one go.
+# + All-house cleaning
+# + Stop current operation
+# + Go back to the dock
+# + Go to a point for emptying the dustbin
+# + Adjust fanspeed and synchronize it with vacuum
+# + Dis/enable DND
+# + Adjust DND timers
+# + Show ( and soon reset ) maintenance
+#
 # PLUGINS:
 # ----------------------------------------------------------
 # - variable (https://github.com/snarky-snark/home-assistant-variables)
@@ -51,6 +64,35 @@ vacuum:
     # default fan speed
     vacuum_default_fanspeed:
       initial_value: "102"
+
+  input_select:
+    vacuum_room:
+      name: "Vælg rum"
+      icon: mdi:floor-plan
+      options:
+        - Køkken
+        - Legeværelse
+        - Soveværelse
+        - Stuen
+        - Indgang
+        - Gangen
+        - Lille badeværelse
+        - Stort badeværelse
+        - Colins værelse
+        - Emilios værelse
+        - Williams værelse
+        - Pigernes stue m.m.
+        - Nathalies værelse
+        - Cornelies værelse
+
+    vacuum_power:
+      name: "Vælg sugestyrke"
+      icon: mdi:fan
+      options:
+        - Stille
+        - Standard
+        - Medium
+        - Turbo
 
   sensor:
     # Template sensors to aid in the use of the vacuum
@@ -150,35 +192,6 @@ vacuum:
             data:
               entity: vacuum.r2_d2
               command: close_dnd_timer
-
-  input_select:
-    vacuum_room:
-      name: "Vælg rum"
-      icon: mdi:floor-plan
-      options:
-        - Køkken
-        - Legeværelse
-        - Soveværelse
-        - Stuen
-        - Indgang
-        - Gangen
-        - Lille badeværelse
-        - Stort badeværelse
-        - Colins værelse
-        - Emilios værelse
-        - Williams værelse
-        - Pigernes stue m.m.
-        - Nathalies værelse
-        - Cornelies værelse
-
-    vacuum_power:
-      name: "Vælg sugestyrke"
-      icon: mdi:fan
-      options:
-        - Stille
-        - Standard
-        - Medium
-        - Turbo
 
   input_datetime:
     vacuum_dnd_start:

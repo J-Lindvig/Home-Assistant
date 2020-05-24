@@ -1,4 +1,16 @@
 # lovelace_gen
+############################################################
+####            Vacuum Lovelace by J-Lindvig            ####
+############################################################
+
+# PLUGINS:
+#
+# Lovelace_gen (https://github.com/thomasloven/hass-lovelace_gen)
+# Browser_mod (https://github.com/thomasloven/hass-browser_mod)
+# Bar-Card (https://github.com/custom-cards/bar-card)
+
+#### MACROS BEGIN
+# Background in top/bottom
 {% macro banner_background() -%}
           padding-left: 50%
           padding-right: 50%
@@ -7,6 +19,7 @@
           background-color: rgba(34, 34, 34, 0.5)
 {%- endmacro %}
 
+# Button on the bottom
 {% macro bottom_button(icon, x, service, entity) -%}
       - type: icon
         icon: {{ icon }}
@@ -26,6 +39,7 @@
           --iron-icon-width: 3vh
 {%- endmacro %}
 
+# Icon or element on the top
 {% macro top_icon(type, entity_or_icon, x) -%}
       - type: {{ type }}
         {{ 'icon: ' if 'mdi:' in entity_or_icon else 'entity: ' }}{{ entity_or_icon }}
@@ -40,24 +54,27 @@
           --iron-icon-width: 2.3vh
 {%- endmacro %}
 
-{%- macro room_arrow(direction) -%}
+# Arrow to shift the room
+{%- macro room_arrow(side) -%}
       - type: icon
-        icon: mdi:chevron-{{ direction }}-circle
+        icon: mdi:chevron-{{ side }}-circle
         style:
           transform: translate(0%,-50%)
           position: absolute
           top: 6vh
-          {{ direction }}: 10%
+          {{ side }}: 10%
           color: "#222222"
           --iron-icon-height: 4vh
           --iron-icon-width: 4vh
         tap_action:
           action: call-service
-          service: input_select.select_{{ 'previous' if 'left' in direction else 'next' }}
+          service: input_select.select_{{ 'previous' if 'left' in side else 'next' }}
           service_data:
             entity_id: input_select.vacuum_room
 {%- endmacro %}
 
+# Bar with the status of the maintenable parts
+# Added a pop-up with settings
 {%- macro vacuum_maintenance(name, entity, max) -%}
           - entity: vacuum.r2_d2
             name: {{ name }}
@@ -90,14 +107,17 @@
                 deviceID:
                   - this
 {%- endmacro %}
+#### MACROS BEGIN
 
+#### CARD BEGIN
 type: custom:stack-in-card
 cards:
   - type: picture-elements
     image: /local/images/vacuum.png
     elements:
 
-      # Vacuum suction power - tap to increase 
+      # VACUUM FANSPEED
+      # Tap to increase
       - type: custom:bar-card
         entity: sensor.vacuum_fan_speed
         direction: up
@@ -124,6 +144,7 @@ cards:
           service_data:
             entity_id: input_select.vacuum_power
 
+      # BARS WITH STATUS
       - type: custom:bar-card
         entities:
           {{ vacuum_maintenance("Sensorer", "sensor_dirty_left", 30) }}
@@ -145,7 +166,7 @@ cards:
           transform: translate(0%,-50%)
           text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black
 
-      # STATE
+      # STATE OF THE VACUUM
       - type: state-label
         entity: sensor.vacuum_r2_d2
         style:
@@ -159,7 +180,8 @@ cards:
           text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black
           {{ banner_background() }}
 
-      # ROOM
+      # ROOM SELECTION
+      # With popup
       {{ room_arrow("left") }}
       {{ room_arrow("right") }}
       - type: state-label
@@ -185,9 +207,12 @@ cards:
             deviceID:
               - this
 
+      # TOP ICONS
       {{ top_icon("state-icon", "sensor.vacuum_battery", "80%") }}
       {{ top_icon("state-label", "sensor.vacuum_battery", "85%") }}
 
+      # BOTTOM BUTTONS
+      # First with background
       {{ bottom_button("mdi:broom", "50%", "vacuum.start", "vacuum.r2_d2") }}
           {{ banner_background() }}
       {{ bottom_button("mdi:play", "10%", "script.turn_on", "script.vacuum_room_start") }}
