@@ -1,3 +1,36 @@
+############################################################
+####             Vacuum Package by J-Lindvig            ####
+############################################################
+#
+# PLUGINS:
+# ----------------------------------------------------------
+# - variable (https://github.com/snarky-snark/home-assistant-variables)
+#
+# SECRETS:
+# ----------------------------------------------------------
+# S50_IP, IP of the vacuum
+# S50_TOKEN, The Token from the vacuum
+# VACUUM_API, ex: "https://YOUR_HA_IP/api/services/vacuum/send_command"
+# VACUUM_API_TOKEN, ex: "Bearer YOUR_VERY_LONG_TOKEN"
+#
+# VARIABLES, SETTINGS & STRINGS
+# ----------------------------------------------------------
+# Search for the following keys and replace with your own values:
+#
+# "vacuum:", integration with the vacuum
+# "vacuum_room_ids", room ids separated with ","
+# "vacuum_room_size", room sizes separated with "," ( work in progress)
+# "vacuum_default_fanspeed", default fanspeed
+#
+# "vacuum.r2_d2", the entity of the vacuum
+# "vacuum_r2_d2", sensor entity connected to the vacuum
+#
+# "input_select.vacuum_room", list of strings with room names
+# "input_select.vacuum_power", list of string with fanspeeds
+# "params: [20000,30500]", the coordinates of the dustbin proximity
+# " er klar til at blive serviceret...", the TTS string of the announcement
+# for emptying the dustbin
+
 vacuum:
   vacuum:
     - platform: xiaomi_miio
@@ -20,26 +53,31 @@ vacuum:
       initial_value: "102"
 
   sensor:
+    # Template sensors to aid in the use of the vacuum
     - platform: template
       sensors:
+        # Placeholder for the battery level and icon
         vacuum_battery:
           entity_id: vacuum.r2_d2
           friendly_name: Batteri
           unit_of_measurement: "%"
           value_template: "{{ state_attr('vacuum.r2_d2', 'battery_level') }}"
           icon_template: "{{ state_attr('vacuum.r2_d2', 'battery_icon') }}"
-  
+
+        # Placeholder for the suction setting
+        # Friendly_name as the current suction
         vacuum_fan_speed:
           entity_id: sensor.vacuum_r2_d2
           friendly_name_template: "{{ state_attr('sensor.vacuum_r2_d2', 'fan_speed') }}"
           value_template: "{{ state_attr('sensor.vacuum_r2_d2', 'fan_speed_index') }}"
 
+        # Very large and complex template which stores values
+        # and helper attributes
         vacuum_r2_d2:
           entity_id: vacuum.r2_d2
           friendly_name_template: >-
             {{ state_attr("vacuum.r2_d2", "friendly_name") }}
-          # icon_template: >-
-          #   {{ state_attr("vacuum.r2_d2", "battery_icon") }}
+          # Translates the state to Danish - Work in Progress
           value_template: >-
             {%- if is_state("vacuum.r2_d2", "docked") -%}
               I dock
@@ -55,18 +93,21 @@ vacuum:
               Ukendt
             {%- endif -%}
           attribute_templates:
+            # Helper for the index of the suction, ex. 0 for silent
             fan_speed_index: >-
               {%- for needle in state_attr('vacuum.r2_d2', 'fan_speed_list') %}
                 {%- if needle == state_attr("vacuum.r2_d2", "fan_speed") %}
                   {{ loop.index0 }}
                 {% endif %}
               {%- endfor %}
+            # The numeric state of the suction, ex. 101 for silent
             fan_speed_num: >-
               {%- for needle in state_attr('vacuum.r2_d2', 'fan_speed_list') %}
                 {%- if needle == state_attr("vacuum.r2_d2", "fan_speed") %}
                   10{{ loop.index }}
                 {% endif %}
               {%- endfor %}
+            # String with the current suction, ex. silent
             fan_speed: >-
               {% set ns = namespace(index=0) -%}
               {%- for needle in state_attr('vacuum.r2_d2', 'fan_speed_list') %}
@@ -75,6 +116,7 @@ vacuum:
                 {% endif %}
               {%- endfor %}
               {{ state_attr('input_select.vacuum_power', "options")[ns.index] }}
+            # Work in progress with working state
             status: >-
               {%- if is_state_attr("vacuum.r2_d2", "status", "Charging") and is_state_attr("vacuum.r2_d2", "battery_level", 100) -%}
                 Opladt
@@ -95,12 +137,15 @@ vacuum:
   switch:
     - platform: template
       switches:
+        # Switch to turn DND "on" o ŕ "off"
         vacuum_dnd:
           friendly_name: "DND støvsuger "
           value_template: "{{ state_attr('vacuum.r2_d2', 'do_not_disturb') }}"
           turn_on:
+            # Send the current DND times to turn DND on
             service: script.vacuum_save_dnd
           turn_off:
+            # Send the DND Off command
             service: rest_command.vacuum_command
             data:
               entity: vacuum.r2_d2
@@ -140,12 +185,10 @@ vacuum:
       name: Vacuum DND start
       has_date: false
       has_time: true
-      initial: "22:00"
     vacuum_dnd_end:
       name: Vacuum DND end
       has_date: false
       has_time: true
-      initial: "08:00"
 
   script:
     # Save DND timer
@@ -156,6 +199,12 @@ vacuum:
           data_template:
             entity: vacuum.r2_d2
             command: set_dnd_timer
+            # Prepare the time settings for the vacuum
+            # The params must follow this format:
+            # [start_hour, start_minute, end_hour, end_minute]
+            # but it cant process values starting with a zero, ex.
+            # [22, 0, 8, 0] instead of [22, 00, 08, 00].
+            # Therefore we need to do som work....
             params: >-
               {%- set start_h = states('input_datetime.vacuum_dnd_start')[1:2] if states('input_datetime.vacuum_dnd_start')[:2].startswith('0') else states('input_datetime.vacuum_dnd_start')[:2] -%}
               {%- set start_m = states('input_datetime.vacuum_dnd_start')[4:-3] if states('input_datetime.vacuum_dnd_start')[3:-3].startswith('0') else states('input_datetime.vacuum_dnd_start')[3:-3] -%}
@@ -259,24 +308,24 @@ vacuum:
                 {{ state_attr("input_select.vacuum_power", "options")[ loop.index0] }}
                 {% endif %}
               {%- endfor %}
-#        - service: homeassistant.update_entity
-#          data:
-#            entity_id: sensor.vacuum_fan_speed
 
-    # Set default fanspeed at startup
-    - alias: "Indstil støvsugeren"
+    # Set the defult settings at startup
+    - alias: "Indstil støvsugeren ved opstart"
       trigger:
         - platform: homeassistant
           event: start
       action:
+        # Get the DND start from the vacuum and set the timepicker
         - service: input_datetime.set_datetime
           data_template:
             entity_id: input_datetime.vacuum_dnd_start
             time: "{{ state_attr('vacuum.r2_d2', 'do_not_disturb_start') }}"
+        # Get the DND end from the vacuum and set the timepicker
         - service: input_datetime.set_datetime
           data_template:
             entity_id: input_datetime.vacuum_dnd_end
             time: "{{ state_attr('vacuum.r2_d2', 'do_not_disturb_end') }}"
+        # Send the default fanspeed to the vacuum
         - service: vacuum.set_fan_speed
           data_template:
             entity_id: vacuum.r2_d2
