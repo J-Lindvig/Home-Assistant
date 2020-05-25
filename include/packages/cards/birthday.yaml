@@ -1,31 +1,31 @@
 birthday:
   anniversaries:
     sensors:
-    - name: Jacob fødselsdag
-      date: "1975-03-24"
-    - name: Rikke fødselsdag
-      date: "1976-03-10"
-    - name: Cornelie & Nathalie fødselsdag
-      date: "2003-08-22"
-    - name: Hjalte fødselsdag
-      date: "2007-03-22"
-    - name: Emilio fødselsdag
-      date: "2014-09-23"
-    - name: Colin fødselsdag
-      date: "2016-04-23"
-    - name: William fødselsdag
-      date: "2020-01-18"
+      - name: Jacob fødselsdag
+        date: "1975-03-24"
+      - name: Rikke fødselsdag
+        date: "1976-03-10"
+      - name: Cornelie & Nathalie fødselsdag
+        date: "2003-08-22"
+      - name: Hjalte fødselsdag
+        date: "2007-03-22"
+      - name: Emilio fødselsdag
+        date: "2014-09-23"
+      - name: Colin fødselsdag
+        date: "2016-04-23"
+      - name: William fødselsdag
+        date: "2020-01-18"
 
   group:
     birthdays:
       name: Fødselsdage
       entities:
-        - anniversaries.anniversary_jacob_fodselsdag
-        - anniversaries.anniversary_rikke_fodselsdag
-        - anniversaries.anniversary_cornelie_nathalie_fodselsdag
-        - anniversaries.anniversary_hjalte_fodselsdag
-        - anniversaries.anniversary_emilio_fodselsdag
-        - anniversaries.anniversary_colin_fodselsdag
+        - sensor.anniversary_jacob_fodselsdag
+        - sensor.anniversary_rikke_fodselsdag
+        - sensor.anniversary_cornelie_nathalie_fodselsdag
+        - sensor.anniversary_hjalte_fodselsdag
+        - sensor.anniversary_emilio_fodselsdag
+        - sensor.anniversary_colin_fodselsdag
 
   sensor:
     - platform: template

@@ -1,3 +1,5 @@
-type: entities
-entities:
-  - input_select.chromecasts
+type: custom:stack-in-card
+cards:
+  - type: entities
+    entities:
+      - input_select.chromecasts

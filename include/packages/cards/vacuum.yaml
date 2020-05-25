@@ -33,6 +33,7 @@
 # "vacuum:", integration with the vacuum
 # "vacuum_room_ids", room ids separated with ","
 # "vacuum_room_size", room sizes separated with "," ( work in progress)
+# "cleaning_room_id", Id of the room being cleaned - initial 'null'
 # "vacuum_default_fanspeed", default fanspeed
 #
 # "vacuum.r2_d2", the entity of the vacuum
@@ -55,15 +56,27 @@ vacuum:
     # String with room numbers sychronized with the list of roomnames
     vacuum_room_ids:
       initial_value: "17,18,16,22,23,21,25,26,28,27,19,24,29,30"
+      restore: false
 
-    # Work in progress - not in use currently
     # String with room sizes sychronized with the list of roomnames
     vacuum_room_size:
-      initial_value: "33,13,0,37,28,26,6,9,0,0,0,0,0,0"
+      initial_value: "33,13,14,37,28,26,6,8,9,9,9,15,4,4"
+      restore: true
+
+    # UNUSED....
+    vacuum_room_time:
+      initial_value: "30,11,15,37,22,22,6,8,9,11,10,20,6,6"
+      restore: true
+
+    # ID of the room being cleaned - MUST be 'null' if idle
+    cleaning_room_id:
+      initial_value: "null"
+      restore: false
 
     # default fan speed
     vacuum_default_fanspeed:
       initial_value: "102"
+      restore: false
 
   input_select:
     vacuum_room:
@@ -98,6 +111,25 @@ vacuum:
     # Template sensors to aid in the use of the vacuum
     - platform: template
       sensors:
+        # How far along is the cleaning
+        clean_room_progress:
+          entity_id:
+            - vacuum.r2_d2
+            - var.cleaning_room_id
+          friendly_name_template: >-
+            {{ state_attr('input_select.vacuum_room', 'options')[states('var.cleaning_room_id') | int] }}
+          value_template: >-
+            {%- set cleaned_area = state_attr('vacuum.r2_d2', 'cleaned_area') | int %}
+            {%- set room_size = ( states('var.vacuum_room_size').split(',')[states('var.cleaning_room_id') | int] ) | int %}
+            {{ ((cleaned_area / room_size) * 100) | round() }}
+          unit_of_measurement: "%"
+          attribute_templates:
+            est_time_to_finish: >-
+              {%- set time_used = state_attr('vacuum.r2_d2', 'cleaning_time') %}
+              {%- set est_total_time = ( time_used / ( state_attr('vacuum.r2_d2', 'cleaned_area') / states('var.vacuum_room_size').split(',')[states('var.cleaning_room_id') | int] | int ) ) | round(0) %}
+              {{ est_total_time - time_used }}
+          availability_template: "{{ not is_state('var.cleaning_room_id', 'null') }}"
+
         # Placeholder for the battery level and icon
         vacuum_battery:
           entity_id: vacuum.r2_d2
@@ -181,7 +213,7 @@ vacuum:
       switches:
         # Switch to turn DND "on" o ŕ "off"
         vacuum_dnd:
-          friendly_name: "DND støvsuger "
+          friendly_name: "DND støvsuger"
           value_template: "{{ state_attr('vacuum.r2_d2', 'do_not_disturb') }}"
           turn_on:
             # Send the current DND times to turn DND on
@@ -229,6 +261,15 @@ vacuum:
     vacuum_room_start:
       alias: "Støvsug rum"
       sequence:
+        - service: var.set
+          data_template:
+            entity_id: var.cleaning_room_id
+            value: >-
+              {%- for room in state_attr("input_select.vacuum_room", "options") -%}
+                {%- if room == states("input_select.vacuum_room") -%}
+                  {{ loop.index0 }}
+                {%- endif %}
+              {%- endfor %}
         - service: rest_command.vacuum_command
           data_template:
             entity: vacuum.r2_d2
@@ -270,6 +311,22 @@ vacuum:
       content_type: 'application/json'
 
   automation:
+    # The vacuum is done cleaning a room - status "Returning home"
+    # But only fire when we have issued the cleaning - room_id != null
+    # Reset the room_id
+    - alias: "Slut med støvsugning"
+      trigger:
+        platform: template
+        value_template: "{{ is_state_attr('vacuum.r2_d2', 'status', 'Returning home') }}"
+      condition:
+        condition: template
+        value_template: "{{ not is_state('var.cleaning_room_id', 'null') }}"
+      action:
+        - service: var.set
+          data_template:
+            entity_id: var.cleaning_room_id
+            value: 'null'
+
     # The DND has changed - send it to the vacuum
     - alias: "Skift DND på støvsugeren"
       trigger:

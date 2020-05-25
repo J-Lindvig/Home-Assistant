@@ -35,6 +35,12 @@
         "media_image_url": "https://store.playstation.com/store/api/chihiro/00_09_000/container/DK/en/19/EP4133-CUSA04549_00-FARMINGSIM17STDE/1586271598000/image",
         "media_title": "Farming Simulator 17"
     },
+    "CUSA07202": {
+        "locked": false,
+        "media_content_type": "game",
+        "media_image_url": "https://store.playstation.com/store/api/chihiro/00_09_000/container/DK/en/19/EP0700-CUSA07202_00-ACE7GEDIGITAL000/1588448109000/image",
+        "media_title": "ACE COMBAT\u2122 7: SKIES UNKNOWN"
+    },
     "CUSA11593": {
         "locked": false,
         "media_content_type": "game",

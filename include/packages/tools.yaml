@@ -13,8 +13,8 @@ tools:
         content-type: "application/json"
       payload: '{{ payload }}'
 
-    create_boolean:
-      url: "http://192.168.0.12:8123/api/states/input_boolean.{{ entity }}"
+    set_state:
+      url: "http://192.168.0.12:8123/api/states/{{ entity }}"
       method: POST
       headers:
         authorization: !secret API_TOKEN

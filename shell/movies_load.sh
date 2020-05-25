@@ -57,7 +57,7 @@ load_all_movies() {
   load_movies
   load_movie_urls
   load_movie_covers
-#  _cleanup
+  _cleanup
 }
 
 # Load movie titles from txt file, form a JSON query
