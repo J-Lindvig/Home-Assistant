@@ -276,11 +276,12 @@ vacuum:
             command: app_segment_clean
             # Find the selected room and use the index to find the room number
             params: >-
-              {%- for room in state_attr("input_select.vacuum_room", "options") -%}
-                {%- if room == states("input_select.vacuum_room") -%}
-                  {{ states("var.vacuum_room_ids").split(",")[loop.index0] }}
-                {%- endif %}
-              {%- endfor %}
+              {{ states("var.vacuum_room_ids").split(",")[states('var.cleaning_room_id') | int] }}
+        - delay: "00:00:05"
+        - service: homeassistant.update_entity
+          data:
+            entity_id: sensor.clean_room_progress
+
         # Just in case we have a open popup - close it
         - service: browser_mod.close_popup
     
@@ -317,7 +318,7 @@ vacuum:
     - alias: "Slut med støvsugning"
       trigger:
         platform: template
-        value_template: "{{ is_state_attr('vacuum.r2_d2', 'status', 'Returning home') }}"
+        value_template: "{{ is_state_attr('vacuum.r2_d2', 'status', 'returning') }}"
       condition:
         condition: template
         value_template: "{{ not is_state('var.cleaning_room_id', 'null') }}"

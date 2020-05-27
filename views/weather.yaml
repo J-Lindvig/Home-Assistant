@@ -12,3 +12,7 @@ cards:
       - !include cards/main/weather.yaml
       - break
       - !include cards/weather/benidorm.yaml
+      - !include cards/weather/brobyvaerk.yaml
+      - type: weather-forecast
+        entity: weather.brobyvaerk
+        
