@@ -1,0 +1,23 @@
+picture_frame:
+  input_select:
+    pictures:
+      name: "Holder til billeder"
+      options:
+        - DUMMY
+
+  # Replace with your own values:
+  # PATH, ex: /config/www/images/slides
+  # TOKEN, ex: eykfkfkfk_VERY_LONG_TOKEN
+  # BASE_URL, ex. http://192.168.1.100:8123
+  shell_command:
+    load_picture: 'cd PATH; query="{\"entity_id\": \"input_select.pictures\", \"options\": ["; files=""; for file in *.jpg; do files="$files,\"$file\""; done; files="${files:1}"; query="$query$files]}"; curl -X POST -H "Accept: application/json" -H "Authorization: Bearer TOKEN" -H "Content-Type: application/json" -d "$query" BASE_URL/api/services/input_select/set_options'
+
+  automation:
+    - alias: "Next picture"
+      trigger:
+        - platform: time_pattern
+          seconds: "/15"
+      action:
+        - service: input_select.select_next
+          data:
+            entity_id: input_select.pictures

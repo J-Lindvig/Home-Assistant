@@ -42,7 +42,7 @@ fi
 # Initial cleanup
 rm -f $TEMP_PATH/flag_tmp_file $TEMP_PATH/combined_file
 
-# Fecth the HTML page
+# Fetch the HTML page
 curl https://designflag.dk/om-flag/flagdage/ -o $TEMP_PATH/flag_tmp_file
 
 # Extract the Year
