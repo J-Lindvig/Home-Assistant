@@ -36,6 +36,8 @@ icon: mdi:test-tube
 panel: false
 cards:
 
+  - !include cards/test/picture_frame.yaml
+
   - type: custom:gui-sandbox
 
   - type: glance
@@ -66,10 +68,6 @@ cards:
           "home": brightness(110%) saturate(1.2)
           "not_home": brightness(50%) hue-rotate(45deg)
     {% endfor %}
-
-  - type: weather-forecast
-    entity: weather.smhi_brobyvaerk
-    show_forecast: 7 days
 
   - type: custom:stack-in-card
     mode: horizontal

@@ -25,7 +25,7 @@ homeassistant:
 
 ##### L
 logger:
-  default: error
+  default: debug
   logs:
     homeassistant.components.script: error
     homeassistant.components.automation: error

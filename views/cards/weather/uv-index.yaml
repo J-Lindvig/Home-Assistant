@@ -17,7 +17,6 @@ entities:
   - entity: sensor.current_uv_index
     fixed_value: true
     show_points: false
-    show_legend: false
     show_fill: false
     color: "#6A1B9A"
     show_points: false

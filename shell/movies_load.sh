@@ -48,7 +48,23 @@ _init() {
   # adjust to your needs
   curl $NAS_MOVIE_URL -o $TEMP_PATH/movies_tmp_file
   
-  # Store the movies and their URLs in 2 separate, but synchronized, files
+  # Do some grep and cut magic to turn this:
+  # <a href="Adventures%20Of%20Tintin.mp4"><img src="/MyWeb/template/i_file.gif" alt="[   ]"></a></td><td><a href="Adventures%20Of%20Tintin.mp4">Adventures Of Tintin.mp4</a>
+  # into this:
+  # Adventures Of Tintin.mp4
+  # Adventures Of Tintin
+  # 
+  # grep "i_file.gif" == find lines with "i_file.gif" string in it.
+  # Cut the found string i pieces using ">" as delimiter
+  # and return instance number 9.
+  #
+  # URLS
+  # Cut this string by "<" and return the first
+  #
+  # Titles
+  # Cut this string by "." and return the first
+  #
+  # Save output in 2 files
   grep "i_file.gif" $TEMP_PATH/movies_tmp_file | cut -d'>' -f9 | cut -d'<' -f1 > $TEMP_PATH/movie_urls_file
   grep "i_file.gif" $TEMP_PATH/movies_tmp_file | cut -d'>' -f9 | cut -d'.' -f1 > $TEMP_PATH/movies_file
 }
@@ -66,7 +82,7 @@ load_movies() {
   # prepare the query
   #
   # make a online, paste....
-  # replace the | with json
+  # replace the | with json delimiter ","
   # finish the query
   movie_query="{\"entity_id\":\"input_select.movie\",\"options\":[\"$(cat $TEMP_PATH/movies_file | paste -sd '|' - | sed 's/|/\",\"/g')\"]}"
 
@@ -129,28 +145,28 @@ _send_data "$movie_cover_query" "$BASE_URL$API_PATH$INPUT_SELECT"
 
 load_timecodes() {
   # Initial cleanup
-  rm -f $TEMP_PATH/movies_chapters.txt
 
-  if file_exists_web "$1"; then
+  rm -f $TEMP_PATH/movies_chapters.txt
+#  if file_exists_web "$1"; then
     # Extract the metadata from the given URL, store it in movies_chapters.txt
-    ffmpeg -i $1 -f ffmetadata $TEMP_PATH/movies_chapters.txt
+    ffmpeg -i "$1" -f ffmetadata $TEMP_PATH/movies_chapters.txt
   
     # Exctract the timebase - often 1/1000, but not allways
     timebase=$(grep -m 1 "TIMEBASE" $TEMP_PATH/movies_chapters.txt | cut -d'/' -f2)
-  
+
     # Extract the timecodes ( Start of chapters) and divide it with the timebase
     timecodes=$(grep "START" $TEMP_PATH/movies_chapters.txt | cut -d'=' -f2 | awk -v t="$timebase" '{print $1/t}' | tr '\n' ',' | sed 's/.$//')
-  
+
     # Extract the end of the last chapter ( duration )
     # and divide it with the timebase
     duration=$(tac $TEMP_PATH/movies_chapters.txt | grep -m 1 "END" | cut -d'=' -f2 | awk -v t="$timebase" '{print $1/t}')
-  
+
     # Cleanup
     rm -f $TEMP_PATH/movies_chapters.txt
   
     # Append duration to timecode and echo it to the sensor
     echo $timecodes","$duration
-  fi
+#  fi
 }
 
 # PRIVATE CALLS

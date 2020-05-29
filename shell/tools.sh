@@ -2,7 +2,7 @@
 
 source /config/shell_secrets.txt
 
-function file_exists_web(){
+function file_exists_web() {
   if [[ `wget --max-redirect=0 -S --spider "$1"  2>&1 | grep 'HTTP/1.1 200 OK'` ]]; then
     return 0
   else
@@ -29,7 +29,7 @@ screen_suspend () {
 }
 
 shell_test() {
-  whoami > whoami
+  which ffmpeg > ffmpeg
 }
 
 # SELECT
