@@ -67,12 +67,6 @@ tts:
   - platform: google_translate
     language: "da"
 
-tuya:
-  username: !secret TUYA_USERNAME
-  password: !secret TUYA_PASSWORD
-  country_code: !secret TUYA_COUNTRY
-  platform: smart_life
-
 #### V
 var: !include_dir_merge_named include/variables/
 

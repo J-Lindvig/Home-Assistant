@@ -42,12 +42,6 @@ class config_singularity:
         for key, value in items.items():
             self.__defaults[key] = value["default"]
 
-    def clean(self, data):
-        """Remove all keys that are not in configuration"""
-        for key, value in data.items():  # pylint: disable=W0612
-            if key not in self.options and key != "unique_id":
-                del data[key]
-
     def compile_config_flow(self, step, valid_for=None):
         """
         Generate dictionary with relevant configuration options
@@ -66,15 +60,11 @@ class config_singularity:
         }
         for key, value in items.items():
             if key in self.__defaults:
-                # result[
-                #     value["method"](
-                #         key,
-                #         description={"suggested_value": self.__defaults[key]}
-                #     )
-                # ] = value["type"]
-                result[value["method"](key, default=self.__defaults[key])] = value[
-                    "type"
-                ]
+                result[
+                    value["method"](
+                        key, description={"suggested_value": self.__defaults[key]}
+                    )
+                ] = value["type"]
             else:
                 result[value["method"](key)] = value["type"]
         return result
@@ -97,8 +87,8 @@ class config_singularity:
         for key, value in items.items():
             # use the validator if exists, otherwise the type
             t = value["validator"] if "validator" in value else value["type"]
-            if key in self.__defaults:
-                result[value["method"](key, default=self.__defaults[key])] = t
+            if "default" in value:
+                result[value["method"](key, default=value["default"])] = t
             else:
                 result[value["method"](key)] = t
         return result
@@ -110,8 +100,7 @@ class config_singularity:
             if "step" in value and value["step"] == step and key in data
         }
         for key, value in items.items():  # pylint: disable=W0612
-            if (
-                data[key] != None 
-                and (type(data[key]) not in [list, dict] or len(data[key]) != 0)
+            if data[key] != None and (
+                type(data[key]) not in [list, dict] or len(data[key]) != 0
             ):
                 self.__defaults[key] = data[key]

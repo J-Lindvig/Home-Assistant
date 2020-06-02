@@ -6,7 +6,7 @@ transition_time: 1000
 states:
   birthday.yaml:
     !include slides/birthday.yaml
-  clock.yaml:
-    !include slides/clock.yaml
-  holiday.yaml:
-    !include slides/holiday.yaml
+#  clock.yaml:
+#    !include slides/clock.yaml
+#  holiday.yaml:
+#    !include slides/holiday.yaml
