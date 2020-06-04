@@ -11,7 +11,7 @@
   "Legeværelse": ["light.legevaerelse", "light.uplight", "light.gulvlampe_i_legevaerelse"],
   "Gangen": ["light.gangen"],
   "Hjalte": ["light.hjaltes_vaerelse", "light.hjaltes_loftslampe", "light.nanoleaf_hjalte"],
-  "Emilio": ["light.emilios_vaerelse", "light.loftlampe_emilio"],
+  "Emilio": ["light.emilios_vaerelse", "light.loftlampe_emilio", "light.stjernelampe_emilio"],
   "Colin": ["light.colins_vaerelse", "light.lampe_colin", "light.loftlampe_colin", "light.colins_manelampe"],
   "Pigernes stue": ["light.pigernes_stue"],
   "Cornelie": ["light.cornelies_vaerelse", "light.gulvlampe_cornelie"],

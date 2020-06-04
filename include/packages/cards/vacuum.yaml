@@ -63,11 +63,6 @@ vacuum:
       initial_value: "33,13,14,37,28,26,6,8,9,9,9,15,4,4"
       restore: true
 
-    # UNUSED....
-    vacuum_room_time:
-      initial_value: "30,11,15,37,22,22,6,8,9,11,10,20,6,6"
-      restore: true
-
     # ID of the room being cleaned - MUST be 'null' if idle
     cleaning_room_id:
       initial_value: "null"
@@ -318,7 +313,13 @@ vacuum:
     - alias: "Slut med støvsugning"
       trigger:
         platform: template
-        value_template: "{{ is_state_attr('vacuum.r2_d2', 'status', 'returning') }}"
+        value_template: >-
+          {% set status_lower = state_attr('vacuum.r2_d2', 'status') | lower %}
+          {{
+            (status_lower == 'charging') or
+            (status_lower == 'returning') or
+            (status_lower == 'returning home')
+          }}
       condition:
         condition: template
         value_template: "{{ not is_state('var.cleaning_room_id', 'null') }}"

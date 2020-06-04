@@ -31,6 +31,7 @@ logger:
     homeassistant.components.automation: error
     homeassistant.core: fatal
     homeassistant.components.mqtt: debug
+    homeassistant.helpers.service: critical
 
 lovelace:
   mode: yaml

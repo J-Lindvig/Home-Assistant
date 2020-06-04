@@ -129,14 +129,30 @@ light_control:
           entity_id: "{{ trigger.entity_id }}"
 
   script:
-    sync_light:
-      alias: "Synkroniser lysgrupper"
+    sync_light_on:
+      alias: "Synkroniser lysgrupper - ON"
       sequence:
-        - service_template: >-
-            light.turn_{{ state }}
+        - service: light.turn_on
           data_template:
             entity_id: "{{ entity }}"
             brightness: "{{ brightness | int }}"
+
+    sync_light_off:
+      alias: "Synkroniser lysgrupper - OFF"
+      sequence:
+        - service: light.turn_off
+          data_template:
+            entity_id: "{{ entity }}"
+
+    # OBSOLETE....?
+    # sync_light:
+    #   alias: "Synkroniser lysgrupper"
+    #   sequence:
+    #     - service_template: >-
+    #         light.turn_{{ state }}
+    #       data_template:
+    #         entity_id: "{{ entity }}"
+    #         brightness: "{{ brightness | int }}"
 
     # Dim/undim lights when called
     # Var: brightness
