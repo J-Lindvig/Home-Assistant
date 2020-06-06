@@ -27,9 +27,11 @@ source /config/shell/tools.sh
 # API_STATES_PATH="api/states"
 # BASE_URL="http://YOUR_HA_IP:8123/"
 # TEMP_PATH="temp"
-#
 # Load the secrets
 source /config/shell_secrets.txt
+
+GOOD_FRIDAY="Langfredag"
+GERMAN_OCCUPATION_DAY="09-04"
 
 # Have we provided a "Days in advance"?
 # No, then 0
@@ -46,7 +48,7 @@ rm -f $TEMP_PATH/flag_tmp_file $TEMP_PATH/combined_file
 curl https://designflag.dk/om-flag/flagdage/ -o $TEMP_PATH/flag_tmp_file
 
 # Extract the Year
-YEAR=$(grep "<h1>Officielle flagdage 2020</h1>" $TEMP_PATH/flag_tmp_file | cut -d' ' -f3 | cut -d'<' -f1)
+YEAR=$(grep "<h1>Officielle flagdage" $TEMP_PATH/flag_tmp_file | cut -d' ' -f3 | cut -d'<' -f1)
 
 # Extract the data - combine the 2 columns on 1 line - store in a file
 grep '<td style="text-align: left;" valign="top" width="102">\|<td style="text-align: left;" valign="top" width="550">' $TEMP_PATH/flag_tmp_file | cut -d'>' -f2 | cut -d'<' -f1 | awk 'NF' | sed '{N; s/\n/|/}' > $TEMP_PATH/combined_file
@@ -55,8 +57,8 @@ grep '<td style="text-align: left;" valign="top" width="102">\|<td style="text-a
 STATE=-1
 QUERY=""
 ATTR="\"events\": [ "
-CNT=0
-NOW=$(date +"%s")
+NOW_IN_DAYS=$(( ($(date +"%s") / 86400) -1 ))
+
 while read line; do
 
   # Extract the day
@@ -91,7 +93,7 @@ while read line; do
   if [[ $STATE -lt 0 ]]; then
 
     # Calculate days to the next event
-    NEW_STATE=$(( ($TIMESTAMP - $NOW)/(60*60*24) ))
+    NEW_STATE=$(( ($TIMESTAMP / 86400) - $NOW_IN_DAYS ))
 
     # Is the new event today or in the future
     if [[ $NEW_STATE -ge 0 ]]; then
@@ -105,20 +107,29 @@ while read line; do
     fi
   fi
 
-  # Load all events
-  # Have been here before....? Add ","
-  CNT=$((CNT+1))
-  if [[ $CNT -gt 1 ]]; then
-    ATTR="$ATTR, "
+  # Append the data of the event
+  ATTR="$ATTR{ \"date\": \"$DATE\", \"event\": \"$EVENT\", \"timestamp\": \"$TIMESTAMP\""
+
+  # GOOd FRIDAY...?
+  if [[ `echo $EVENT | grep $GOOD_FRIDAY` ]]; then
+    ATTR="$ATTR, \"half_mast_all_day\": true"
+  else
+    ATTR="$ATTR, \"half_mast_all_day\": false"
   fi
 
-  # Append the data of the event
-  ATTR="$ATTR{ \"date\": \"$DATE\", \"event\": \"$EVENT\", \"timestamp\": \"$TIMESTAMP\" }"
+  # GERMAN_OCCUPATION_DAY
+  if [[ "$DAY-$MONTH" -eq $GERMAN_OCCUPATION_DAY ]]; then
+    ATTR="$ATTR, \"half_mast_end_time\": \"12:00:00\""
+  else
+    ATTR="$ATTR, \"half_mast_end_time\": false"
+  fi
+
+  ATTR="$ATTR },"
 
 done < $TEMP_PATH/combined_file
 
 # Finish the query
-QUERY="$QUERY, $ATTR ] } }"
+QUERY="$QUERY, ${ATTR:0:-1} ] } }"
 
 # Send the query to the API
 _send_data "$QUERY" "$BASE_URL$API_STATES_PATH/sensor.flagday_dk"
