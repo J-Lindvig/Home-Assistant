@@ -20,15 +20,22 @@ clock:
             {%- set H = ts.strftime("%-I") | int %}
             {%- set M = ts.strftime("%-M") | int %}
             {%- set AM_PM = ts.strftime("%-H") | int %}
-            {%- set time_names = { 0: "natten", 6: "morgenen", 9: "formiddagen", 12: "middagen", 14: "eftermiddagen", 18: "aftenen" } %}
+            {%- set time_names = {
+              0: "natten",
+              6: "morgenen",
+              9: "formiddagen",
+              12: "middagen",
+              14: "eftermiddagen",
+              18: "aftenen"
+              } %}
             {%- set ns = namespace(time_name="") %}
             
             {%- for id in time_names -%}
-            {% if AM_PM >= id -%}
-            {% if loop.last or AM_PM < loop.nextitem -%}
-            {% set ns.time_name = time_names[id] -%}
-            {% endif -%}
-            {% endif %}
+              {% if AM_PM >= id -%}
+                {% if loop.last or AM_PM < loop.nextitem -%}
+                  {% set ns.time_name = time_names[id] -%}
+                {% endif -%}
+              {% endif %}
             {%- endfor -%}
             
             {%- if M == 0 -%}
