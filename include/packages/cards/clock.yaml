@@ -12,6 +12,58 @@ clock:
           value_template: >-
             {% set timestamp = strptime(states('sensor.date'), '%Y-%m-%d').timestamp() %}
             {{ states("var.weekdays_dk").split(",")[timestamp | timestamp_custom('%w') | int - 1] -}}dag den {{ timestamp | timestamp_custom('%-d.') }} {{states("var.months_dk").split(",")[timestamp | timestamp_custom('%-m') | int - 1] }} {{ timestamp | timestamp_custom('%Y') }}
+          attribute_templates:
+            ugedag: >-
+              {% set ts = strptime(states('sensor.date'), '%Y-%m-%d').timestamp() %}
+              {{ states("var.weekdays_dk").split(",")[ts | timestamp_custom('%w') | int - 1] -}}dag
+            dato: >-
+              {% set ts = strptime(states('sensor.date'), '%Y-%m-%d').timestamp() %}
+              {{ ts | timestamp_custom('%-d.') }}
+            maaned: >-
+              {% set ts = strptime(states('sensor.date'), '%Y-%m-%d').timestamp() %}
+              {{ states("var.months_dk").split(",")[ts | timestamp_custom('%-m') | int - 1] }}
+            dato_ordenstal: >-
+              {%- set day = now().strftime("%-d") | int %}
+              {%- set digit_names = {
+                1: "første",
+                2: "anden",
+                3: "tredje",
+                4: "fjerde",
+                5: "femte",
+                6: "sjette",
+                7: "syvende",
+                8: "ottende",
+                9: "niende",
+                10: "tiende",
+                11: "ellevte",
+                12: "tolvte",
+                13: "trettende",
+                14: "fjortende",
+                15: "femtende",
+                16: "sekstende",
+                17: "syttende",
+                18: "attende",
+                19: "nittende",
+                "and": "og",
+                "a1": "en",
+                "a2": "to",
+                "a3": "tre",
+                "a4": "fire",
+                "a5": "fem",
+                "a6": "seks",
+                "a7": "syv",
+                "a8": "otte",
+                "a9": "ni",
+                "2x": "tyvende",
+                "3x": "tredivte"
+                } -%}
+              
+              {% if day < 20 -%}
+                {{ digit_names[day] }}
+              {% else -%}
+                {% set day = day | string -%}
+                {{ digit_names["a" ~ day[1]] }} {{ digit_names["and"] }} {{ digit_names[day[0] ~ "x"] }} 
+              {% endif -%}
 
         tid_naturlig:
           friendly_name: "Naturlig talt tid"
@@ -53,7 +105,7 @@ clock:
             {%- endif -%}
 
         dato_ordenstal:
-          friendly_name: "Naturlig tale dato"
+          friendly_name: "Ordenstal dato"
           value_template: >-
             {%- set day = now().strftime("%-d") | int %}
             {%- set digit_names = {

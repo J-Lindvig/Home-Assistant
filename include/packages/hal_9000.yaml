@@ -15,8 +15,9 @@ hal_9000:
       action:
         - service: homeassistant.update_entity
           data:
-            entity_id: sensor.tid_naturlig
-      
+            entity_id:
+              - sensor.tid_naturlig
+
         - service: script.store_volume
           data_template:
             entity_id: media_player.kokken
@@ -33,9 +34,9 @@ hal_9000:
           data_template:
             message: >-
               Godmorgen.
-              Det er i dag {{ states('sensor.dato') }}.
-              Klokken er {{ states('sensor.tid_naturlig') }} og der er lige nu {{ state_attr('weather.brobyvaerk', 'temperature') }} grader i {{ state_attr('weather.brobyvaerk', 'friendly_name') }}.
-              UV-indexet når i dag {{ states('sensor.max_uv_index') | round(2) }} og er højest klokken {{ as_timestamp(state_attr('sensor.max_uv_index', 'time')) | timestamp_custom("%H:%M") }} og der anbefales solcreme mellem {{ state_attr('sensor.uv_sun', 'protection_start_time') }} og {{ state_attr('sensor.uv_sun', 'protection_end_time') }}.
+              Det er i dag {{ state_attr('sensor.dato', 'ugedag') }} den {{ state_attr('sensor.dato', 'dato_ordenstal') }} {{ state_attr('sensor.dato', 'maaned') }}.
+              Klokken er {{ states('sensor.tid_naturlig') }} og der er lige nu cirka {{ state_attr('weather.brobyvaerk', 'temperature') | round }} grader i {{ state_attr('weather.brobyvaerk', 'friendly_name') }}.
+              UV-indexet når i dag {{ states('sensor.max_uv_index') | round(2) | replace('.', ',') }} og er højest klokken {{ state_attr('sensor.uv_sun', 'uv_max_natural') }} og der anbefales solcreme mellem {{ state_attr('sensor.uv_sun', 'protection_start_time_natural') }} og {{ state_attr('sensor.uv_sun', 'protection_end_time_natural') }}.
 
         - service: script.store_volume
           data_template:

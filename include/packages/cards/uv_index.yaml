@@ -17,6 +17,60 @@ uv_index:
               {{ (strptime(state_attr('sun.sun', 'next_rising').replace('+00:00',''), '%Y-%m-%dT%H:%M:%S').timestamp() + 7200)  | timestamp_custom('%R') }}
             next_setting: >-
               {{ (strptime(state_attr('sun.sun', 'next_setting').replace('+00:00',''), '%Y-%m-%dT%H:%M:%S').timestamp() + 7200) | timestamp_custom('%R') }}
+            uv_max_natural: >-
+              {%- set ts = state_attr('sensor.max_uv_index', 'time') %}
+              {%- set H = ts.strftime("%-I") | int %}
+              {%- set M = ts.strftime("%-M") | int %}
+              
+              {%- if M == 0 -%}
+                {{ H }}
+              {%- elif M == 15 -%}
+                kvart over {{ H }}
+              {%- elif M == 45 -%}
+                kvart i {{ 1 if H == 12 else H }}
+              {%- elif M == 30 -%}
+                halv {{ 1 if H == 12 else H }}
+              {%- elif M <= 35 -%}
+                {{ M }} minut{{ "ter" if M > 1 }} over {{ H }}
+              {%- elif M > 35 -%}
+                {{ 60 - M }} minut{{ "ter" if M > 1 }} i {{ 1 if H == 12 else H }}
+              {%- endif -%}
+            protection_start_time_natural: >-
+              {%- set ts = state_attr('binary_sensor.protection_window', 'start_time') %}
+              {%- set H = ts.strftime("%-I") | int %}
+              {%- set M = ts.strftime("%-M") | int %}
+              
+              {%- if M == 0 -%}
+                {{ H }}
+              {%- elif M == 15 -%}
+                kvart over {{ H }}
+              {%- elif M == 45 -%}
+                kvart i {{ 1 if H == 12 else H }}
+              {%- elif M == 30 -%}
+                halv {{ 1 if H == 12 else H }}
+              {%- elif M <= 35 -%}
+                {{ M }} minut{{ "ter" if M > 1 }} over {{ H }}
+              {%- elif M > 35 -%}
+                {{ 60 - M }} minut{{ "ter" if M > 1 }} i {{ 1 if H == 12 else H }}
+              {%- endif -%}
+            protection_end_time_natural: >-
+              {%- set ts = state_attr('binary_sensor.protection_window', 'end_time') %}
+              {%- set H = ts.strftime("%-I") | int %}
+              {%- set M = ts.strftime("%-M") | int %}
+              
+              {%- if M == 0 -%}
+                {{ H }}
+              {%- elif M == 15 -%}
+                kvart over {{ H }}
+              {%- elif M == 45 -%}
+                kvart i {{ 1 if H == 12 else H }}
+              {%- elif M == 30 -%}
+                halv {{ 1 if H == 12 else H }}
+              {%- elif M <= 35 -%}
+                {{ M }} minut{{ "ter" if M > 1 }} over {{ H }}
+              {%- elif M > 35 -%}
+                {{ 60 - M }} minut{{ "ter" if M > 1 }} i {{ 1 if H == 12 else H }}
+              {%- endif -%}
 
   automation:
     - alias: Opdater OpenUV halve time
