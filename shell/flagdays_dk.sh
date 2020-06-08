@@ -48,6 +48,7 @@ rm -f $TEMP_PATH/flag_tmp_file $TEMP_PATH/combined_file
 curl https://designflag.dk/om-flag/flagdage/ -o $TEMP_PATH/flag_tmp_file
 
 # Extract the Year
+# Result ex: "2020"
 YEAR=$(grep "<h1>Officielle flagdage" $TEMP_PATH/flag_tmp_file | cut -d' ' -f3 | cut -d'<' -f1)
 
 # Extract the data - combine the 2 columns on 1 line - store in a file
@@ -111,17 +112,19 @@ while read line; do
   ATTR="$ATTR{ \"date\": \"$DATE\", \"event\": \"$EVENT\", \"timestamp\": \"$TIMESTAMP\""
 
   # GOOd FRIDAY...?
+  ATTR="$ATTR, \"half_mast_all_day\": "
   if [[ `echo $EVENT | grep $GOOD_FRIDAY` ]]; then
-    ATTR="$ATTR, \"half_mast_all_day\": true"
+    ATTR="$ATTR true"
   else
-    ATTR="$ATTR, \"half_mast_all_day\": false"
+    ATTR="$ATTR false"
   fi
 
   # GERMAN_OCCUPATION_DAY
+  ATTR="$ATTR, \"half_mast_end_time\": "
   if [[ "$DAY-$MONTH" -eq $GERMAN_OCCUPATION_DAY ]]; then
-    ATTR="$ATTR, \"half_mast_end_time\": \"12:00:00\""
+    ATTR="$ATTR \"12:00:00\""
   else
-    ATTR="$ATTR, \"half_mast_end_time\": false"
+    ATTR="$ATTR false"
   fi
 
   ATTR="$ATTR },"

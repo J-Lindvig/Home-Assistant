@@ -23,6 +23,26 @@ tools:
       payload: "{{ payload }}"
 
   script:
+    store_volume:
+      alias: "Save old volume and set a new"
+      sequence:
+        - service: var.set
+          data_template:
+            entity_id: var.prev_volume
+            value: "{{ state_attr(entity_id, 'volume_level') }}"
+        - service: media_player.volume_set
+          data_template:
+            entity_id: "{{ entity_id }}"
+            volume_level: "{{ volume }}"
+
+    reset_volume:
+      alias: "Restore old volume"
+      sequence:
+        - service: media_player.volume_set
+          data_template:
+            entity_id: "{{ entity_id}}"
+            volume_level: "{{ states('var.prev_volume') | float }}"
+  
     # Find selected value and selects the value at same index in another list
     # Variables: haystack and result_list
     

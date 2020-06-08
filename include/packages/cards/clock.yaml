@@ -12,3 +12,80 @@ clock:
           value_template: >-
             {% set timestamp = strptime(states('sensor.date'), '%Y-%m-%d').timestamp() %}
             {{ states("var.weekdays_dk").split(",")[timestamp | timestamp_custom('%w') | int - 1] -}}dag den {{ timestamp | timestamp_custom('%-d.') }} {{states("var.months_dk").split(",")[timestamp | timestamp_custom('%-m') | int - 1] }} {{ timestamp | timestamp_custom('%Y') }}
+
+        tid_naturlig:
+          friendly_name: "Naturlig talt tid"
+          value_template: >-
+            {%- set ts = now() %}
+            {%- set H = ts.strftime("%-I") | int %}
+            {%- set M = ts.strftime("%-M") | int %}
+            {%- set AM_PM = ts.strftime("%-H") | int %}
+            {%- set time_names = { 0: "natten", 6: "morgenen", 9: "formiddagen", 12: "middagen", 14: "eftermiddagen", 18: "aftenen" } %}
+            {%- set ns = namespace(time_name="") %}
+            
+            {%- for id in time_names -%}
+            {% if AM_PM >= id -%}
+            {% if loop.last or AM_PM < loop.nextitem -%}
+            {% set ns.time_name = time_names[id] -%}
+            {% endif -%}
+            {% endif %}
+            {%- endfor -%}
+            
+            {%- if M == 0 -%}
+              {{ H }} om {{ ns.time_name }}
+            {%- elif M == 15 -%}
+              kvart over {{ H }} om {{ ns.time_name }}
+            {%- elif M == 45 -%}
+              kvart i {{ 1 if H == 12 else H }} om {{ ns.time_name }}
+            {%- elif M == 30 -%}
+              halv {{ 1 if H == 12 else H }} om {{ ns.time_name }}
+            {%- elif M <= 35 -%}
+              {{ M }} minut{{ "ter" if M > 1 }} over {{ H }} om {{ ns.time_name }}
+            {%- elif M > 35 -%}
+              {{ 60 - M }} minut{{ "ter" if M > 1 }} i {{ 1 if H == 12 else H }} om {{ ns.time_name }}
+            {%- endif -%}
+
+        dato_ordenstal:
+          friendly_name: "Naturlig tale dato"
+          value_template: >-
+            {%- set day = now().strftime("%-d") | int %}
+            {%- set digit_names = {
+              1: "første",
+              2: "anden",
+              3: "tredje",
+              4: "fjerde",
+              5: "femte",
+              6: "sjette",
+              7: "syvende",
+              8: "ottende",
+              9: "niende",
+              10: "tiende",
+              11: "ellevte",
+              12: "tolvte",
+              13: "trettende",
+              14: "fjortende",
+              15: "femtende",
+              16: "sekstende",
+              17: "syttende",
+              18: "attende",
+              19: "nittende",
+              "and": "og",
+              "a1": "en",
+              "a2": "to",
+              "a3": "tre",
+              "a4": "fire",
+              "a5": "fem",
+              "a6": "seks",
+              "a7": "syv",
+              "a8": "otte",
+              "a9": "ni",
+              "2x": "tyvende",
+              "3x": "tredivte"
+              } -%}
+            
+            {% if day < 20 -%}
+              {{ digit_names[day] }}
+            {% else -%}
+              {% set day = day | string -%}
+              {{ digit_names["a" ~ day[1]] }} {{ digit_names["and"] }} {{ digit_names[day[0] ~ "x"] }} 
+            {% endif -%}

@@ -13,13 +13,20 @@ hal_9000:
         - platform: time
           at: "09:00:00"
       action:
+        - service: homeassistant.update_entity
+          data:
+            entity_id: sensor.tid_naturlig
+      
+        - service: script.store_volume
+          data_template:
+            entity_id: media_player.kokken
+            volume: 0.4
+
         - service: media_player.play_media
           entity_id: media_player.kokken
           data:
             media_content_id: 'http://soundbible.com/grab.php?id=1510&type=mp3'
             media_content_type: music
-
-        - delay: "00:00:05"
 
         - service: tts.google_translate_say
           entity_id: media_player.kokken
@@ -27,18 +34,12 @@ hal_9000:
             message: >-
               Godmorgen.
               Det er i dag {{ states('sensor.dato') }}.
-              Klokken er {{ now().strftime("%-H:%-M") }} og der er lige nu {{ state_attr('weather.smhi_brobyvaerk', 'temperature') }} grader i {{ state_attr('weather.smhi_brobyvaerk', 'friendly_name') }}.....
-              
-              Det bliver i dag
-              {% if state_attr('weather.smhi_brobyvaerk', 'forecast')[0].temperature == state_attr('weather.smhi_brobyvaerk', 'forecast')[0].templow %}
-                op til
-              {% else %}
-                mellem {{ state_attr('weather.smhi_brobyvaerk', 'forecast')[0].templow }} og 
-              {% endif %}
-              {{ state_attr('weather.smhi_brobyvaerk', 'forecast')[0].temperature }} grader.
-              {% if state_attr('weather.smhi_brobyvaerk', 'forecast')[0].precipitation > 0 %}
-                Der forventes at falde {{ state_attr('weather.smhi_brobyvaerk', 'forecast')[0].precipitation }} mm regn i løbet af dagen.
-              {% endif %}
+              Klokken er {{ states('sensor.tid_naturlig') }} og der er lige nu {{ state_attr('weather.brobyvaerk', 'temperature') }} grader i {{ state_attr('weather.brobyvaerk', 'friendly_name') }}.
+              UV-indexet når i dag {{ states('sensor.max_uv_index') | round(2) }} og er højest klokken {{ as_timestamp(state_attr('sensor.max_uv_index', 'time')) | timestamp_custom("%H:%M") }} og der anbefales solcreme mellem {{ state_attr('sensor.uv_sun', 'protection_start_time') }} og {{ state_attr('sensor.uv_sun', 'protection_end_time') }}.
+
+        - service: script.store_volume
+          data_template:
+            entity_id: media_player.kokken
 
     - alias: "Meddel om Affald/Genbrug"
       trigger:
