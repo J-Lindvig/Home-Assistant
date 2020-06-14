@@ -1,9 +1,15 @@
-type: entities
-title: Affald og genbrug
-show_header_toggle: false
-entities:
-  - sensor.affald_hentes
-  - sensor.genbrug_hentes
-header:
-  type: picture
-  image: /local/images/headers/ffv.jpg
+type: custom:auto-entities
+card:
+  type: entities
+  title: Affald og genbrug
+  show_header_toggle: false
+  header:
+    type: picture
+    image: /local/images/headers/ffv.jpg
+filter:
+  include:
+    - entity_id: "sensor.*_hentes"
+sort:
+  method: attribute
+  numeric: true
+  attribute: days

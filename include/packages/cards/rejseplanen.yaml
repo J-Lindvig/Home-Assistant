@@ -21,6 +21,8 @@ rejseplanen:
           icon_template: mdi:bus-clock
           value_template: >-
             {{ states('sensor.faaborg') }} minut{% if states('sensor.faaborg') | int > 1 %}ter{%- endif %} ({{ strptime(state_attr('sensor.faaborg', 'due_at'), '%d.%m.%y %H:%M').timestamp() | timestamp_custom('%R') }})
+          attribute_templates:
+            due_in: "{{ state_attr('sensor.faaborg', 'due_in') }}"
     
         bus_mod_odense:
           friendly_name_template: >-
@@ -28,3 +30,5 @@ rejseplanen:
           icon_template: mdi:bus-clock
           value_template: >-
             {{ states('sensor.odense') }} minut{% if states('sensor.odense') | int > 1 %}ter{%- endif %} ({{ strptime(state_attr('sensor.odense', 'due_at'), '%d.%m.%y %H:%M').timestamp() | timestamp_custom('%R') }})
+          attribute_templates:
+            due_in: "{{ state_attr('sensor.odense', 'due_in') }}"

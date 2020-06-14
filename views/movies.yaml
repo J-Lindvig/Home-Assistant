@@ -1,3 +1,21 @@
+# lovelace_gen
+{% macro remote_button(icon, side, top, device, command) %}
+          - type: icon
+            icon: mdi:{{ icon }}
+            title: null
+            tap_action:
+              action: call-service
+              service: remote.send_command
+              service_data:
+                entity_id: remote.rm_mini_3
+                device: {{ device }}
+                command: {{ command }}
+            style:
+              top: {{ top }}
+              left: {{ side }}
+              background-color: rgba(34, 34, 34, 0.5)
+{% endmacro %}
+
 title: Film
 icon: mdi:library-movie
 panel: true
@@ -5,8 +23,6 @@ cards:
   - type: custom:layout-card
     layout: vertical
     max_columns: 3
-#    min_width: 33%
-#    max_width: 99%
     column_width: [33%,32%,33%]
     cards:
       - !include cards/movies/movie_selection.yaml
@@ -14,3 +30,40 @@ cards:
       - !include cards/movies/movies.yaml
       - break
       - !include cards/movies/chromecast.yaml
+      - type: picture-elements
+        image: 'https://www.vestel.com.tr/ProductImages/LargeImagesNew/20275300_r1.png'
+        elements:
+          {{ remote_button("power-standby", "33%", "30%", "Waoo TV Boks", "Power") }}
+
+          # NUMERIC
+          {{ remote_button("numeric-1-circle", "17%", "38%", "Waoo TV Boks", "1") }}
+          {{ remote_button("numeric-2-circle", "25%", "38%", "Waoo TV Boks", "2") }}
+          {{ remote_button("numeric-3-circle", "33%", "38%", "Waoo TV Boks", "3") }}
+          {{ remote_button("numeric-4-circle", "17%", "46%", "Waoo TV Boks", "4") }}
+          {{ remote_button("numeric-5-circle", "25%", "46%", "Waoo TV Boks", "5") }}
+          {{ remote_button("numeric-6-circle", "33%", "46%", "Waoo TV Boks", "6") }}
+          {{ remote_button("numeric-7-circle", "17%", "54%", "Waoo TV Boks", "7") }}
+          {{ remote_button("numeric-8-circle", "25%", "54%", "Waoo TV Boks", "8") }}
+          {{ remote_button("numeric-9-circle", "33%", "54%", "Waoo TV Boks", "9") }}
+          {{ remote_button("chevron-down-circle", "17%", "62%", "Waoo TV Boks", "Channel Down") }}
+          {{ remote_button("numeric-0-circle", "25%", "62%", "Waoo TV Boks", "0") }}
+          {{ remote_button("chevron-up-circle", "33%", "62%", "Waoo TV Boks", "Channel Up") }}
+
+          # MENU
+          {{ remote_button("chevron-up-circle", "57%", "30%", "Waoo TV Boks", "Up") }}
+          {{ remote_button("chevron-left-circle", "49%", "38%", "Waoo TV Boks", "Left") }}
+          {{ remote_button("subdirectory-arrow-left", "57%", "38%", "Waoo TV Boks", "OK") }}
+          {{ remote_button("chevron-right-circle", "65%", "38%", "Waoo TV Boks", "Right") }}
+          {{ remote_button("chevron-down-circle", "57%", "46%", "Waoo TV Boks", "Down") }}
+
+          # PLAYBACK
+          {{ remote_button("history", "57%", "54%", "Waoo TV Boks", "Skip Backward") }}
+          {{ remote_button("record-rec", "49%", "62%", "Waoo TV Boks", "Record") }}
+          {{ remote_button("play-pause", "57%", "62%", "Waoo TV Boks", "Play Pause") }}
+          {{ remote_button("stop", "65%", "62%", "Waoo TV Boks", "Stop") }}
+
+          # TELEVISION
+          {{ remote_button("power-standby", "83%", "30%", "Vestel TV", "Power") }}
+          {{ remote_button("volume-plus", "83%", "46%", "Vestel TV", "Volume Up") }}
+          {{ remote_button("volume-mute", "83%", "54%", "Vestel TV", "Mute") }}
+          {{ remote_button("volume-minus", "83%", "62%", "Vestel TV", "Volume Down") }}

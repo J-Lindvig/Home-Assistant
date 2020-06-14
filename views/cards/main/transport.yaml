@@ -1,9 +1,15 @@
-type: entities
-title: Transport
-show_header_toggle: false
-entities:
-  - sensor.bus_mod_odense
-  - sensor.bus_mod_faaborg
-header:
-  type: picture
-  image: /local/images/headers/fynbus.jpg
+type: custom:auto-entities
+card:
+  type: entities
+  title: Transport
+  show_header_toggle: false
+  header:
+    type: picture
+    image: /local/images/headers/fynbus.jpg
+filter:
+  include:
+    - entity_id: "sensor.bus_mod_*"
+sort:
+  method: attribute
+  numeric: true
+  attribute: due_in

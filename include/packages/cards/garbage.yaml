@@ -45,7 +45,7 @@ garbage:
             {%- endif -%}
           attribute_templates:
             days: >-
-              {{ state_attr('sensor.affald_test', 'days') }}
+              {{ state_attr('sensor.affald', 'days') }}
 
         genbrug_hentes:
           friendly_name: "Genbrug:"
