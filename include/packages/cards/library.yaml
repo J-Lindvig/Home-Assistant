@@ -1,3 +1,13 @@
 library:
   shell_command:
     library_update: 'source /config/shell/library.sh; library_update'
+
+  automation:
+    - alias: Opdater bibliotekslån
+      trigger:
+        - platform: time
+          at: "00:17:00"
+        - platform: homeassistant
+          event: start
+      action:
+        service: shell_command.library_update
