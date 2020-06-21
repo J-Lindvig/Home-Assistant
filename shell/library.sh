@@ -96,7 +96,7 @@ library_get() {
   _parsehub_get_data "$PARSEHUB_LIBRARY_TOKEN" "$TEMP_PATH/parsehub_$2.json"
 
   # Parsehub is limited in manipulating the extracted data
-  # Here we search  for the date in the "Due_In" field and calculate the amount
+  # Here we search for the date in the "Due_In" field and calculate the amount
   # of days to the expiration date of the loan
   # Output is saved in a new file
   sed 's/.*\([0-9]\{4\}-[0-9]\{2\}-[0-9]\{2\}\).*/|\1/' "$TEMP_PATH/parsehub_$2.json" | while read d; do if [[ ${d:0:1} == "|" ]]; then echo '"Due_In" :"'$(( ($(date -d ${d#?} +%s) - $(date +%s) ) / 86400 ))'",'; else echo $d; fi; done > "$TEMP_PATH/parsehub_edit_$2.json"
@@ -105,8 +105,7 @@ library_get() {
   # lowest value.
   # Append the attributes: summary, list of loans and friendly_name
   # Use the generic function and send it to Home Assistant
-  _send_data "{\"state\": "$(grep -m 1 "Due_In" "$TEMP_PATH/parsehub_edit_$2.json" | cut -d':' -f2)"\"attributes\": \"friendly_name\": \"$1\", $(cat "$TEMP_PATH/parsehub_edit_$2.json")}}" "$BASE_URL$API_STATES_PATH/sensor.library_$2"
-#  _send_data "{\"state\": "$(grep -m 1 "Due_In" "$TEMP_PATH/parsehub_edit_$2.json" | cut -d':' -f2)"\"attributes\": $(cat "$TEMP_PATH/parsehub_edit_$2.json"), \"friendly_name\": \"$1\"}}" "$BASE_URL$API_STATES_PATH/sensor.library_$2"
+  _send_data "{\"state\": "$(grep -m 1 "Due_In" "$TEMP_PATH/parsehub_edit_$2.json" | cut -d':' -f2)"\"attributes\": $(cat "$TEMP_PATH/parsehub_edit_$2.json"), \"friendly_name\": \"$1\"}}" "$BASE_URL$API_STATES_PATH/sensor.library_$2"
 
   # Cleanup on exit  
   rm -f "$TEMP_PATH/parsehub_edit_$2.json" "$TEMP_PATH/parsehub_$2.json"

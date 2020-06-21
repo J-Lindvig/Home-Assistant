@@ -33,37 +33,16 @@ hal_9000:
           entity_id: media_player.kokken
           data_template:
             message: >-
-              Godmorgen.
-              Det er i dag {{ state_attr('sensor.dato', 'ugedag') }} den {{ state_attr('sensor.dato', 'dato_ordenstal') }} {{ state_attr('sensor.dato', 'maaned') }}.
-              Klokken er {{ states('sensor.tid_naturlig') }} og der er lige nu cirka {{ state_attr('weather.brobyvaerk', 'temperature') | round }} grader i {{ state_attr('weather.brobyvaerk', 'friendly_name') }}.
-              UV-indexet når i dag {{ states('sensor.max_uv_index') | round(2) | replace('.', ',') }} og er højest klokken {{ state_attr('sensor.uv_sun', 'uv_max_natural') }} og der anbefales solcreme mellem {{ state_attr('sensor.uv_sun', 'protection_start_time_natural') }} og {{ state_attr('sensor.uv_sun', 'protection_end_time_natural') }}.
-
-        - service: script.store_volume
-          data_template:
-            entity_id: media_player.kokken
-
-    - alias: "Meddel om Affald/Genbrug"
-      trigger:
-        - platform: time
-          at: "17:00:00"
-      condition:
-        condition: or
-        conditions:
-          - condition: template
-            value_template: >-
-              {{ is_state_attr('sensor.affald_hentes', 'days', '1') }}
-          - condition: template
-            value_template: >-
-              {{ is_state_attr('sensor.genbrug_hentes', 'days', '1') }}
-      action:
-        - service: tts.google_translate_say
-          entity_id: media_player.kokken
-          data_template:
-            message: >-
               {% set len = states('var.greetings').split("|") | length %}
               {% set ran_idx = range(0, len) | random() %}
               {{ states('var.greetings').split("|")[ran_idx] }}
-              
+
+              Det er i dag {{ state_attr('sensor.dato', 'ugedag') }} den {{ state_attr('sensor.dato', 'dato_ordenstal') }} {{ state_attr('sensor.dato', 'maaned') }}.
+
+              Klokken er {{ states('sensor.tid_naturlig') }} og der er lige nu cirka {{ state_attr('weather.brobyvaerk', 'temperature') | round }} grader i {{ state_attr('weather.brobyvaerk', 'friendly_name') }}.
+
+              UV-indexet når i dag {{ states('sensor.max_uv_index') | round(2) | replace('.', ',') }} og er højest klokken {{ state_attr('sensor.uv_sun', 'uv_max_natural') }} og der anbefales solcreme mellem {{ state_attr('sensor.uv_sun', 'protection_start_time_natural') }} og {{ state_attr('sensor.uv_sun', 'protection_end_time_natural') }}.
+
               {% set len = states('var.reminder').split("|") | length %}
               {% set ran_idx = range(0, len) | random() %}
               {{ states('var.reminder').split("|")[ran_idx] }}
@@ -73,3 +52,7 @@ hal_9000:
               {% else %}
                 {{ states('var.recycle') }}
               {% endif -%}
+
+        - service: script.reset_volume
+          data_template:
+            entity_id: media_player.kokken
