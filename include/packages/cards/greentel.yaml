@@ -36,8 +36,8 @@ greentel:
           icon_template: mdi:signal-4g
 
   shell_command:
-    greentel_scrape: "source /config/shell/tools.sh; _greentel_scrape"
-    greentel_get: "source /config/shell/tools.sh; get_greentel"
+    greentel_scrape: "source /config/shell/greentel.sh; greentel_scrape"
+    greentel_get: "source /config/shell/greentel.sh; greentel_get"
 
   automation:
     - alias: "Greentel hent værdier"

@@ -100,23 +100,24 @@ _get_states() {
   $BASE_URL$API_STATES_PATH/input_select.vacuum_room
 }
 
-
-# Greentel
-get_greentel() {
-  rm -f greentel.json
-
-  curl -X GET "https://www.parsehub.com/api/v2/projects/$PARSEHUB_PROJECT_TOKEN/last_ready_run/data?api_key=$PARSEHUB_API_TOKEN" | gunzip > greentel.json
-
-  _send_data "{\"state\": \"$(date +%s)\", \"attributes\": $(cat greentel.json)}" $BASE_URL$API_STATES_PATH/sensor.greentel
-
-  rm -f greentel.json
-}
-
-_greentel_scrape() {
+# Start a Parsehub Scraper
+# 1: Start URL for scraper
+# 2: Project ID
+# 3: Start values aka login credentials
+_parsehub_start_scrape() {
   curl -X POST \
     -d "api_key=$PARSEHUB_API_TOKEN" \
-    -d "start_url=$PARSEHUB_GREENTEL_URL" \
-    -d "start_value_override=$PARSEHUB_GREENTEL_CREDENTIALS" \
+    -d "start_url=$1" \
+    -d "start_value_override=$3" \
     -d "send_email=0" \
-    "https://www.parsehub.com/api/v2/projects/$PARSEHUB_PROJECT_TOKEN/run"
+    "https://www.parsehub.com/api/v2/projects/$2/run"
+}
+
+# PARSEHUB_API_TOKEN
+# $PARSEHUB_LIBRARY_TOKEN
+# File
+_parsehub_get_data() {
+  rm -f "$2"
+
+  curl -X GET "https://www.parsehub.com/api/v2/projects/$1/last_ready_run/data?api_key=$PARSEHUB_API_TOKEN" | gunzip > "$2"
 }

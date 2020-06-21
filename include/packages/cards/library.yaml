@@ -1,0 +1,3 @@
+library:
+  shell_command:
+    library_update: 'source /config/shell/library.sh; library_update'
