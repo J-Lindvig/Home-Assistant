@@ -46,6 +46,7 @@ source /config/shell/tools.sh
 # API_STATES_PATH="api/states"
 # BASE_URL="http://YOUR_HA_IP:8123/"
 # TEMP_PATH="temp"
+# PARSEHUB_API_TOKEN="YOUR PARSEHUB TOKEN"
 # PARSEHUB_LIBRARY_TOKEN="YOUR PROJECT TOKEN"
 # PARSEHUB_LIBRARY_URL="https://bibliotek.dk/"
 # PARSEHUB_USERS_FILE="/config/shell/library_users.txt"
@@ -105,7 +106,7 @@ library_get() {
   # lowest value.
   # Append the attributes: summary, list of loans and friendly_name
   # Use the generic function and send it to Home Assistant
-  _send_data "{\"state\": "$(grep -m 1 "Due_In" "$TEMP_PATH/parsehub_edit_$2.json" | cut -d':' -f2)"\"attributes\": $(cat "$TEMP_PATH/parsehub_edit_$2.json"), \"friendly_name\": \"$1\"}}" "$BASE_URL$API_STATES_PATH/sensor.library_$2"
+    _send_data "{\"state\": "$(grep -m 1 "Due_In" "$TEMP_PATH/parsehub_edit_$2.json" | cut -d':' -f2)"\"attributes\": $(cat "$TEMP_PATH/parsehub_edit_$2.json"), \"friendly_name\": \"$1\", \"icon\": \"mdi:bookshelf\", \"last_update\": \"$(date)\", \"last_update_timestamp\": \"$(date +%s)\"}}" "$BASE_URL$API_STATES_PATH/sensor.library_$2"
 
   # Cleanup on exit  
   rm -f "$TEMP_PATH/parsehub_edit_$2.json" "$TEMP_PATH/parsehub_$2.json"
