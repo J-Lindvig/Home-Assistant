@@ -74,11 +74,11 @@ uv_index:
       trigger:
         platform: time_pattern
         minutes: "/30"
-      condition:
-        condition: numeric_state
-        entity_id: sun.sun
-        value_template: "{{ state.attributes.elevation }}"
-        above: 10
+      # condition:
+      #   condition: numeric_state
+      #   entity_id: sun.sun
+      #   value_template: "{{ state.attributes.elevation }}"
+      #   above: 10
       action:
         service: openuv.update_uv_index_data
 

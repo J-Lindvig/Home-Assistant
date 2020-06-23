@@ -26,6 +26,7 @@ birthday:
         - sensor.anniversary_hjalte_fodselsdag
         - sensor.anniversary_emilio_fodselsdag
         - sensor.anniversary_colin_fodselsdag
+        - sensor.anniversary_william_fodselsdag
 
   sensor:
     - platform: template

@@ -73,6 +73,15 @@ library_update() {
   done < "$PARSEHUB_USERS_FILE"
 }
 
+library_renew () {
+  curl -X POST -L -b "$TEMP_PATH/cookies.txt" -c "$TEMP_PATH/cookies.txt" -d "name=jacob@lindvig-henriksen.dk&pass=Kar2ffel!&form_build_id=form-Jf7_DJtS3VPC6vESuJ7rffRCDEEasS9qG0VctbPjfcc&form_id=user_login" https://bibliotek.dk/da/bibdk_modal/login > "$TEMP_PATH/output.html"
+
+  sleep 10
+
+  curl -X POST -L -b "$TEMP_PATH/cookies.txt" -c "$TEMP_PATH/cookies.txt" -d "loans_table%5B4055346432%3B743003%5D%3D4055346432%3B743003%26op%3DForny%20markerede%26form_build_id%3Dform-EPHPHXvcLFWdWWDPyxyz0woBgL7NUYIi9HlgqEnO1gk%26form_token%3DlKY7RSwfu72f3B4GhQTXmrN43kf9BcKPnR3g-9dgseU%26form_id%3Dbibdk_openuserstatus_form" https://bibliotek.dk/da/user/me/bibdk_openuserstatus_ajax
+
+}
+
 library_scrape() {
   # Start the scraper with the generic function
   # Takes the following variables:
