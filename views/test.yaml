@@ -6,6 +6,14 @@
   "Køkken": ["light.kokken", "light.spisebord", "light.maleri", "light.legekokken", "light.kaffebar", "light.kokkeno", "light.kokkenskabe", "light.kokkenbord"]
 } %}
 
+{%- macro ir_command(command) -%}
+      service: remote.send_command
+      service_data:
+        entity_id: remote.rm_mini_3_stuen
+        device: Vestel TV
+        command: {{ command }}
+{%- endmacro %}
+
 {%- macro open_slider(room) -%}
           action: call-service
           service: browser_mod.popup
@@ -35,6 +43,51 @@ title: System
 icon: mdi:test-tube
 panel: false
 cards:
+
+  - type: custom:auto-entities
+    card:
+      type: entities
+      title: Transport
+      show_header_toggle: false
+    filter:
+      include:
+        - type: section
+          label: Busser
+        - domain: switch
+          name: /AdGuard/
+        - type: section
+          label: Toge
+        - domain: light
+    sort:
+      method: state
+      
+
+  - type: custom:tv-card
+    entity: sun.sun
+    name: Vestel TV
+    tv: false
+    power:
+      {{ ir_command("Power") }}
+    menu:
+      {{ ir_command("Menu") }}
+    select:
+      {{ ir_command("OK") }}
+    back:
+      {{ ir_command("Back") }}
+    up:
+      {{ ir_command("Up") }}
+    left:
+      {{ ir_command("Left") }}
+    right:
+      {{ ir_command("Right") }}
+    down:
+      {{ ir_command("Down") }}
+    volume_up:
+      {{ ir_command("Volume Up") }}
+    volume_down:
+      {{ ir_command("Volume Down") }}
+    volume_mute:
+      {{ ir_command("Mute") }}
 
   - type: custom:rejseplanen-card
     entity: sensor.odense

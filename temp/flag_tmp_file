@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="da-DK" class="html_stretched responsive av-preloader-disabled av-default-lightbox  html_header_top html_logo_left html_main_nav_header html_menu_right html_slim html_header_sticky html_header_shrinking html_header_topbar_active html_mobile_menu_phone html_header_searchicon_disabled html_content_align_center html_header_unstick_top_disabled html_header_stretch_disabled html_minimal_header html_minimal_header_shadow html_av-overlay-side html_av-overlay-side-minimal html_av-submenu-noclone html_entry_id_56 html_cart_at_menu av-cookies-no-cookie-consent av-no-preview html_text_menu_active ">
+<head>
+<meta charset="UTF-8" />
+
+
+<!-- mobile setting -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Scripts/CSS and wp_head hook -->
+
+	<!-- This site is optimized with the Yoast SEO plugin v14.3 - https://yoast.com/wordpress/plugins/seo/ -->
+	<title>Flagdage - Design Flag</title>
+	<meta name="robots" content="index, follow" />
+	<meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+	<meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+	<link rel="canonical" href="https://designflag.dk/om-flag/flagdage/" />
+	<meta property="og:locale" content="da_DK" />
+	<meta property="og:type" content="article" />
+	<meta property="og:title" content="Flagdage - Design Flag" />
+	<meta property="og:url" content="https://designflag.dk/om-flag/flagdage/" />
+	<meta property="og:site_name" content="Design Flag" />
+	<meta property="article:modified_time" content="2020-02-19T12:12:15+00:00" />
+	<meta name="twitter:card" content="summary" />
+	<script type="application/ld+json" class="yoast-schema-graph">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"https://designflag.dk/#website","url":"https://designflag.dk/","name":"Design Flag","description":"we love flags","potentialAction":[{"@type":"SearchAction","target":"https://designflag.dk/?s={search_term_string}","query-input":"required name=search_term_string"}],"inLanguage":"da-DK"},{"@type":"WebPage","@id":"https://designflag.dk/om-flag/flagdage/#webpage","url":"https://designflag.dk/om-flag/flagdage/","name":"Flagdage - Design Flag","isPartOf":{"@id":"https://designflag.dk/#website"},"datePublished":"2016-12-05T14:55:28+00:00","dateModified":"2020-02-19T12:12:15+00:00","inLanguage":"da-DK","potentialAction":[{"@type":"ReadAction","target":["https://designflag.dk/om-flag/flagdage/"]}]}]}</script>
+	<!-- / Yoast SEO plugin. -->
+
+
+<script type='text/javascript'>console.log('PixelYourSite Free version 7.1.8');</script>
+<link rel='dns-prefetch' href='//fonts.googleapis.com' />
+<link rel='dns-prefetch' href='//s.w.org' />
+<link rel="alternate" type="application/rss+xml" title="Design Flag &raquo; Feed" href="https://designflag.dk/feed/" />
+<link rel="alternate" type="application/rss+xml" title="Design Flag &raquo;-kommentar-feed" href="https://designflag.dk/comments/feed/" />
+
+<!-- google webfont font replacement -->
+
+			<script type='text/javascript'>
+
+				(function() {
+					
+					/*	check if webfonts are disabled by user setting via cookie - or user must opt in.	*/
+					var html = document.getElementsByTagName('html')[0];
+					var cookie_check = html.className.indexOf('av-cookies-needs-opt-in') >= 0 || html.className.indexOf('av-cookies-can-opt-out') >= 0;
+					var allow_continue = true;
+
+					if( cookie_check )
+					{
+						if( ! document.cookie.match(/aviaCookieConsent/) || sessionStorage.getItem( 'aviaCookieRefused' ) )
+						{
+							allow_continue = false;
+						}
+						else
+						{
+							if( ! document.cookie.match(/aviaPrivacyRefuseCookiesHideBar/) )
+							{
+								allow_continue = false;
+							}
+							else if( ! document.cookie.match(/aviaPrivacyEssentialCookiesEnabled/) )
+							{
+								allow_continue = false;
+							}
+							else if( document.cookie.match(/aviaPrivacyGoogleWebfontsDisabled/) )
+							{
+								allow_continue = false;
+							}
+						}
+					}
+					
+					if( allow_continue )
+					{
+						var f = document.createElement('link');
+					
+						f.type 	= 'text/css';
+						f.rel 	= 'stylesheet';
+						f.href 	= '//fonts.googleapis.com/css?family=Lato:300,400,700';
+						f.id 	= 'avia-google-webfont';
+
+						document.getElementsByTagName('head')[0].appendChild(f);
+					}
+				})();
+			
+			</script>
+					<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/12.0.0-1\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/12.0.0-1\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/designflag.dk\/wp-includes\/js\/wp-emoji-release.min.js?ver=5.4.2"}};
+			/*! This file is auto-generated */
+			!function(e,a,t){var r,n,o,i,p=a.createElement("canvas"),s=p.getContext&&p.getContext("2d");function c(e,t){var a=String.fromCharCode;s.clearRect(0,0,p.width,p.height),s.fillText(a.apply(this,e),0,0);var r=p.toDataURL();return s.clearRect(0,0,p.width,p.height),s.fillText(a.apply(this,t),0,0),r===p.toDataURL()}function l(e){if(!s||!s.fillText)return!1;switch(s.textBaseline="top",s.font="600 32px Arial",e){case"flag":return!c([127987,65039,8205,9895,65039],[127987,65039,8203,9895,65039])&&(!c([55356,56826,55356,56819],[55356,56826,8203,55356,56819])&&!c([55356,57332,56128,56423,56128,56418,56128,56421,56128,56430,56128,56423,56128,56447],[55356,57332,8203,56128,56423,8203,56128,56418,8203,56128,56421,8203,56128,56430,8203,56128,56423,8203,56128,56447]));case"emoji":return!c([55357,56424,55356,57342,8205,55358,56605,8205,55357,56424,55356,57340],[55357,56424,55356,57342,8203,55358,56605,8203,55357,56424,55356,57340])}return!1}function d(e){var t=a.createElement("script");t.src=e,t.defer=t.type="text/javascript",a.getElementsByTagName("head")[0].appendChild(t)}for(i=Array("flag","emoji"),t.supports={everything:!0,everythingExceptFlag:!0},o=0;o<i.length;o++)t.supports[i[o]]=l(i[o]),t.supports.everything=t.supports.everything&&t.supports[i[o]],"flag"!==i[o]&&(t.supports.everythingExceptFlag=t.supports.everythingExceptFlag&&t.supports[i[o]]);t.supports.everythingExceptFlag=t.supports.everythingExceptFlag&&!t.supports.flag,t.DOMReady=!1,t.readyCallback=function(){t.DOMReady=!0},t.supports.everything||(n=function(){t.readyCallback()},a.addEventListener?(a.addEventListener("DOMContentLoaded",n,!1),e.addEventListener("load",n,!1)):(e.attachEvent("onload",n),a.attachEvent("onreadystatechange",function(){"complete"===a.readyState&&t.readyCallback()})),(r=t.source||{}).concatemoji?d(r.concatemoji):r.wpemoji&&r.twemoji&&(d(r.twemoji),d(r.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+	<link rel='stylesheet' id='avia-woocommerce-css-css'  href='https://designflag.dk/wp-content/themes/enfold/config-woocommerce/woocommerce-mod.css?ver=5.4.2' type='text/css' media='all' />
+<link rel='stylesheet' id='avia-grid-css'  href='https://designflag.dk/wp-content/themes/enfold/css/grid.css?ver=4.6' type='text/css' media='all' />
+<link rel='stylesheet' id='avia-base-css'  href='https://designflag.dk/wp-content/themes/enfold/css/base.css?ver=4.6' type='text/css' media='all' />
+<link rel='stylesheet' id='avia-layout-css'  href='https://designflag.dk/wp-content/themes/enfold/css/layout.css?ver=4.6' type='text/css' media='all' />
+<link rel='stylesheet' id='avia-module-blog-css'  href='https://designflag.dk/wp-content/themes/enfold/config-templatebuilder/avia-shortcodes/blog/blog.css?ver=5.4.2' type='text/css' media='all' />
+<link rel='stylesheet' id='avia-module-postslider-css'  href='https://designflag.dk/wp-content/themes/enfold/config-templatebuilder/avia-shortcodes/postslider/postslider.css?ver=5.4.2' type='text/css' media='all' />
+<link rel='stylesheet' id='avia-module-button-css'  href='https://designflag.dk/wp-content/themes/enfold/config-templatebuilder/avia-shortcodes/buttons/buttons.css?ver=5.4.2' type='text/css' media='all' />
+<link rel='stylesheet' id='avia-module-comments-css'  href='https://designflag.dk/wp-content/themes/enfold/config-templatebuilder/avia-shortcodes/comments/comments.css?ver=5.4.2' type='text/css' media='all' />
+<link rel='stylesheet' id='avia-module-contact-css'  href='https://designflag.dk/wp-content/themes/enfold/config-templatebuilder/avia-shortcodes/contact/contact.css?ver=5.4.2' type='text/css' media='all' />
+<link rel='stylesheet' id='avia-module-gallery-css'  href='https://designflag.dk/wp-content/themes/enfold/config-templatebuilder/avia-shortcodes/gallery/gallery.css?ver=5.4.2' type='text/css' media='all' />
+<link rel='stylesheet' id='avia-module-gridrow-css'  href='https://designflag.dk/wp-content/themes/enfold/config-templatebuilder/avia-shortcodes/grid_row/grid_row.css?ver=5.4.2' type='text/css' media='all' />
+<link rel='stylesheet' id='avia-module-hr-css'  href='https://designflag.dk/wp-content/themes/enfold/config-templatebuilder/avia-shortcodes/hr/hr.css?ver=5.4.2' type='text/css' media='all' />
+<link rel='stylesheet' id='avia-module-image-css'  href='https://designflag.dk/wp-content/themes/enfold/config-templatebuilder/avia-shortcodes/image/image.css?ver=5.4.2' type='text/css' media='all' />
+<link rel='stylesheet' id='avia-module-slideshow-ls-css'  href='https://designflag.dk/wp-content/themes/enfold/config-templatebuilder/avia-shortcodes/slideshow_layerslider/slideshow_layerslider.css?ver=5.4.2' type='text/css' media='all' />
+<link rel='stylesheet' id='avia-module-social-css'  href='https://designflag.dk/wp-content/themes/enfold/config-templatebuilder/avia-shortcodes/social_share/social_share.css?ver=5.4.2' type='text/css' media='all' />
+<link rel='stylesheet' id='avia-module-tabs-css'  href='https://designflag.dk/wp-content/themes/enfold/config-templatebuilder/avia-shortcodes/tabs/tabs.css?ver=5.4.2' type='text/css' media='all' />
+<link rel='stylesheet' id='avia-module-video-css'  href='https://designflag.dk/wp-content/themes/enfold/config-templatebuilder/avia-shortcodes/video/video.css?ver=5.4.2' type='text/css' media='all' />
+<link rel='stylesheet' id='layerslider-css'  href='https://designflag.dk/wp-content/plugins/LayerSlider/static/layerslider/css/layerslider.css?ver=6.0.5' type='text/css' media='all' />
+<link rel='stylesheet' id='ls-google-fonts-css'  href='https://fonts.googleapis.com/css?family=Lato:100,300,regular,700,900%7COpen+Sans:300%7CIndie+Flower:regular%7COswald:300,regular,700&#038;subset=latin%2Clatin-ext' type='text/css' media='all' />
+<link rel='stylesheet' id='wc-block-style-css'  href='https://designflag.dk/wp-content/plugins/woocommerce/packages/woocommerce-blocks/build/style.css?ver=2.5.11' type='text/css' media='all' />
+<link rel='stylesheet' id='responsive-lightbox-swipebox-css'  href='https://designflag.dk/wp-content/plugins/responsive-lightbox/assets/swipebox/swipebox.min.css?ver=2.2.3' type='text/css' media='all' />
+<style id='woocommerce-inline-inline-css' type='text/css'>
+.woocommerce form .form-row .required { visibility: visible; }
+</style>
+<link rel='stylesheet' id='bambora_online_classic_front_style-css'  href='https://designflag.dk/wp-content/plugins/bambora-online-classic/style/bambora-online-classic-front.css?ver=5.4.2' type='text/css' media='all' />
+<link rel='stylesheet' id='mc4wp-form-themes-css'  href='https://designflag.dk/wp-content/plugins/mailchimp-for-wp/assets/css/form-themes.min.css?ver=4.7.8' type='text/css' media='all' />
+<link rel='stylesheet' id='avia-scs-css'  href='https://designflag.dk/wp-content/themes/enfold/css/shortcodes.css?ver=4.6' type='text/css' media='all' />
+<link rel='stylesheet' id='avia-popup-css-css'  href='https://designflag.dk/wp-content/themes/enfold/js/aviapopup/magnific-popup.css?ver=4.6' type='text/css' media='screen' />
+<link rel='stylesheet' id='avia-lightbox-css'  href='https://designflag.dk/wp-content/themes/enfold/css/avia-snippet-lightbox.css?ver=4.6' type='text/css' media='screen' />
+<link rel='stylesheet' id='avia-widget-css-css'  href='https://designflag.dk/wp-content/themes/enfold/css/avia-snippet-widget.css?ver=4.6' type='text/css' media='screen' />
+<link rel='stylesheet' id='avia-dynamic-css'  href='https://designflag.dk/wp-content/uploads/dynamic_avia/enfold.css?ver=5e4d1e7169127' type='text/css' media='all' />
+<link rel='stylesheet' id='avia-custom-css'  href='https://designflag.dk/wp-content/themes/enfold/css/custom.css?ver=4.6' type='text/css' media='all' />
+<link rel='stylesheet' id='js_composer_front-css'  href='https://designflag.dk/wp-content/plugins/js_composer/assets/css/js_composer.min.css?ver=5.4.7' type='text/css' media='all' />
+<link rel='stylesheet' id='js_composer_custom_css-css'  href='//designflag.dk/wp-content/uploads/js_composer/custom.css?ver=5.4.7' type='text/css' media='all' />
+<script>if (document.location.protocol != "https:") {document.location = document.URL.replace(/^http:/i, "https:");}</script><script type='text/javascript' src='https://designflag.dk/wp-includes/js/jquery/jquery.js?ver=1.12.4-wp'></script>
+<script type='text/javascript' src='https://designflag.dk/wp-includes/js/jquery/jquery-migrate.min.js?ver=1.4.1'></script>
+<script type='text/javascript' src='https://designflag.dk/wp-content/plugins/LayerSlider/static/layerslider/js/greensock.js?ver=1.19.0'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var LS_Meta = {"v":"6.0.5"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://designflag.dk/wp-content/plugins/LayerSlider/static/layerslider/js/layerslider.kreaturamedia.jquery.js?ver=6.0.5'></script>
+<script type='text/javascript' src='https://designflag.dk/wp-content/plugins/LayerSlider/static/layerslider/js/layerslider.transitions.js?ver=6.0.5'></script>
+<script type='text/javascript' src='https://designflag.dk/wp-content/plugins/responsive-lightbox/assets/swipebox/jquery.swipebox.min.js?ver=2.2.3'></script>
+<script type='text/javascript' src='https://designflag.dk/wp-content/plugins/responsive-lightbox/assets/infinitescroll/infinite-scroll.pkgd.min.js?ver=5.4.2'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var rlArgs = {"script":"swipebox","selector":"lightbox","customEvents":"","activeGalleries":"1","animation":"1","hideCloseButtonOnMobile":"0","removeBarsOnMobile":"0","hideBars":"1","hideBarsDelay":"5000","videoMaxWidth":"1080","useSVG":"1","loopAtEnd":"0","woocommerce_gallery":"1","ajaxurl":"https:\/\/designflag.dk\/wp-admin\/admin-ajax.php","nonce":"3cd891952b"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://designflag.dk/wp-content/plugins/responsive-lightbox/js/front.js?ver=2.2.3'></script>
+<script type='text/javascript' src='https://designflag.dk/wp-content/plugins/woocommerce/assets/js/jquery-blockui/jquery.blockUI.min.js?ver=2.70'></script>
+<script type='text/javascript' src='https://designflag.dk/wp-content/plugins/woocommerce/assets/js/js-cookie/js.cookie.min.js?ver=2.1.4'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var wc_add_to_cart_params = {"ajax_url":"\/wp-admin\/admin-ajax.php","wc_ajax_url":"\/?wc-ajax=%%endpoint%%","i18n_view_cart":"Se kurv","cart_url":"https:\/\/designflag.dk\/kurv\/","is_cart":"","cart_redirect_after_add":"no"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://designflag.dk/wp-content/plugins/woocommerce/assets/js/frontend/add-to-cart.min.js?ver=3.9.2'></script>
+<script type='text/javascript' src='https://designflag.dk/wp-content/plugins/js_composer/assets/js/vendors/woocommerce-add-to-cart.js?ver=5.4.7'></script>
+<script type='text/javascript' src='https://designflag.dk/wp-content/themes/enfold/js/avia-compat.js?ver=4.6'></script>
+<script type='text/javascript' src='https://designflag.dk/wp-content/plugins/pixelyoursite/dist/scripts/jquery.bind-first-0.2.3.min.js?ver=5.4.2'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var pysOptions = {"staticEvents":{"facebook":{"PageView":[{"params":[],"delay":0,"ids":[]}],"GeneralEvent":[{"params":{"post_type":"page","post_id":"56","content_name":"Flagdage"},"delay":0,"ids":[]}]}},"dynamicEventsParams":[],"dynamicEventsTriggers":[],"facebook":{"pixelIds":["1652205788359916"],"advancedMatching":[],"removeMetadata":false,"contentParams":{"post_type":"page","post_id":56,"content_name":"Flagdage"},"commentEventEnabled":true,"wooVariableAsSimple":false,"downloadEnabled":true,"formEventEnabled":true,"serverApiEnabled":false,"wooCRSendFromServer":false},"debug":"","siteUrl":"https:\/\/designflag.dk","ajaxUrl":"https:\/\/designflag.dk\/wp-admin\/admin-ajax.php","commonEventParams":{"domain":"designflag.dk","user_roles":"guest","plugin":"PixelYourSite"},"commentEventEnabled":"1","downloadEventEnabled":"1","downloadExtensions":["doc","exe","js","pdf","ppt","tgz","zip","xls"],"formEventEnabled":"1","gdpr":{"ajax_enabled":false,"all_disabled_by_api":false,"facebook_disabled_by_api":false,"analytics_disabled_by_api":false,"google_ads_disabled_by_api":false,"pinterest_disabled_by_api":false,"bing_disabled_by_api":false,"facebook_prior_consent_enabled":false,"analytics_prior_consent_enabled":true,"google_ads_prior_consent_enabled":null,"pinterest_prior_consent_enabled":true,"bing_prior_consent_enabled":true,"cookiebot_integration_enabled":false,"cookiebot_facebook_consent_category":"marketing","cookiebot_analytics_consent_category":"statistics","cookiebot_google_ads_consent_category":null,"cookiebot_pinterest_consent_category":"marketing","cookiebot_bing_consent_category":"marketing","ginger_integration_enabled":false,"cookie_notice_integration_enabled":false,"cookie_law_info_integration_enabled":false},"woo":{"enabled":true,"addToCartOnButtonEnabled":true,"addToCartOnButtonValueEnabled":true,"addToCartOnButtonValueOption":"price","removeFromCartEnabled":true,"removeFromCartSelector":"form.woocommerce-cart-form .remove"},"edd":{"enabled":false,"addToCartOnButtonEnabled":false,"addToCartOnButtonValueEnabled":false,"addToCartOnButtonValueOption":"price","removeFromCartEnabled":true}};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://designflag.dk/wp-content/plugins/pixelyoursite/dist/scripts/public.js?ver=7.1.8'></script>
+<link rel='https://api.w.org/' href='https://designflag.dk/wp-json/' />
+<link rel="alternate" type="application/json+oembed" href="https://designflag.dk/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fdesignflag.dk%2Fom-flag%2Fflagdage%2F" />
+<link rel="alternate" type="text/xml+oembed" href="https://designflag.dk/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fdesignflag.dk%2Fom-flag%2Fflagdage%2F&#038;format=xml" />
+
+<!-- Call Now Button 0.4.0 by Jerry Rietveld (callnowbutton.com) -->
+<style>#callnowbutton {display:none;} @media screen and (max-width:650px){#callnowbutton {display:block; position:fixed; text-decoration:none; z-index:2147483647;width:100%;left:0;bottom:0;height:60px;text-align:center;color:#fff; font-weight:600; font-size:120%;  overflow: hidden;background:#81d742;display: flex; justify-content: center; align-items: center;text-shadow: 0 1px 0px rgba(0, 0, 0, 0.18);}body {padding-bottom:60px;}#callnowbutton img {transform: scale(1);}}</style>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-NWBFN88');</script>
+<!-- End Google Tag Manager -->
+
+<meta name="google-site-verification" content="whn0oTB-f0YzlRRtpKRrh5lSzgJI-YQagOV9qt6WISM" />
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-111330102-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-111330102-1');
+</script>
+
+
+
+<script type="text/javascript" src="//downloads.mailchimp.com/js/signup-forms/popup/unique-methods/embed.js" data-dojo-config="usePlainJson: true, isDebug: false"></script><script type="text/javascript">window.dojoRequire(["mojo/signup-forms/Loader"], function(L) { L.start({"baseUrl":"mc.us10.list-manage.com","uuid":"5a76e3452614f85f2a8fa6a7d","lid":"7498937bbf","uniqueMethods":true}) })</script><link rel="profile" href="https://gmpg.org/xfn/11" />
+<link rel="alternate" type="application/rss+xml" title="Design Flag RSS2 Feed" href="https://designflag.dk/feed/" />
+<link rel="pingback" href="https://designflag.dk/xmlrpc.php" />
+<!--[if lt IE 9]><script src="https://designflag.dk/wp-content/themes/enfold/js/html5shiv.js"></script><![endif]-->
+<link rel="icon" href="https://designflag.dk/wp-content/uploads/2017/09/farve-150x150.png" type="image/png">
+	<noscript><style>.woocommerce-product-gallery{ opacity: 1 !important; }</style></noscript>
+	<script>(window.gaDevIds=window.gaDevIds||[]).push('5CDcaG');</script><meta name="generator" content="Powered by WPBakery Page Builder - drag and drop page builder for WordPress."/>
+<!--[if lte IE 9]><link rel="stylesheet" type="text/css" href="https://designflag.dk/wp-content/plugins/js_composer/assets/css/vc_lte_ie9.min.css" media="screen"><![endif]--> <!--<link rel="stylesheet" type="text/css" href="https://designflag.dk/wp-content/themes/one-shop/assets/css/custom.css">-->
+<script type="text/javascript"> _linkedin_data_partner_id = "338204"; </script><script type="text/javascript"> (function(){var s = document.getElementsByTagName("script")[0]; var b = document.createElement("script"); b.type = "text/javascript";b.async = true; b.src = "https://snap.licdn.com/li.lms-analytics/insight.min.js"; s.parentNode.insertBefore(b, s);})(); </script> <noscript> <img height="1" width="1" style="display:none;" alt="" src="https://dc.ads.linkedin.com/collect/?pid=338204&fmt=gif" /> </noscript><link rel="icon" href="https://designflag.dk/wp-content/uploads/2017/10/cropped-browserikon-32x32.png" sizes="32x32" />
+<link rel="icon" href="https://designflag.dk/wp-content/uploads/2017/10/cropped-browserikon-192x192.png" sizes="192x192" />
+<link rel="apple-touch-icon" href="https://designflag.dk/wp-content/uploads/2017/10/cropped-browserikon-180x180.png" />
+<meta name="msapplication-TileImage" content="https://designflag.dk/wp-content/uploads/2017/10/cropped-browserikon-270x270.png" />
+<noscript><style type="text/css"> .wpb_animate_when_almost_visible { opacity: 1; }</style></noscript><style type='text/css'>
+@font-face {font-family: 'entypo-fontello'; font-weight: normal; font-style: normal; font-display: auto;
+src: url('https://designflag.dk/wp-content/themes/enfold/config-templatebuilder/avia-template-builder/assets/fonts/entypo-fontello.eot');
+src: url('https://designflag.dk/wp-content/themes/enfold/config-templatebuilder/avia-template-builder/assets/fonts/entypo-fontello.eot?#iefix') format('embedded-opentype'), 
+url('https://designflag.dk/wp-content/themes/enfold/config-templatebuilder/avia-template-builder/assets/fonts/entypo-fontello.woff') format('woff'), 
+url('https://designflag.dk/wp-content/themes/enfold/config-templatebuilder/avia-template-builder/assets/fonts/entypo-fontello.ttf') format('truetype'), 
+url('https://designflag.dk/wp-content/themes/enfold/config-templatebuilder/avia-template-builder/assets/fonts/entypo-fontello.svg#entypo-fontello') format('svg');
+} #top .avia-font-entypo-fontello, body .avia-font-entypo-fontello, html body [data-av_iconfont='entypo-fontello']:before{ font-family: 'entypo-fontello'; }
+</style>
+
+<!--
+Debugging Info for Theme support: 
+
+Theme: Enfold
+Version: 4.6
+Installed: enfold
+AviaFramework Version: 5.0
+AviaBuilder Version: 0.9.5
+aviaElementManager Version: 1.0.1
+ML:256-PU:30-PLA:25
+WP:5.4.2
+Compress: CSS:disabled - JS:disabled
+Updates: disabled
+PLAu:22
+-->
+</head>
+
+
+
+
+<body data-rsssl=1 id="top" class="page-template-default page page-id-56 page-child parent-pageid-32  rtl_columns stretched lato no_sidebar_border theme-enfold woocommerce-no-js wpb-js-composer js-comp-ver-5.4.7 vc_responsive av-recaptcha-enabled" itemscope="itemscope" itemtype="https://schema.org/WebPage" >
+
+
+	
+	<div id='wrap_all'>
+
+	
+<header id='header' class='all_colors header_color light_bg_color  av_header_top av_logo_left av_main_nav_header av_menu_right av_slim av_header_sticky av_header_shrinking av_header_stretch_disabled av_mobile_menu_phone av_header_searchicon_disabled av_header_unstick_top_disabled av_seperator_small_border av_minimal_header av_minimal_header_shadow av_bottom_nav_disabled '  role="banner" itemscope="itemscope" itemtype="https://schema.org/WPHeader" >
+
+		<div id='header_meta' class='container_wrap container_wrap_meta  av_icon_active_main av_phone_active_right av_extra_header_active av_entry_id_56'>
+		
+			      <div class='container'>
+			      <div class='phone-info '><span>Ring til os på 70 44 41 39 | Fri fragt over 600 KR.</span></div>			      </div>
+		</div>
+
+		<div  id='header_main' class='container_wrap container_wrap_logo'>
+	
+        <div class='container av-logo-container'><div class='inner-container'><span class='logo'><a href='https://designflag.dk/'><img height='100' width='300' src='https://designflag.dk/wp-content/uploads/2017/09/farve.png' alt='Design Flag' title='' /></a></span><nav class='main_menu' data-selectname='Vælg en side'  role="navigation" itemscope="itemscope" itemtype="https://schema.org/SiteNavigationElement" ><div class="avia-menu av-main-nav-wrap av_menu_icon_beside"><ul id="avia-menu" class="menu av-main-nav"><li id="menu-item-891" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-top-level menu-item-top-level-1"><a href="https://designflag.dk/butik/" itemprop="url"><span class="avia-bullet"></span><span class="avia-menu-text">Webshop</span><span class="avia-menu-fx"><span class="avia-arrow-wrap"><span class="avia-arrow"></span></span></span></a>
+
+
+<ul class="sub-menu">
+	<li id="menu-item-307" class="menu-item menu-item-type-custom menu-item-object-custom"><a href="https://designflag.dk/butik/" itemprop="url"><span class="avia-bullet"></span><span class="avia-menu-text">Se alle</span></a></li>
+	<li id="menu-item-194" class="menu-item menu-item-type-taxonomy menu-item-object-product_cat"><a href="https://designflag.dk/produkt-kategori/dannebrosflag/" itemprop="url"><span class="avia-bullet"></span><span class="avia-menu-text">Dannebrogsflag</span></a></li>
+	<li id="menu-item-195" class="menu-item menu-item-type-taxonomy menu-item-object-product_cat"><a href="https://designflag.dk/produkt-kategori/flagstaenger/" itemprop="url"><span class="avia-bullet"></span><span class="avia-menu-text">Flagstænger</span></a></li>
+	<li id="menu-item-196" class="menu-item menu-item-type-taxonomy menu-item-object-product_cat"><a href="https://designflag.dk/produkt-kategori/maritime-flag/" itemprop="url"><span class="avia-bullet"></span><span class="avia-menu-text">Maritime flag</span></a></li>
+	<li id="menu-item-198" class="menu-item menu-item-type-taxonomy menu-item-object-product_cat"><a href="https://designflag.dk/produkt-kategori/national-flag/" itemprop="url"><span class="avia-bullet"></span><span class="avia-menu-text">Nationalflag</span></a></li>
+</ul>
+</li>
+<li id="menu-item-439" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-top-level menu-item-top-level-2"><a href="https://designflag.dk/produkter/" itemprop="url"><span class="avia-bullet"></span><span class="avia-menu-text">B2B produkter</span><span class="avia-menu-fx"><span class="avia-arrow-wrap"><span class="avia-arrow"></span></span></span></a>
+
+
+<ul class="sub-menu">
+	<li id="menu-item-1766" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children"><a href="https://designflag.dk/produkter/reklameflag/" itemprop="url"><span class="avia-bullet"></span><span class="avia-menu-text">Reklameflag</span></a>
+	<ul class="sub-menu">
+		<li id="menu-item-604" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://designflag.dk/produkter/reklameflag-gammel/logoflag/" itemprop="url"><span class="avia-bullet"></span><span class="avia-menu-text">Logoflag</span></a></li>
+		<li id="menu-item-602" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://designflag.dk/produkter/messe-og-kampagne/beachflag/" itemprop="url"><span class="avia-bullet"></span><span class="avia-menu-text">Beachflag</span></a></li>
+		<li id="menu-item-603" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://designflag.dk/produkter/reklameflag-gammel/bordflag-med-logo/" itemprop="url"><span class="avia-bullet"></span><span class="avia-menu-text">Bordflag med logo</span></a></li>
+		<li id="menu-item-605" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://designflag.dk/produkter/reklameflag-gammel/papirflag-eget-tryk/" itemprop="url"><span class="avia-bullet"></span><span class="avia-menu-text">Papirflag med eget tryk</span></a></li>
+		<li id="menu-item-606" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://designflag.dk/produkter/reklameflag-gammel/vedligeholdelse/" itemprop="url"><span class="avia-bullet"></span><span class="avia-menu-text">Vedligeholdelse</span></a></li>
+	</ul>
+</li>
+	<li id="menu-item-440" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://designflag.dk/produkter/flagservice/" itemprop="url"><span class="avia-bullet"></span><span class="avia-menu-text">Flagservice</span></a></li>
+	<li id="menu-item-461" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children"><a href="https://designflag.dk/produkter/dannebrogsflag/" itemprop="url"><span class="avia-bullet"></span><span class="avia-menu-text">Dannebrogsflag</span></a>
+	<ul class="sub-menu">
+		<li id="menu-item-589" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://designflag.dk/produkter/dannebrogsflag/dannebrogsflag/" itemprop="url"><span class="avia-bullet"></span><span class="avia-menu-text">Dannebrogsflag</span></a></li>
+		<li id="menu-item-593" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://designflag.dk/produkter/dannebrogsflag/dannebrogsvimpel/" itemprop="url"><span class="avia-bullet"></span><span class="avia-menu-text">Dannebrogsvimpel</span></a></li>
+		<li id="menu-item-592" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://designflag.dk/produkter/dannebrogsflag/dannebrogsstander/" itemprop="url"><span class="avia-bullet"></span><span class="avia-menu-text">Dannebrogsstander</span></a></li>
+		<li id="menu-item-587" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://designflag.dk/produkter/dannebrogsflag/bilflag/" itemprop="url"><span class="avia-bullet"></span><span class="avia-menu-text">Bilflag</span></a></li>
+		<li id="menu-item-588" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://designflag.dk/produkter/dannebrogsflag/bordflag/" itemprop="url"><span class="avia-bullet"></span><span class="avia-menu-text">Bordflag</span></a></li>
+		<li id="menu-item-591" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://designflag.dk/produkter/dannebrogsflag/papirflag/" itemprop="url"><span class="avia-bullet"></span><span class="avia-menu-text">Papirflag</span></a></li>
+		<li id="menu-item-590" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://designflag.dk/produkter/dannebrogsflag/miniflagstaenger/" itemprop="url"><span class="avia-bullet"></span><span class="avia-menu-text">Miniflagstang</span></a></li>
+	</ul>
+</li>
+	<li id="menu-item-2459" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://designflag.dk/produkter/faner-2/" itemprop="url"><span class="avia-bullet"></span><span class="avia-menu-text">Faner</span></a></li>
+	<li id="menu-item-459" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://designflag.dk/produkter/udenlandske-flag/" itemprop="url"><span class="avia-bullet"></span><span class="avia-menu-text">Udenlandske flag</span></a></li>
+	<li id="menu-item-460" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children"><a href="https://designflag.dk/produkter/maritime-flag/" itemprop="url"><span class="avia-bullet"></span><span class="avia-menu-text">Maritime flag</span></a>
+	<ul class="sub-menu">
+		<li id="menu-item-670" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://designflag.dk/produkter/maritime-flag/yachtflag/" itemprop="url"><span class="avia-bullet"></span><span class="avia-menu-text">Yachtflag</span></a></li>
+		<li id="menu-item-596" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://designflag.dk/produkter/maritime-flag/gaesteflag/" itemprop="url"><span class="avia-bullet"></span><span class="avia-menu-text">Gæsteflag</span></a></li>
+		<li id="menu-item-598" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://designflag.dk/produkter/maritime-flag/signalflag/" itemprop="url"><span class="avia-bullet"></span><span class="avia-menu-text">Signalflag</span></a></li>
+		<li id="menu-item-597" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://designflag.dk/produkter/maritime-flag/klubstandere/" itemprop="url"><span class="avia-bullet"></span><span class="avia-menu-text">Klubstandere</span></a></li>
+	</ul>
+</li>
+	<li id="menu-item-458" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://designflag.dk/produkter/flagstaenger/" itemprop="url"><span class="avia-bullet"></span><span class="avia-menu-text">Flagstænger</span></a></li>
+	<li id="menu-item-586" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children"><a href="https://designflag.dk/produkter/bannere/" itemprop="url"><span class="avia-bullet"></span><span class="avia-menu-text">Bannere</span></a>
+	<ul class="sub-menu">
+		<li id="menu-item-5312" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://designflag.dk/produkter/bannere/bannervaeg/" itemprop="url"><span class="avia-bullet"></span><span class="avia-menu-text">Bannervæg</span></a></li>
+		<li id="menu-item-584" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://designflag.dk/produkter/bannere/indendoers-bannere/" itemprop="url"><span class="avia-bullet"></span><span class="avia-menu-text">Indendørs bannere</span></a></li>
+		<li id="menu-item-585" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://designflag.dk/produkter/bannere/udendoers-bannere/" itemprop="url"><span class="avia-bullet"></span><span class="avia-menu-text">Udendørs bannere</span></a></li>
+		<li id="menu-item-583" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://designflag.dk/produkter/bannere/bannerophaeng/" itemprop="url"><span class="avia-bullet"></span><span class="avia-menu-text">Bannerophæng</span></a></li>
+	</ul>
+</li>
+	<li id="menu-item-457" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children"><a href="https://designflag.dk/produkter/messe-og-kampagne/" itemprop="url"><span class="avia-bullet"></span><span class="avia-menu-text">Messe og kampagne</span></a>
+	<ul class="sub-menu">
+		<li id="menu-item-599" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://designflag.dk/produkter/messe-og-kampagne/bannerdisplay/" itemprop="url"><span class="avia-bullet"></span><span class="avia-menu-text">Bannerdisplay</span></a></li>
+		<li id="menu-item-2659" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://designflag.dk/produkter/messe-og-kampagne/beachflag/" itemprop="url"><span class="avia-bullet"></span><span class="avia-menu-text">Beachflag</span></a></li>
+		<li id="menu-item-601" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://designflag.dk/produkter/messe-og-kampagne/roll-up/" itemprop="url"><span class="avia-bullet"></span><span class="avia-menu-text">Roll-Up</span></a></li>
+	</ul>
+</li>
+</ul>
+</li>
+<li id="menu-item-46" class="menu-item menu-item-type-post_type menu-item-object-page current-page-ancestor current-menu-ancestor current-menu-parent current-page-parent current_page_parent current_page_ancestor menu-item-has-children menu-item-top-level menu-item-top-level-3"><a href="https://designflag.dk/om-flag/" itemprop="url"><span class="avia-bullet"></span><span class="avia-menu-text">Værd at vide om flag</span><span class="avia-menu-fx"><span class="avia-arrow-wrap"><span class="avia-arrow"></span></span></span></a>
+
+
+<ul class="sub-menu">
+	<li id="menu-item-47" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://designflag.dk/om-flag/om-dannebrog/" itemprop="url"><span class="avia-bullet"></span><span class="avia-menu-text">Om Dannebrog</span></a></li>
+	<li id="menu-item-69" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://designflag.dk/om-flag/flagning-til-soes/" itemprop="url"><span class="avia-bullet"></span><span class="avia-menu-text">Flagning til søs</span></a></li>
+	<li id="menu-item-68" class="menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item page-item-56 current_page_item"><a href="https://designflag.dk/om-flag/flagdage/" itemprop="url"><span class="avia-bullet"></span><span class="avia-menu-text">Flagdage</span></a></li>
+	<li id="menu-item-67" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://designflag.dk/om-flag/raad-om-flagning/" itemprop="url"><span class="avia-bullet"></span><span class="avia-menu-text">Råd om flagning</span></a></li>
+	<li id="menu-item-1816" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://designflag.dk/om-flag/stoerrelsesguide-dannebrogsflag/" itemprop="url"><span class="avia-bullet"></span><span class="avia-menu-text">Størrelsesguide Dannebrogsflag</span></a></li>
+	<li id="menu-item-2451" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://designflag.dk/om-flag/mit-dannebrog-2/" itemprop="url"><span class="avia-bullet"></span><span class="avia-menu-text">Mit Dannebrog</span></a></li>
+</ul>
+</li>
+<li id="menu-item-72" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-top-level menu-item-top-level-4"><a href="https://designflag.dk/om-os/" itemprop="url"><span class="avia-bullet"></span><span class="avia-menu-text">Om os</span><span class="avia-menu-fx"><span class="avia-arrow-wrap"><span class="avia-arrow"></span></span></span></a></li>
+<li id="menu-item-154" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-top-level menu-item-top-level-5"><a href="https://designflag.dk/referencer/" itemprop="url"><span class="avia-bullet"></span><span class="avia-menu-text">Referencer</span><span class="avia-menu-fx"><span class="avia-arrow-wrap"><span class="avia-arrow"></span></span></span></a></li>
+<li id="menu-item-155" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-top-level menu-item-top-level-6"><a href="https://designflag.dk/blog/" itemprop="url"><span class="avia-bullet"></span><span class="avia-menu-text">Blog</span><span class="avia-menu-fx"><span class="avia-arrow-wrap"><span class="avia-arrow"></span></span></span></a></li>
+<li id="menu-item-77" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-top-level menu-item-top-level-7"><a href="https://designflag.dk/kontakt/" itemprop="url"><span class="avia-bullet"></span><span class="avia-menu-text">Kontakt</span><span class="avia-menu-fx"><span class="avia-arrow-wrap"><span class="avia-arrow"></span></span></span></a></li>
+<li class="av-burger-menu-main menu-item-avia-special ">
+	        			<a href="#">
+							<span class="av-hamburger av-hamburger--spin av-js-hamburger">
+					        <span class="av-hamburger-box">
+						          <span class="av-hamburger-inner"></span>
+						          <strong>Menu</strong>
+					        </span>
+							</span>
+						</a>
+	        		   </li></ul></div><ul id="menu-item-shop" class = 'menu-item cart_dropdown ' data-success='was added to the cart'><li class='cart_dropdown_first'><a class='cart_dropdown_link' href='https://designflag.dk/kurv/'><span aria-hidden='true' data-av_icon='' data-av_iconfont='entypo-fontello'></span><span class='av-cart-counter'>0</span><span class='avia_hidden_link_text'>Shopping Cart</span></a><!--<span class='cart_subtotal'><span class="woocommerce-Price-amount amount">0&nbsp;<span class="woocommerce-Price-currencySymbol">DKK</span></span></span>--><div class='dropdown_widget dropdown_widget_cart'><div class='avia-arrow'></div><div class="widget_shopping_cart_content"></div></div></li></ul><ul class='noLightbox social_bookmarks icon_count_3'><li class='social_bookmarks_facebook av-social-link-facebook social_icon_1'><a  target="_blank" aria-label="Link to Facebook" href='https://www.facebook.com/designflag/' aria-hidden='true' data-av_icon='' data-av_iconfont='entypo-fontello' title='Facebook'><span class='avia_hidden_link_text'>Facebook</span></a></li><li class='social_bookmarks_instagram av-social-link-instagram social_icon_2'><a  target="_blank" aria-label="Link to Instagram" href='https://www.instagram.com/designflag/' aria-hidden='true' data-av_icon='' data-av_iconfont='entypo-fontello' title='Instagram'><span class='avia_hidden_link_text'>Instagram</span></a></li><li class='social_bookmarks_linkedin av-social-link-linkedin social_icon_3'><a  target="_blank" aria-label="Link to LinkedIn" href='https://www.linkedin.com/company/design-flag-aps/' aria-hidden='true' data-av_icon='' data-av_iconfont='entypo-fontello' title='LinkedIn'><span class='avia_hidden_link_text'>LinkedIn</span></a></li></ul></nav></div> </div> 
+		<!-- end container_wrap-->
+		</div>
+		<div class='header_bg'></div>
+
+<!-- end header -->
+</header>
+		
+	<div id='main' class='all_colors' data-scroll-offset='88'>
+
+	<div class='stretch_full container_wrap alternate_color light_bg_color empty_title  title_container'><div class='container'><div class="breadcrumb breadcrumbs avia-breadcrumbs"><div class="breadcrumb-trail" xmlns:v="https://rdf.data-vocabulary.org/#"><span class="trail-before"><span class="breadcrumb-title">Du er her:</span></span> <span><a rel="v:url" property="v:title" href="https://designflag.dk" title="Design Flag"  class="trail-begin">Start</a></span> <span class="sep">/</span> <span><a rel="v:url" property="v:title" href="https://designflag.dk/om-flag/" title="Værd at vide om flag">Værd at vide om flag</a></span> <span class="sep">/</span> <span class="trail-end">Flagdage</span></div></div></div></div>
+		<div class='container_wrap container_wrap_first main_color sidebar_left'>
+
+			<div class='container'>
+
+				<main class='template-page content  av-content-small units'  role="main" itemprop="mainContentOfPage" >
+
+                    
+		<article class='post-entry post-entry-type-page post-entry-56'  itemscope="itemscope" itemtype="https://schema.org/CreativeWork" >
+
+			<div class="entry-content-wrapper clearfix">
+                <header class="entry-content-header"></header><div class="entry-content"  itemprop="text" ><div class="vc_row wpb_row vc_row-fluid"><div class="wpb_column vc_column_container vc_col-sm-12"><div class="vc_column-inner "><div class="wpb_wrapper">
+	<div  class="wpb_single_image wpb_content_element vc_align_left">
+		
+		<figure class="wpb_wrapper vc_figure">
+			<div class="vc_single_image-wrapper   vc_box_border_grey"><img width="1100" height="300" src="https://designflag.dk/wp-content/uploads/2018/03/Dannebrogsflag.png" class="vc_single_image-img attachment-full" alt="" srcset="https://designflag.dk/wp-content/uploads/2018/03/Dannebrogsflag.png 1100w, https://designflag.dk/wp-content/uploads/2018/03/Dannebrogsflag-300x82.png 300w, https://designflag.dk/wp-content/uploads/2018/03/Dannebrogsflag-600x164.png 600w, https://designflag.dk/wp-content/uploads/2018/03/Dannebrogsflag-768x209.png 768w, https://designflag.dk/wp-content/uploads/2018/03/Dannebrogsflag-1024x279.png 1024w" sizes="(max-width: 1100px) 100vw, 1100px" /></div>
+		</figure>
+	</div>
+</div></div></div></div><div class="vc_row wpb_row vc_row-fluid"><div class="wpb_column vc_column_container vc_col-sm-8"><div class="vc_column-inner "><div class="wpb_wrapper">
+	<div class="wpb_text_column wpb_content_element " >
+		<div class="wpb_wrapper">
+			<h1>Officielle flagdage 2020</h1>
+<p>Herunder kan du se de officielle flagdage. Officielle flagdage er dage, der har en speciel national betydning. Statslige institutioner har pligt til at flage med splitflag fra deres bygninger på de officielle flagdage, mens privatpersoner, private virksomheder og organisationer ikke har pligt til at flage.</p>
+<p>Læs mere om flagregler her <a href="https://designflag.dk/om-flag/">Om flag</a></p>
+<table style="height: 518px;" border="1" width="622" cellspacing="0" cellpadding="0">
+<tbody>
+<tr>
+<td style="text-align: left;" valign="top" width="102">1. januar</td>
+<td style="text-align: left;" valign="top" width="550">Nytårsdag</td>
+</tr>
+<tr>
+<td style="text-align: left;" valign="top" width="102">5. februar</td>
+<td style="text-align: left;" valign="top" width="550">Hendes Kongelige Højhed Kronprinsesse Marys fødselsdag</td>
+</tr>
+<tr>
+<td style="text-align: left;" valign="top" width="102">6. februar</td>
+<td style="text-align: left;" valign="top" width="550">Hendes Kongelige Højhed Prinsesse Maries fødselsdag</td>
+</tr>
+<tr>
+<td style="text-align: left;" valign="top" width="102">9. april</td>
+<td style="text-align: left;" valign="top" width="550">Besættelsesdagen. Der flages på halv stang til kl. 12.00, herefter på hel stang</td>
+</tr>
+<tr>
+<td style="text-align: left;" valign="top" width="102">10. april</td>
+<td style="text-align: left;" valign="top" width="550">Langfredag. Der flages på halv stang hele dagen</td>
+</tr>
+<tr>
+<td style="text-align: left;" valign="top" width="102">12. april</td>
+<td style="text-align: left;" valign="top" width="550">Påskedag</td>
+</tr>
+<tr>
+<td style="text-align: left;" valign="top" width="102">16. april</td>
+<td style="text-align: left;" valign="top" width="550">Hendes Majestæt Dronningens fødselsdag</td>
+</tr>
+<tr>
+<td style="text-align: left;" valign="top" width="102">29. april</td>
+<td style="text-align: left;" valign="top" width="550">Hendes Kongelige Højhed Prinsesse Benediktes fødselsdag</td>
+</tr>
+<tr>
+<td style="text-align: left;" valign="top" width="102">5. maj</td>
+<td style="text-align: left;" valign="top" width="550">Danmarks befrielse</td>
+</tr>
+<tr>
+<td style="text-align: left;" valign="top" width="102">21. maj</td>
+<td style="text-align: left;" valign="top" width="550">Kristi Himmelfartsdag</td>
+</tr>
+<tr>
+<td style="text-align: left;" valign="top" width="102">26. maj</td>
+<td style="text-align: left;" valign="top" width="550">Hans Kongelige Højhed Kronprins Frederiks fødselsdag</td>
+</tr>
+<tr>
+<td style="text-align: left;" valign="top" width="102">31. maj</td>
+<td style="text-align: left;" valign="top" width="550">Pinsedag</td>
+</tr>
+<tr>
+<td style="text-align: left;" valign="top" width="102">5. juni</td>
+<td style="text-align: left;" valign="top" width="550">Grundlovsdag</td>
+</tr>
+<tr>
+<td style="text-align: left;" valign="top" width="102">7. juni</td>
+<td style="text-align: left;" valign="top" width="550">Hans Kongelige Højheds Prins Joachims fødselsdag</td>
+</tr>
+<tr>
+<td style="text-align: left;" valign="top" width="102">15. juni</td>
+<td style="text-align: left;" valign="top" width="550">Valdemarsdag og Genforeningsdag</td>
+</tr>
+<tr>
+<td style="text-align: left;" valign="top" width="102">21. juni</td>
+<td style="text-align: left;" valign="top" width="550">Grønlands Nationaldag. Der flages med Grønlands flag</td>
+</tr>
+<tr>
+<td style="text-align: left;" valign="top" width="102">29. juli</td>
+<td style="text-align: left;" valign="top" width="550">Færøernes Nationaldag. Der flages med Færøernes flag</td>
+</tr>
+<tr>
+<td style="text-align: left;" valign="top" width="102">5. september</td>
+<td style="text-align: left;" valign="top" width="550">Danmarks udsendte</td>
+</tr>
+<tr>
+<td style="text-align: left;" valign="top" width="102">25. december</td>
+<td style="text-align: left;" valign="top" width="550">Juledag</td>
+</tr>
+<tr>
+<td style="text-align: left;" valign="top" width="102"></td>
+<td style="text-align: left;" valign="top" width="550"></td>
+</tr>
+</tbody>
+</table>
+
+		</div>
+	</div>
+</div></div></div><div class="wpb_column vc_column_container vc_col-sm-4"><div class="vc_column-inner "><div class="wpb_wrapper"><section class="vc_cta3-container" >
+	<div class="vc_general vc_cta3 vc_cta3-style-classic vc_cta3-shape-square vc_cta3-align-left vc_cta3-color-classic vc_cta3-icon-size-md vc_cta3-actions-bottom">
+						<div class="vc_cta3_content-container">
+									<div class="vc_cta3-content">
+				<header class="vc_cta3-content-header">
+					<h2>Kontakt os</h2>					<h4>Åbent 9-16</h4>				</header>
+				<p>Tlf: 33 31 90 00</p>
+<p>Mail:<a href="mailto:info@designflag.dk"> info@designflag.dk</a></p>
+			</div>
+			<div class="vc_cta3-actions"><div class="vc_btn3-container vc_btn3-inline" >
+	<a class="vc_general vc_btn3 vc_btn3-size-md vc_btn3-shape-square vc_btn3-style-modern vc_btn3-color-white" href="https://designflag.dk/kontakt" title="Kontakt" target="_blank">Skriv til os her</a></div>
+</div>					</div>
+					</div>
+</section>
+
+</div></div></div></div>
+</div><footer class="entry-footer"></footer>			</div>
+
+		</article><!--end post-entry-->
+
+
+
+				<!--end content-->
+				</main>
+
+				<aside class='sidebar sidebar_left sidebar_align_left  alpha units'  role="complementary" itemscope="itemscope" itemtype="https://schema.org/WPSideBar" ><div class='inner_sidebar extralight-border'><nav class='widget widget_nav_menu widget_nav_hide_child'><ul class='nested_nav'><li class="page_item page-item-56 current_page_item"><a href="https://designflag.dk/om-flag/flagdage/" aria-current="page">Flagdage</a></li>
+<li class="page_item page-item-54"><a href="https://designflag.dk/om-flag/flagning-til-soes/">Flagning til søs</a></li>
+<li class="page_item page-item-2448"><a href="https://designflag.dk/om-flag/mit-dannebrog-2/">Mit Dannebrog</a></li>
+<li class="page_item page-item-34"><a href="https://designflag.dk/om-flag/om-dannebrog/">Om Dannebrog</a></li>
+<li class="page_item page-item-58"><a href="https://designflag.dk/om-flag/raad-om-flagning/">Råd om flagning</a></li>
+<li class="page_item page-item-1814"><a href="https://designflag.dk/om-flag/stoerrelsesguide-dannebrogsflag/">Størrelsesguide Dannebrogsflag</a></li>
+</ul></nav></div></aside>
+			</div><!--end container-->
+
+		</div><!-- close default .container_wrap element -->
+
+
+
+						<div class='container_wrap footer_color' id='footer'>
+
+					<div class='container'>
+
+						<div class='flex_column av_one_third  first el_before_av_one_third'><section id="custom_html-2" class="widget_text widget clearfix widget_custom_html"><h3 class="widgettitle">Om Os</h3><div class="textwidget custom-html-widget"><img alt="" src="https://designflag.dk/wp-content/uploads/2017/09/farve.png"><br> 
+Vi tilbyder produkter  i overensstemmelse med vores grundfilosofi: “det skal være god kvalitet”.
+<br>
+<br>
+info@designflag.dk<br>
+Axel Jarls Vej 43<br>
+3400 Hillerød<br><br>
+Tlf. 70 40 47 90</div><span class="seperator extralight-border"></span></section></div><div class='flex_column av_one_third  el_after_av_one_third  el_before_av_one_third '><section id="avia_mailchimp_widget-2" class="widget clearfix avia_mailchimp_widget"><h3 class="widgettitle">Nyhedsbrev</h3><div class='av-mailchimp-widget av-mailchimp-widget-style- '><form action="https://designflag.dk/om-flag/flagdage/" method="post"  data-av-custom-send='mailchimp_send' class="avia_ajax_form av-form-labels-hidden    avia-mailchimp-form " data-avia-form-id="1" data-avia-redirect='' ><fieldset><p class=' first_form  form_element form_fullwidth' id='element_avia_0_1'><label for="avia_0_1">Emailadresse <abbr class="required" title="required">*</abbr></label> <input name="avia_0_1" class="text_input is_email" type="text" id="avia_0_1" value=""  placeholder='Emailadresse*'/></p><p class=' first_form  form_element form_fullwidth' id='element_avia_1_1'><label for="avia_1_1">Fornavn</label> <input name="avia_1_1" class="text_input " type="text" id="avia_1_1" value=""  placeholder='Fornavn'/></p><p class=' first_form  form_element form_fullwidth av-last-visible-form-element' id='element_avia_2_1'><label for="avia_2_1">Efternavn</label> <input name="avia_2_1" class="text_input " type="text" id="avia_2_1" value=""  placeholder='Efternavn'/></p><p class="hidden"><input type="text" name="avia_avia_username_1" class="hidden " id="avia_avia_username_1" value="" /></p><p class="form_element "><input type="hidden" value="1" name="avia_generated_form1" /><input type="submit" value="Tilmeld" class="button"  data-sending-label="Sending"/></p></fieldset><div class="avia-disabled-forn">This contact form is deactivated because you refused to accept Google reCaptcha service which is necessary to validate any messages sent by the form.</div></form><div id="ajaxresponse_1" class="ajaxresponse ajaxresponse_1 hidden"></div></div><span class="seperator extralight-border"></span></section></div><div class='flex_column av_one_third  el_after_av_one_third  el_before_av_one_third '><section id="nav_menu-3" class="widget clearfix widget_nav_menu"><h3 class="widgettitle">Kundeservice</h3><div class="menu-faq-container"><ul id="menu-faq" class="menu"><li id="menu-item-836" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-836"><a href="https://designflag.dk/handelsbetingelser/">Handelsbetingelser</a></li>
+<li id="menu-item-140" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-privacy-policy menu-item-140"><a href="https://designflag.dk/persondata/">Persondata</a></li>
+<li id="menu-item-143" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-143"><a href="https://designflag.dk/kontakt/">Kontakt</a></li>
+</ul></div><span class="seperator extralight-border"></span></section><section id="text-2" class="widget clearfix widget_text">			<div class="textwidget"><img src="https://designflag.dk/wp-content/uploads/2016/12/Visa.png" style="width:40px"> <img src="https://designflag.dk/wp-content/uploads/2016/12/PayPal.png" style="width:40px"> <img src="https://designflag.dk/wp-content/uploads/2016/12/Master-Card.png" style="width:40px">  <img src="https://designflag.dk/wp-content/uploads/2016/12/JCB.png" style="width:40px">  <img src="https://designflag.dk/wp-content/uploads/2016/12/Maestro.png" style="width:40px">  <img src="https://designflag.dk/wp-content/uploads/2017/09/dankort.jpg" style="width:40px">
+
+</div>
+		<span class="seperator extralight-border"></span></section></div>
+
+					</div>
+
+
+				<!-- ####### END FOOTER CONTAINER ####### -->
+				</div>
+
+	
+
+
+			
+
+			
+				<footer class='container_wrap socket_color' id='socket'  role="contentinfo" itemscope="itemscope" itemtype="https://schema.org/WPFooter" >
+                    <div class='container'>
+
+                        <span class='copyright'>© Copyright - Design Flag </span>
+
+                        
+                    </div>
+
+	            <!-- ####### END SOCKET CONTAINER ####### -->
+				</footer>
+
+
+					<!-- end main -->
+		</div>
+		
+		<!-- end wrap_all --></div>
+
+<a href='#top' title='Scroll to top' id='scroll-top-link' aria-hidden='true' aria-hidden='true' data-av_icon='' data-av_iconfont='entypo-fontello'><span class="avia_hidden_link_text">Scroll to top</span></a>
+
+<div id="fb-root"></div>
+
+<a href="tel:33 31 90 00" id="callnowbutton" ><img alt="Call Now Button" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB2aWV3Qm94PSIwIDAgNjAgNjAiPjxwYXRoIGQ9Ik03LjEwNCAxNC4wMzJsMTUuNTg2IDEuOTg0YzAgMC0wLjAxOSAwLjUgMCAwLjk1M2MwLjAyOSAwLjc1Ni0wLjI2IDEuNTM0LTAuODA5IDIuMSBsLTQuNzQgNC43NDJjMi4zNjEgMy4zIDE2LjUgMTcuNCAxOS44IDE5LjhsMTYuODEzIDEuMTQxYzAgMCAwIDAuNCAwIDEuMSBjLTAuMDAyIDAuNDc5LTAuMTc2IDAuOTUzLTAuNTQ5IDEuMzI3bC02LjUwNCA2LjUwNWMwIDAtMTEuMjYxIDAuOTg4LTI1LjkyNS0xMy42NzRDNi4xMTcgMjUuMyA3LjEgMTQgNy4xIDE0IiBmaWxsPSIjNjNiOTI0Ii8+PHBhdGggZD0iTTcuMTA0IDEzLjAzMmw2LjUwNC02LjUwNWMwLjg5Ni0wLjg5NSAyLjMzNC0wLjY3OCAzLjEgMC4zNWw1LjU2MyA3LjggYzAuNzM4IDEgMC41IDIuNTMxLTAuMzYgMy40MjZsLTQuNzQgNC43NDJjMi4zNjEgMy4zIDUuMyA2LjkgOS4xIDEwLjY5OWMzLjg0MiAzLjggNy40IDYuNyAxMC43IDkuMSBsNC43NC00Ljc0MmMwLjg5Ny0wLjg5NSAyLjQ3MS0xLjAyNiAzLjQ5OC0wLjI4OWw3LjY0NiA1LjQ1NWMxLjAyNSAwLjcgMS4zIDIuMiAwLjQgMy4xMDVsLTYuNTA0IDYuNSBjMCAwLTExLjI2MiAwLjk4OC0yNS45MjUtMTMuNjc0QzYuMTE3IDI0LjMgNy4xIDEzIDcuMSAxMyIgZmlsbD0iI2ZmZmZmZiIvPjwvc3ZnPg==" width="40"><span style="color:#ffffff">Ring til os nu - 33 31 90 00</span></a><!--Embed from Zendesk Chat Chat Wordpress Plugin v1.4.16-->
+    <!--Start of Zopim Live Chat Script-->
+    <script type="text/javascript">
+    window.$zopim||(function(d,s){var z=$zopim=function(c){z._.push(c)},$=z.s=
+    d.createElement(s),e=d.getElementsByTagName(s)[0];z.set=function(o){z.set.
+      _.push(o)};z._=[];z.set._=[];$.async=!0;$.setAttribute('charset','utf-8');
+      $.src='//v2.zopim.com/?2sV0oqAJ66SuJgyQrxISkgGX6r6a8eE4';z.t=+new Date;$.
+      type='text/javascript';e.parentNode.insertBefore($,e)})(document,'script');
+      </script><script>$zopim( function() {
+})</script><!--End of Zendesk Chat Script--><script id="mcjs">!function(c,h,i,m,p){m=c.createElement(h),p=c.getElementsByTagName(h)[0],m.async=1,m.src=i,p.parentNode.insertBefore(m,p)}(document,"script","https://chimpstatic.com/mcjs-connected/js/users/5a76e3452614f85f2a8fa6a7d/b7f7d56f07cd5cfc867c72a53.js");</script>
+ <script type='text/javascript'>
+ /* <![CDATA[ */  
+var avia_framework_globals = avia_framework_globals || {};
+    avia_framework_globals.frameworkUrl = 'https://designflag.dk/wp-content/themes/enfold/framework/';
+    avia_framework_globals.installedAt = 'https://designflag.dk/wp-content/themes/enfold/';
+    avia_framework_globals.ajaxurl = 'https://designflag.dk/wp-admin/admin-ajax.php';
+/* ]]> */ 
+</script>
+ 
+ <!--Enhanced Ecommerce Google Analytics Plugin for Woocommerce by Tatvic Plugin Version:2.3.2--><noscript><img height="1" width="1" style="display: none;" src="https://www.facebook.com/tr?id=1652205788359916&ev=PageView&noscript=1" alt="facebook_pixel"></noscript>
+<noscript><img height="1" width="1" style="display: none;" src="https://www.facebook.com/tr?id=1652205788359916&ev=GeneralEvent&noscript=1&cd[post_type]=page&cd[post_id]=56&cd[content_name]=Flagdage" alt="facebook_pixel"></noscript>
+	<script type="text/javascript">
+		var c = document.body.className;
+		c = c.replace(/woocommerce-no-js/, 'woocommerce-js');
+		document.body.className = c;
+	</script>
+	<script type='text/javascript' src='https://designflag.dk/wp-content/themes/enfold/config-woocommerce/woocommerce-mod.js?ver=1'></script>
+<script type='text/javascript' src='https://designflag.dk/wp-content/themes/enfold/js/avia.js?ver=4.6'></script>
+<script type='text/javascript' src='https://designflag.dk/wp-content/themes/enfold/js/shortcodes.js?ver=4.6'></script>
+<script type='text/javascript' src='https://designflag.dk/wp-content/themes/enfold/config-templatebuilder/avia-shortcodes/contact/contact.js?ver=5.4.2'></script>
+<script type='text/javascript' src='https://designflag.dk/wp-content/themes/enfold/config-templatebuilder/avia-shortcodes/gallery/gallery.js?ver=5.4.2'></script>
+<script type='text/javascript' src='https://designflag.dk/wp-content/themes/enfold/config-templatebuilder/avia-shortcodes/slideshow_layerslider/slideshow_layerslider.js?ver=5.4.2'></script>
+<script type='text/javascript' src='https://designflag.dk/wp-content/themes/enfold/config-templatebuilder/avia-shortcodes/tabs/tabs.js?ver=5.4.2'></script>
+<script type='text/javascript' src='https://designflag.dk/wp-content/themes/enfold/config-templatebuilder/avia-shortcodes/slideshow/slideshow-video.js?ver=5.4.2'></script>
+<script type='text/javascript' src='https://designflag.dk/wp-content/themes/enfold/config-templatebuilder/avia-shortcodes/video/video.js?ver=5.4.2'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var woocommerce_params = {"ajax_url":"\/wp-admin\/admin-ajax.php","wc_ajax_url":"\/?wc-ajax=%%endpoint%%"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://designflag.dk/wp-content/plugins/woocommerce/assets/js/frontend/woocommerce.min.js?ver=3.9.2'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var wc_cart_fragments_params = {"ajax_url":"\/wp-admin\/admin-ajax.php","wc_ajax_url":"\/?wc-ajax=%%endpoint%%","cart_hash_key":"wc_cart_hash_538a01569a5d9ef1dcccf9f972849349","fragment_name":"wc_fragments_538a01569a5d9ef1dcccf9f972849349","request_timeout":"5000"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://designflag.dk/wp-content/plugins/woocommerce/assets/js/frontend/cart-fragments.min.js?ver=3.9.2'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var mailchimp_public_data = {"site_url":"https:\/\/designflag.dk","ajax_url":"https:\/\/designflag.dk\/wp-admin\/admin-ajax.php","language":"da"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://designflag.dk/wp-content/plugins/mailchimp-for-woocommerce/public/js/mailchimp-woocommerce-public.min.js?ver=2.4.1'></script>
+<script type='text/javascript' src='https://designflag.dk/wp-content/themes/enfold/js/aviapopup/jquery.magnific-popup.min.js?ver=4.6'></script>
+<script type='text/javascript' src='https://designflag.dk/wp-content/themes/enfold/js/avia-snippet-lightbox.js?ver=4.6'></script>
+<script type='text/javascript' src='https://designflag.dk/wp-content/themes/enfold/js/avia-snippet-megamenu.js?ver=4.6'></script>
+<script type='text/javascript' src='https://designflag.dk/wp-content/themes/enfold/js/avia-snippet-sticky-header.js?ver=4.6'></script>
+<script type='text/javascript' src='https://designflag.dk/wp-content/themes/enfold/js/avia-snippet-widget.js?ver=4.6'></script>
+<script type='text/javascript' src='https://designflag.dk/wp-content/themes/enfold/framework/js/conditional_load/avia_google_maps_front.js?ver=4.6'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var AviaReCAPTCHA_front = {"version":"avia_recaptcha_v3","site_key2":"6LcsFsUUAAAAALH5_sd6XcBxx9MjpDHplznI_5se","site_key3":"6Lc3FsUUAAAAAEA-VT7XRiJX91ItwY88bmlxHkND","api":"https:\/\/www.google.com\/recaptcha\/api.js","avia_api_script":"https:\/\/designflag.dk\/wp-content\/themes\/enfold\/framework\/js\/conditional_load\/avia_google_recaptcha_api.js","theme":"light","score":"0.5","verify_nonce":"e0d20efdf0","cannot_use":"<h3 class=\"av-recaptcha-error-main\">Sorry, a problem occured trying to communicate with Google reCAPTCHA API. You are currently not able to submit the contact form. Please try again later - reload the page and also check your internet connection.<\/h3>","init_error_msg":"Initial setting failed. Sitekey 2 and\/or sitekey 3 missing in frontend.","v3_timeout_pageload":"Timeout occured connecting to V3 API on initial pageload","v3_timeout_verify":"Timeout occured connecting to V3 API on verifying submit","v2_timeout_verify":"Timeout occured connecting to V2 API on verifying you as human. Please try again and check your internet connection. It might be necessary to reload the page.","verify_msg":"Verify....","connection_error":"Could not connect to the internet. Please reload the page and try again.","validate_first":"Please validate that you are a human first","validate_submit":"Before submitting we validate that you are a human first.","no_token":"Missing internal token on valid submit - unable to proceed.","invalid_version":"Invalid reCAPTCHA version found.","api_load_error":"Google reCAPTCHA API could not be loaded."};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://designflag.dk/wp-content/themes/enfold/framework/js/conditional_load/avia_google_recaptcha_front.js?ver=4.6'></script>
+<script type='text/javascript' src='https://designflag.dk/wp-includes/js/wp-embed.min.js?ver=5.4.2'></script>
+<script type='text/javascript' src='https://designflag.dk/wp-content/plugins/js_composer/assets/js/dist/js_composer_front.min.js?ver=5.4.7'></script>
+<!-- WooCommerce JavaScript -->
+<script type="text/javascript">
+jQuery(function($) { 
+tvc_lc="DKK";
+
+
+			$( '.add_to_cart_button:not(.product_type_variable, .product_type_grouped)' ).click( function() {
+				_gaq.push(['_trackEvent', 'Produkter', 'Læg i varekurv', ($(this).data('product_sku')) ? ($(this).data('product_sku')) : ('#' + $(this).data('product_id'))]);
+			});
+		
+
+homepage_json_ATC_link=[];
+
+tvc_fp=[];
+
+tvc_rcp=[];
+
+tvc_rdp=[];
+
+prodpage_json_ATC_link=[];
+
+tvc_pgc=[];
+
+catpage_json_ATC_link=[];
+
+tvc_smd={"tvc_wcv":"3.9.2","tvc_wpv":"5.4.2","tvc_eev":"2.3.2","tvc_cnf":{"t_ee":"on","t_df":false,"t_gUser":false,"t_UAen":null,"t_thr":"6","t_IPA":false,"t_OptOut":false,"t_PrivacyPolicy":true}};
+ });
+</script>
+</body>
+</html>
+
+<!-- Page generated by LiteSpeed Cache 3.2.3.1 on 2020-07-01 23:38:02 -->

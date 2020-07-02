@@ -1,7 +1,17 @@
 rm_3_mini:
   remote:
     - platform: broadlink
-      host: !secret RM_3_MINI_IP
-      mac: !secret RM_3_MINI_MAC
+      host: !secret RM_3_MINI_IP_LIVINGROOM
+      mac: !secret RM_3_MINI_MAC_LIVINGROOM
       type: rm_mini
       name: RM Mini 3 Stuen
+    - platform: broadlink
+      host: !secret RM_3_MINI_IP_YOUTH
+      mac: !secret RM_3_MINI_MAC_YOUTH
+      type: rm_mini
+      name: RM Mini 3 Ungdomsstue
+    - platform: broadlink
+      host: !secret RM_3_MINI_IP_HJALTE
+      mac: !secret RM_3_MINI_MAC_HJALTE
+      type: rm_mini
+      name: RM Mini 3 Hjalte

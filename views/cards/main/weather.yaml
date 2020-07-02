@@ -1,3 +1,4 @@
 type: custom:weather-card
 name: Brobyværk
-entity: weather.brobyvaerk
+#entity: weather.brobyvaerk
+entity: weather.openweathermap

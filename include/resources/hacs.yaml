@@ -61,6 +61,8 @@
   url: /hacsfiles/text-element/text-element.js
 - type: module
   url: /hacsfiles/lovelace-time-picker-card/time-picker-card.js
+- type: module
+  url: /hacsfiles/tv-card/tv-card.js
 
 #### W
 - type: module

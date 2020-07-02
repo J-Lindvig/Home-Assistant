@@ -24,13 +24,13 @@ uv_index:
               {%- elif M == 15 -%}
                 kvart over {{ H }}
               {%- elif M == 45 -%}
-                kvart i {{ 1 if H == 12 else H }}
+                kvart i {{ 1 if H == 12 else H + 1 }}
               {%- elif M == 30 -%}
-                halv {{ 1 if H == 12 else H }}
+                halv {{ 1 if H == 12 else H + 1 }}
               {%- elif M <= 35 -%}
                 {{ M }} minut{{ "ter" if M > 1 }} over {{ H }}
               {%- elif M > 35 -%}
-                {{ 60 - M }} minut{{ "ter" if M > 1 }} i {{ 1 if H == 12 else H }}
+                {{ 60 - M }} minut{{ "ter" if M > 1 }} i {{ 1 if H == 12 else H + 1 }}
               {%- endif -%}
             protection_start_time_natural: >-
               {%- set ts = state_attr('binary_sensor.protection_window', 'start_time') %}
@@ -42,13 +42,13 @@ uv_index:
               {%- elif M == 15 -%}
                 kvart over {{ H }}
               {%- elif M == 45 -%}
-                kvart i {{ 1 if H == 12 else H }}
+                kvart i {{ 1 if H == 12 else H + 1 }}
               {%- elif M == 30 -%}
-                halv {{ 1 if H == 12 else H }}
+                halv {{ 1 if H == 12 else H + 1 }}
               {%- elif M <= 35 -%}
                 {{ M }} minut{{ "ter" if M > 1 }} over {{ H }}
               {%- elif M > 35 -%}
-                {{ 60 - M }} minut{{ "ter" if M > 1 }} i {{ 1 if H == 12 else H }}
+                {{ 60 - M }} minut{{ "ter" if M > 1 }} i {{ 1 if H == 12 else H + 1 }}
               {%- endif -%}
             protection_end_time_natural: >-
               {%- set ts = state_attr('binary_sensor.protection_window', 'end_time') %}
@@ -60,13 +60,13 @@ uv_index:
               {%- elif M == 15 -%}
                 kvart over {{ H }}
               {%- elif M == 45 -%}
-                kvart i {{ 1 if H == 12 else H }}
+                kvart i {{ 1 if H == 12 else H + 1 }}
               {%- elif M == 30 -%}
-                halv {{ 1 if H == 12 else H }}
+                halv {{ 1 if H == 12 else H + 1 }}
               {%- elif M <= 35 -%}
                 {{ M }} minut{{ "ter" if M > 1 }} over {{ H }}
               {%- elif M > 35 -%}
-                {{ 60 - M }} minut{{ "ter" if M > 1 }} i {{ 1 if H == 12 else H }}
+                {{ 60 - M }} minut{{ "ter" if M > 1 }} i {{ 1 if H == 12 else H + 1 }}
               {%- endif -%}
 
   automation:

@@ -12,6 +12,11 @@ rejseplanen:
       direction:
         - 'Faaborg'
 
+    - platform: rejseplanen
+      name: Glamsbjerg
+      stop_id: '430267600'
+      route: 'Bus 851U'
+
     - platform: template
       sensors:
         ##### BUSSER #####

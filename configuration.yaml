@@ -11,6 +11,7 @@ config:
 
 #### D
 default_config:
+#demo:
 device_tracker: !include include/device_trackers.yaml
 
 #### F
@@ -78,3 +79,14 @@ var: !include_dir_merge_named include/variables/
 
 #### W
 wake_on_lan:
+
+weather:
+  - platform: openweathermap
+    api_key: !secret OPEN_WEATHER_MAP_API_FREE_DAILY
+    mode: freedaily
+  - platform: openweathermap
+    api_key: !secret OPEN_WEATHER_MAP_API_DAILY
+    mode: daily
+  - platform: openweathermap
+    api_key: !secret OPEN_WEATHER_MAP_API_HOURLY
+    mode: hourly
