@@ -10,6 +10,7 @@ cards:
     max_width: 99%
     cards:
       - !include cards/main/transport.yaml
+      - !include cards/main/library.yaml
       - !include cards/room_lights/glance.yaml
       - break
 

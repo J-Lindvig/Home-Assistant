@@ -11,3 +11,11 @@ library:
           event: start
       action:
         service: shell_command.library_update
+
+  group:
+    library:
+      name: Bibliotek
+      icon: mdi:bookshelf
+      entities:
+        - sensor.library_jacob
+        - sensor.library_rikke

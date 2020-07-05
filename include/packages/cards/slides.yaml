@@ -5,7 +5,8 @@ slides:
       options:
         - birthday.yaml
 #        - clock.yaml
-#        - holiday.yaml
+        - benidorm.yaml
+        - copenhagen.yaml
 
   automation:
     - alias: "Next slide"

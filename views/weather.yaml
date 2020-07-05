@@ -9,9 +9,7 @@ cards:
     max_width: 99%
     cards:
       - !include cards/weather/uv-index.yaml
-      - !include cards/main/weather.yaml
+      - !include cards/weather/reffen.yaml
       - break
       - !include cards/weather/brobyvaerk.yaml
-      - type: weather-forecast
-        entity: weather.brobyvaerk
-        
+      - !include cards/weather/benidorm.yaml        

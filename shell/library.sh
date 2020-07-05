@@ -67,19 +67,10 @@ library_update() {
       library_scrape "$TEMP_CREDENTIALS"
 
       sleep $PARSEHUB_LIBRARY_SLEEP
-      
+
       library_get "$TEMP_FRIENDLY_NAME" "$TEMP_ENTITY_ID"
     fi
   done < "$PARSEHUB_USERS_FILE"
-}
-
-library_renew () {
-  curl -X POST -L -b "$TEMP_PATH/cookies.txt" -c "$TEMP_PATH/cookies.txt" -d "name=jacob@lindvig-henriksen.dk&pass=Kar2ffel!&form_build_id=form-Jf7_DJtS3VPC6vESuJ7rffRCDEEasS9qG0VctbPjfcc&form_id=user_login" https://bibliotek.dk/da/bibdk_modal/login > "$TEMP_PATH/output.html"
-
-  sleep 10
-
-  curl -X POST -L -b "$TEMP_PATH/cookies.txt" -c "$TEMP_PATH/cookies.txt" -d "loans_table%5B4055346432%3B743003%5D%3D4055346432%3B743003%26op%3DForny%20markerede%26form_build_id%3Dform-EPHPHXvcLFWdWWDPyxyz0woBgL7NUYIi9HlgqEnO1gk%26form_token%3DlKY7RSwfu72f3B4GhQTXmrN43kf9BcKPnR3g-9dgseU%26form_id%3Dbibdk_openuserstatus_form" https://bibliotek.dk/da/user/me/bibdk_openuserstatus_ajax
-
 }
 
 library_scrape() {
@@ -111,12 +102,11 @@ library_get() {
   # Output is saved in a new file
   sed 's/.*\([0-9]\{4\}-[0-9]\{2\}-[0-9]\{2\}\).*/|\1/' "$TEMP_PATH/parsehub_$2.json" | while read d; do if [[ ${d:0:1} == "|" ]]; then echo '"Due_In" :"'$(( ($(date -d ${d#?} +%s) - $(date +%s) ) / 86400 ))'",'; else echo $d; fi; done > "$TEMP_PATH/parsehub_edit_$2.json"
 
-  # Set the state to the Due_In value of the first loan - the one with the
-  # lowest value.
+  # Set the state to the Due_In value of the loan with the lowest value.
   # Append the attributes: summary, list of loans and friendly_name
   # Use the generic function and send it to Home Assistant
-    _send_data "{\"state\": "$(grep -m 1 "Due_In" "$TEMP_PATH/parsehub_edit_$2.json" | cut -d':' -f2)"\"attributes\": $(cat "$TEMP_PATH/parsehub_edit_$2.json"), \"friendly_name\": \"$1\", \"icon\": \"mdi:bookshelf\", \"last_update\": \"$(date)\", \"last_update_timestamp\": \"$(date +%s)\"}}" "$BASE_URL$API_STATES_PATH/sensor.library_$2"
+  _send_data "{\"state\": \""$(grep "Due_In" "$TEMP_PATH/parsehub_edit_$2.json" | sort -t\" -k4n | head -n 1 | cut -d'"' -f4)"\", \"attributes\": $(cat "$TEMP_PATH/parsehub_edit_$2.json"), \"unit_of_measurement\": \"dage til aflevering\", \"friendly_name\": \"$1\", \"icon\": \"mdi:bookshelf\", \"last_update\": \"$(date)\", \"last_update_timestamp\": \"$(date +%s)\"}}" "$BASE_URL$API_STATES_PATH/sensor.library_$2"
 
-  # Cleanup on exit  
+  # Cleanup on exit
   rm -f "$TEMP_PATH/parsehub_edit_$2.json" "$TEMP_PATH/parsehub_$2.json"
 }

@@ -8,5 +8,7 @@ states:
     !include slides/birthday.yaml
 #  clock.yaml:
 #    !include slides/clock.yaml
-#  holiday.yaml:
-#    !include slides/holiday.yaml
+  benidorm.yaml:
+    !include slides/benidorm.yaml
+  copenhagen.yaml:
+    !include slides/copenhagen.yaml    
