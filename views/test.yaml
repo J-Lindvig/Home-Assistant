@@ -53,11 +53,12 @@ cards:
       include:
         - type: section
           label: Busser
-        - domain: switch
-          name: /AdGuard/
+        - domain: light
+          name: "/Spisebord/"
         - type: section
           label: Toge
         - domain: light
+          name: "/Bade/"
     sort:
       method: state
       

@@ -1,4 +1,8 @@
-type: entities
-entities:
-  - input_select.movie_letter
-  - input_select.movie
+# type: entities
+# entities:
+#   - input_select.movie_letter
+#   - input_select.movie
+type: custom:select-list-card
+entity: input_select.movie
+title: Film
+max_options: 19
