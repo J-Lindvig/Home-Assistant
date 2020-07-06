@@ -1,3 +1,0 @@
-type: custom:weather-card
-name: Brobyværk
-entity: weather.openweathermap

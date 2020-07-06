@@ -45,12 +45,11 @@ hal_9000:
 
               {% set len = states('var.reminder').split("|") | length %}
               {% set ran_idx = range(0, len) | random() %}
-              {{ states('var.reminder').split("|")[ran_idx] }}
-
+              
               {%- if is_state_attr('sensor.affald_hentes', 'days', '1') %}
-                {{ states('var.trash') }}
-              {% else %}
-                {{ states('var.recycle') }}
+                {{ states('var.reminder').split("|")[ran_idx] }} {{ states('var.reminder').split("|")[ran_idx] }} {{ states('var.trash') }}
+              {% elif is_state_attr('sensor.genbrug_hentes', 'days', '11') %}
+                {{ states('var.reminder').split("|")[ran_idx] }} {{ states('var.recycle') }}
               {% endif -%}
 
         - service: script.reset_volume
