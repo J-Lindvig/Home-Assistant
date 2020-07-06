@@ -86,10 +86,8 @@ load_movies() {
   # finish the query
   movie_query="{\"entity_id\":\"input_select.movie\",\"options\":[\"$(cat $TEMP_PATH/movies_file | paste -sd '|' - | sed 's/|/\",\"/g')\"]}"
 
-  # movie_letter_query="{\"entity_id\":\"input_select.movie_letter\",\"options\":[\"$(cat $TEMP_PATH/movies_file | cut -c1-1 | sort | uniq | paste -sd ',' - | sed 's/,/\",\"/g')\"]}"
   # Send the query wth a API call
   _send_data "$movie_query" "$BASE_URL$API_PATH$INPUT_SELECT"
-  # _send_data "$movie_letter_query" "$BASE_URL$API_PATH$INPUT_SELECT"
 }
 
 load_movie_urls() {

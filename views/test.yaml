@@ -44,6 +44,12 @@ icon: mdi:test-tube
 panel: false
 cards:
 
+  - !include
+    - cards/main/slides/countdown.yaml
+    - image_url: "/local/images/backgrounds/bryllup_5x2.png"
+      countdown_text: "Bryllupsdag"
+      countdown_entity: "sensor.anniversary_bryllupsdag"
+
   - type: custom:auto-entities
     card:
       type: entities

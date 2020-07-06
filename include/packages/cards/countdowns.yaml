@@ -1,32 +1,65 @@
-birthday:
+countdowns:
   anniversaries:
     sensors:
-      - name: Jacob fødselsdag
+      # Birthdays
+      - name: "Jacob fødselsdag"
         date: "1975-03-24"
+        id_prefix: "birthday_"
       - name: Rikke fødselsdag
         date: "1976-03-10"
+        id_prefix: "birthday_"
       - name: Cornelie & Nathalie fødselsdag
         date: "2003-08-22"
+        id_prefix: "birthday_"
       - name: Hjalte fødselsdag
         date: "2007-03-22"
+        id_prefix: "birthday_"
       - name: Emilio fødselsdag
         date: "2014-09-23"
+        id_prefix: "birthday_"
       - name: Colin fødselsdag
         date: "2016-04-23"
+        id_prefix: "birthday_"
       - name: William fødselsdag
         date: "2020-01-18"
+        id_prefix: "birthday_"
+
+      # Anniversaties
+      - name: Bryllupsdag
+        date: "2003-07-01"
+        unit_of_measurement: ""
+
+      # Annual events
+      - name: Juleaften
+        date: "12-24"
+        id_prefix: "annual_"
+        unit_of_measurement: ""
+      - name: Nytårsaften
+        date: "12-31"
+        id_prefix: "annual_"
+        unit_of_measurement: ""
+
+      # Holidays
+      - name: Reffen
+        date: "2020-07-07"
+        id_prefix: "holiday_"
+        unit_of_measurement: ""
+      - name: Benidorm
+        date: "2020-10-12"
+        id_prefix: "holiday_"
+        unit_of_measurement: ""
 
   group:
     birthdays:
       name: Fødselsdage
       entities:
-        - sensor.anniversary_jacob_fodselsdag
-        - sensor.anniversary_rikke_fodselsdag
-        - sensor.anniversary_cornelie_nathalie_fodselsdag
-        - sensor.anniversary_hjalte_fodselsdag
-        - sensor.anniversary_emilio_fodselsdag
-        - sensor.anniversary_colin_fodselsdag
-        - sensor.anniversary_william_fodselsdag
+        - sensor.birthday_jacob_fodselsdag
+        - sensor.birthday_rikke_fodselsdag
+        - sensor.birthday_cornelie_nathalie_fodselsdag
+        - sensor.birthday_hjalte_fodselsdag
+        - sensor.birthday_emilio_fodselsdag
+        - sensor.birthday_colin_fodselsdag
+        - sensor.birthday_william_fodselsdag
 
   sensor:
     - platform: template

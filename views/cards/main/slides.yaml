@@ -4,11 +4,23 @@ default: clock.yaml
 transition: slide-left
 transition_time: 1000
 states:
-  birthday.yaml:
+  birthday:
     !include slides/birthday.yaml
-#  clock.yaml:
-#    !include slides/clock.yaml
-  benidorm.yaml:
-    !include slides/benidorm.yaml
-  copenhagen.yaml:
-    !include slides/copenhagen.yaml    
+  benidorm:
+    !include
+    - slides/countdown.yaml
+    - image_url: "/local/images/backgrounds/benidorm_5x2.jpg"
+      countdown_text: "Benidorm"
+      countdown_entity: "sensor.holiday_benidorm"
+  copenhagen:
+    !include
+    - slides/countdown.yaml
+    - image_url: "/local/images/backgrounds/copenhagen_5x2.jpg"
+      countdown_text: "København"
+      countdown_entity: "sensor.holiday_reffen"
+  weddingday:
+    !include
+    - slides/countdown.yaml
+    - image_url: "/local/images/backgrounds/bryllup_5x2.png"
+      countdown_text: "Bryllupsdag"
+      countdown_entity: "sensor.anniversary_bryllupsdag"
