@@ -46,9 +46,9 @@ cards:
 
   - !include
     - cards/main/slides/countdown.yaml
-    - image_url: "/local/images/backgrounds/bryllup_5x2.png"
-      countdown_text: "Bryllupsdag"
-      countdown_entity: "sensor.anniversary_bryllupsdag"
+    - image_url: "/local/images/backgrounds/copenhagen_5x2.jpg"
+      countdown_text: "København"
+      countdown_entity: "sensor.holiday_reffen"
 
   - type: custom:auto-entities
     card:
