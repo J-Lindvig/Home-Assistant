@@ -42,6 +42,7 @@ elements:
     elements:
       - type: custom:text-element
         text: "i dag!!!"
+        # Call the macro with current amount of indentation ( 4 )
         {{ state_style(4) }}
 
   # OK, it is not today....
