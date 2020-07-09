@@ -1,6 +1,6 @@
 # lovelace_gen
 
-# Since we are 3 different for the same sensor,
+# Since we are using 3 different cards for the same sensor,
 # then we are using a macro for the style section.
 # But this is YAML and the whitespace is important,
 # so we call the macro with a number of indents (ws).
