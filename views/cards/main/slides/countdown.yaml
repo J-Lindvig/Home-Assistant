@@ -1,4 +1,9 @@
 # lovelace_gen
+
+# Since we are 3 different for the same sensor,
+# then we are using a macro for the style section.
+# But this is YAML and the whitespace is important,
+# so we call the macro with a number of indents (ws).
 {% macro state_style(ws) %}
 {{"  "*ws}}style:
 {{"  "*ws}}  top: 60%
@@ -9,6 +14,10 @@
 {{"  "*ws}}  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black
 {% endmacro %}
 
+# This card takes 3 variables:
+# + image_url
+# + countdown_text
+# + countdown_entity
 type: picture-elements
 image: "{{ image_url }}"
 elements:
@@ -22,6 +31,10 @@ elements:
       font-weight: bold
       text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black
 
+  # Since the conditional card can only test for state equals,
+  # then we need to nest several condition cards
+  #
+  # Is state == 0 ( today )
   - type: conditional
     conditions:
       - entity: "{{ countdown_entity }}"
@@ -31,11 +44,13 @@ elements:
         text: "i dag!!!"
         {{ state_style(4) }}
 
+  # OK, it is not today....
   - type: conditional
     conditions:
       - entity: "{{ countdown_entity }}"
         state_not: "0"
     elements:
+      # Is it tomorrow?
       - type: conditional
         conditions:
           - entity: "{{ countdown_entity }}"
@@ -44,6 +59,8 @@ elements:
           - type: custom:text-element
             text: "i morgen"
             {{ state_style(6) }}
+  
+      # If it not today or tomorrow, then it is in the future.
       - type: conditional
         conditions:
           - entity: "{{ countdown_entity }}"

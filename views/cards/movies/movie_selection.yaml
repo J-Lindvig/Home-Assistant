@@ -5,4 +5,5 @@
 type: custom:select-list-card
 entity: input_select.movie
 title: Film
+icon: mdi:movie-open
 max_options: 19
