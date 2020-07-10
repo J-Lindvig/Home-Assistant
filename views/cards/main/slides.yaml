@@ -1,6 +1,6 @@
 type: custom:state-switch
 entity: input_select.cards_to_slide
-default: clock.yaml
+default: birthday
 transition: slide-left
 transition_time: 1000
 states:
