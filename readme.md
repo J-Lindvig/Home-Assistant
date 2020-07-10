@@ -48,4 +48,12 @@ This Pi only has a IKEA integration and a few addons:
 - Check Home Assistant configuration
 - AdGuard Home
 - WireGuard
+## Configuration
+Since it is the master that is the **brain** of my setup I will solely focus on this setup.
+My setup is heavily divided with `!include` and *packages* in multiple directories.
+### Files
+[configuration.yaml](https://github.com/J-Lindvig/Home-Assistant-Master/blob/master/configuration.yaml)
+
+
+
 > Written with [StackEdit](https://stackedit.io/).
