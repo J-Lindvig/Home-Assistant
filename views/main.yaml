@@ -1,8 +1,14 @@
+############################################################
+####               Main view by J-Lindvig               ####
+############################################################
+
+#### PLUGINS NEEDED ####
+# Layout-Card, https://github.com/thomasloven/lovelace-layout-card
+
 title: Skovtrolden
 icon: mdi:home-assistant
 panel: true
 cards:
-
   - type: custom:layout-card
     layout: vertical
     max_columns: 3

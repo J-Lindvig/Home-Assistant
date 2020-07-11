@@ -1,3 +1,10 @@
+############################################################
+####           ui-lovelace.yaml by J-Lindvig            ####
+############################################################
+
+#### PLUGINS NEEDED ####
+# Custom Header, https://github.com/maykar/custom-header
+
 custom_header:
   compact_mode: true
 

@@ -1,5 +1,14 @@
 # lovelace_gen
+############################################################
+####            Room and Lights by J-Lindvig            ####
+############################################################
 
+#### PLUGINS NEEDED ####
+# velace Gen, https://github.com/thomasloven/hass-lovelace_gen
+# Layout Card,https://github.com/thomasloven/lovelace-layout-card
+
+# This is the "Engine" - a 3D array/list containing entries
+# "ROOM": [[ROW 1 of Lights], [ROW 2 of Lights]]
 {% set rooms = {
 "Køkken":[ ["light.spisebord", "light.maleri", "light.legekokken", "light.kaffebar"], ["light.kokkeno", "", "light.kokkenskabe", "light.kokkenbord"] ],
 "Stuen":[ ["light.gulvlampe", "light.stuelampe", "light.laeselampe", ""] ],

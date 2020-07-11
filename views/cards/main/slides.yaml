@@ -1,3 +1,10 @@
+############################################################
+####             Sliding Cards by J-Lindvig             ####
+############################################################
+
+#### PLUGINS NEEDED ####
+# state-switch, https://github.com/thomasloven/lovelace-state-switch
+
 type: custom:state-switch
 entity: input_select.cards_to_slide
 default: birthday

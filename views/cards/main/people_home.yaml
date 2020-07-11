@@ -13,17 +13,3 @@ cards:
       "home": brightness(110%) saturate(1.2)
       "not_home": brightness(50%) grayscale(100%)
 {% endfor %}
-
-# type: entity-filter
-# entities:
-#   - person.jacob
-#   - person.rikke
-#   - person.cornelie
-#   - person.nathalie
-#   - person.hjalte
-# show_empty: false
-# state_filter:
-#   - home
-# card:
-#   type: glance
-#   show_state: false

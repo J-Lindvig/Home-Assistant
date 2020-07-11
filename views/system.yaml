@@ -1,3 +1,10 @@
+############################################################
+####                System by J-Lindvig                 ####
+############################################################
+
+#### PLUGINS NEEDED ####
+# Layout Card,https://github.com/thomasloven/lovelace-layout-card
+
 title: System
 icon: mdi:settings
 panel: true

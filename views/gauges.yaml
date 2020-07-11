@@ -1,3 +1,10 @@
+############################################################
+####                Gauges  by J-Lindvig                ####
+############################################################
+
+#### PLUGINS NEEDED ####
+# Layout Card,https://github.com/thomasloven/lovelace-layout-card
+
 title: Gauges
 icon: mdi:gauge
 panel: true

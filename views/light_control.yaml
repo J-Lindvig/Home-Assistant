@@ -1,4 +1,8 @@
-title: System
+############################################################
+####             Light Control by J-Lindvig             ####
+############################################################
+
+title: Lyskontrol
 icon: mdi:tune
 panel: false
 cards:

@@ -1,4 +1,13 @@
 # lovelace_gen
+############################################################
+####                Movies  by J-Lindvig                ####
+############################################################
+
+#### PLUGINS NEEDED ####
+# lovelace Gen, https://github.com/thomasloven/hass-lovelace_gen
+# Layout Card,https://github.com/thomasloven/lovelace-layout-card
+
+# Button for the remote control
 {% macro remote_button(icon, side, top, device, command) %}
           - type: icon
             icon: mdi:{{ icon }}

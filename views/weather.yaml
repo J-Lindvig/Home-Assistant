@@ -1,3 +1,10 @@
+############################################################
+####                Weather by J-Lindvig                ####
+############################################################
+
+#### PLUGINS NEEDED ####
+# Layout Card,https://github.com/thomasloven/lovelace-layout-card
+
 title: Vejrudsigter
 icon: mdi:weather-sunny
 panel: true

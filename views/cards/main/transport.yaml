@@ -1,3 +1,10 @@
+############################################################
+####               Transport by J-Lindvig               ####
+############################################################
+
+#### PLUGINS NEEDED ####
+# auto-entities, https://github.com/thomasloven/lovelace-auto-entities
+
 type: custom:auto-entities
 card:
   type: entities
