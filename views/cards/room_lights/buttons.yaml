@@ -1,14 +1,30 @@
 # lovelace_gen
+############################################################
+####           Lights Buttons by J-Lindvig              ####
+############################################################
+
+#### PLUGINS NEEDED ####
+# Stack In Card, https://github.com/custom-cards/stack-in-card
+# gap-card, https://github.com/thomasloven/lovelace-gap-card
+
+# This card is feed with these variables:
+# Title, can be empty
+# Entities, a 2D list of rows containing lights
 type: custom:stack-in-card
+# Have we provided a title, then state it
 {% if title | length %}
 title: {{ title }}
 {% endif %}
 cards:
+  # Loop through the rows in the list
   {% for entity_row in entities %}
   - type: horizontal-stack
     cards:
+    # Loop through all the lights in a row
     {% for entity in entity_row %}
-      {% if  entity | length %}
+      # If the light is non empty, state it
+      # else state a gap
+      {% if entity | length %}
       - type: light
         entity: {{ entity }}
       {% else %}

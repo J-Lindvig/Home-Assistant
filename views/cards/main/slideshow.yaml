@@ -1,3 +1,10 @@
+############################################################
+####              Slideshow by J-Lindvig                ####
+############################################################
+
+#### PLUGINS NEEDED ####
+# Lovelace Card Templater, https://github.com/gadgetchnnel/lovelace-card-templater
+
 type: custom:card-templater
 entities:
   - input_select.pictures

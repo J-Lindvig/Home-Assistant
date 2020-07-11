@@ -1,4 +1,11 @@
 # lovelace_gen
+############################################################
+####              Count Down by J-Lindvig               ####
+############################################################
+
+#### PLUGINS NEEDED ####
+# Lovelace Gen, https://github.com/thomasloven/hass-lovelace_gen
+# Text Element, https://github.com/custom-cards/text-element
 
 # Since we are using 3 different cards for the same sensor,
 # then we are using a macro for the style section.
