@@ -7,7 +7,6 @@
 # Lovelace Gen, https://github.com/thomasloven/hass-lovelace_gen
 # Stack In Card, https://github.com/custom-cards/stack-in-card
 # browser_mod, https://github.com/thomasloven/hass-browser_mod
-# gap-card, https://github.com/thomasloven/lovelace-gap-card
 # state-switch, https://github.com/thomasloven/lovelace-state-switch
 
 # Make a 2D array ( a list containing lists) with the rooms and
