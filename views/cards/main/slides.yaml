@@ -19,12 +19,6 @@ states:
     - image_url: "/local/images/backgrounds/benidorm_5x2.jpg"
       countdown_text: "Benidorm"
       countdown_entity: "sensor.holiday_benidorm"
-  copenhagen:
-    !include
-    - slides/countdown.yaml
-    - image_url: "/local/images/backgrounds/copenhagen_5x2.jpg"
-      countdown_text: "København"
-      countdown_entity: "sensor.holiday_reffen"
   weddingday:
     !include
     - slides/countdown.yaml

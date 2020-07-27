@@ -1,9 +1,33 @@
 {
+    "CUSA00124": {
+        "locked": false,
+        "media_content_type": "app",
+        "media_image_url": "https://store.playstation.com/store/api/chihiro/00_09_000/container/DK/en/19/EP4345-CUSA00124_00-VIAPLAYFULLAPP00/1594774695000/image",
+        "media_title": "Viaplay"
+    },
+    "CUSA00127": {
+        "locked": false,
+        "media_content_type": "app",
+        "media_image_url": "https://store.playstation.com/store/api/chihiro/00_09_000/container/DK/en/19/EP4350-CUSA00127_00-NETFLIXPOLLUX001/1594774760000/image",
+        "media_title": "Netflix"
+    },
+    "CUSA00717": {
+        "locked": false,
+        "media_content_type": "game",
+        "media_image_url": "https://store.playstation.com/store/api/chihiro/00_09_000/container/DK/en/19/EP9000-CUSA00717_00-DETROIT000000SCA/1595411651000/image",
+        "media_title": "Detroit: Become Human Digital Deluxe Edition"
+    },
     "CUSA05749": {
         "locked": false,
         "media_content_type": null,
         "media_image_url": null,
         "media_title": "STAR WARS\u2122 Battlefront\u2122 II"
+    },
+    "CUSA07202": {
+        "locked": false,
+        "media_content_type": "game",
+        "media_image_url": "https://store.playstation.com/store/api/chihiro/00_09_000/container/DK/en/19/EP0700-CUSA07202_00-ACE7GEDIGITAL000/1592437802000/image",
+        "media_title": "ACE COMBAT\u2122 7: SKIES UNKNOWN"
     },
     "CUSA11593": {
         "locked": false,
@@ -14,7 +38,13 @@
     "CUSA15277": {
         "locked": false,
         "media_content_type": "game",
-        "media_image_url": "https://store.playstation.com/store/api/chihiro/00_09_000/container/DK/en/19/EP0002-CUSA15277_00-CODMWSTANDARD001/1593824701000/image",
+        "media_image_url": "https://store.playstation.com/store/api/chihiro/00_09_000/container/DK/en/19/EP0002-CUSA15277_00-CODMWSTANDARD001/1595636530000/image",
         "media_title": "Call of Duty\u00ae: Modern Warfare\u00ae"
+    },
+    "CUSA18152": {
+        "locked": false,
+        "media_content_type": "game",
+        "media_image_url": "https://store.playstation.com/store/api/chihiro/00_09_000/container/DK/en/19/EP5155-CUSA18152_00-STRANDEDDEEPSIEE/1593995987000/image",
+        "media_title": "Stranded Deep"
     }
 }

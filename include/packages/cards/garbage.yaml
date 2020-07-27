@@ -1,12 +1,31 @@
 garbage:
+############################################################
+####                Garbage by J-Lindvig                ####
+############################################################
+
+#### PLUGINS NEEDED ####
+# Variable, https://github.com/snarky-snark/home-assistant-variables
+# Garbage-Collection, https://github.com/bruxy70/Garbage-Collection
+
+#### VARIABLES NEEDED ####
+# I have declared the variables in an other package.
+# var:
+#   weekdays_dk:
+#     initial_value: "Man,Tirs,Ons,Tors,Fre,Lør,Søn"
+#   months_dk:
+#     initial_value: "Januar,Februar,Marts,April,Maj,Juni,Juli,August,September,Oktober,November,December"
+
   garbage_collection:
     sensors:
+      # Garbage ordinary pickup
       - name: Affald normal
         frequency: even-weeks
         collection_days:
           - wed
         move_country_holidays: DK
         expire_after: "12:00"
+
+      # Garbage extra summer pickup
       - name: Affald sommer
         frequency: odd-weeks
         first_month: jul
@@ -15,17 +34,21 @@ garbage:
           - wed
         move_country_holidays: DK
         expire_after: "12:00"
+
+      # Garbage group
+      - name: Affald
+        frequency: group
+        entities:
+          - sensor.affald_normal
+          - sensor.affald_sommer
+
+      # Recycle pickup
       - name: Genbrug
         frequency: odd-weeks
         collection_days:
           - thu
         move_country_holidays: DK
         expire_after: "16:00"
-      - name: Affald
-        frequency: group
-        entities:
-          - sensor.affald_normal
-          - sensor.affald_sommer
 
   sensor:
     - platform: template
@@ -39,13 +62,10 @@ garbage:
             {%- elif state_attr('sensor.affald', 'days') == 1 %}
               i morgen
             {%- else -%}
-              {% set time_stamp = as_timestamp(state_attr('sensor.affald', 'next_date') | regex_replace(":[0-9][0-9][0-9].*$","")) %}
+              {% set time_stamp = as_timestamp(state_attr('sensor.affald', 'next_date')) | int %}
               om {{ ((time_stamp - as_timestamp(now())) / ( 60 * 60 * 24 )) | round(0, 'ceil') }} dage (
               {{- states("var.weekdays_dk").split(",")[time_stamp | timestamp_custom('%w') | int - 1] }}dag den {{ time_stamp | timestamp_custom('%-d.') }}{{ states("var.months_dk").split(",")[time_stamp | timestamp_custom('%-m') | int - 1] }})
             {%- endif -%}
-          attribute_templates:
-            days: >-
-              {{ state_attr('sensor.affald', 'days') }}
 
         genbrug_hentes:
           friendly_name: "Genbrug:"
@@ -56,10 +76,7 @@ garbage:
             {%- elif state_attr('sensor.genbrug', 'days') == 1 %}
               i morgen
             {%- else -%}
-              {% set time_stamp = as_timestamp(state_attr('sensor.genbrug', 'next_date') | regex_replace(":[0-9][0-9][0-9].*$","")) %}
+              {% set time_stamp = as_timestamp(state_attr('sensor.genbrug', 'next_date')) | int %}
               om {{ ((time_stamp - as_timestamp(now())) / ( 60 * 60 * 24 )) | round(0, 'ceil') }} dage (
               {{- states("var.weekdays_dk").split(",")[time_stamp | timestamp_custom('%w') | int - 1] }}dag den {{ time_stamp | timestamp_custom('%-d.') }}{{ states("var.months_dk").split(",")[time_stamp | timestamp_custom('%-m') | int - 1] }})
             {%- endif -%}
-          attribute_templates:
-            days: >-
-              {{ state_attr('sensor.genbrug', 'days') }}

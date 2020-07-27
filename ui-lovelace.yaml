@@ -6,6 +6,7 @@
 # Custom Header, https://github.com/maykar/custom-header
 
 custom_header:
+  locale: da-DK
   compact_mode: true
 
 title: Skovtrolden
@@ -23,3 +24,4 @@ views:
   - !include views/gauges.yaml
   - !include views/weather.yaml
   - !include views/test.yaml
+  

@@ -6,7 +6,7 @@
 # Layout Card,https://github.com/thomasloven/lovelace-layout-card
 
 title: System
-icon: mdi:settings
+icon: mdi:cog
 panel: true
 cards:
   - type: custom:layout-card

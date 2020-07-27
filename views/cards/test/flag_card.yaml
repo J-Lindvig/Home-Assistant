@@ -1,0 +1,27 @@
+type: custom:card-templater
+card:
+  type: picture-elements
+  image: /local/images/flags/Flagstang.jpg
+  elements:
+    - type: custom:text-element
+      text_template: "{{ states('sensor.flagday_dk') }}"
+      style:
+        font-size: 2.5vh
+        top: 59.6%
+        left: 26.8%
+    - type: custom:text-element
+      text_template: "{{ state_attr('sensor.flagday_dk', 'friendly_name') }}"
+      style:
+        font-size: 3vh
+        top: 10%
+        left: 50%
+    - type: image
+      image_template: "{{ state_attr('sensor.flagday_dk', 'entity_picture') }}"
+      style:
+        top: 32%
+        left: 44%
+        max-width: 10%
+        height: auto
+        transform: translate(-50%, -50%) rotate(20deg) skew(20deg)
+entities:
+  - sensor.flagday_dk

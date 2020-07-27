@@ -42,8 +42,6 @@
 
 #### R
 - type: module
-  url: /hacsfiles/rejseplanen-card/rejseplanen-card.js
-- type: module
   url: /hacsfiles/restriction-card/restriction-card.js
 
 #### S

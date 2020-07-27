@@ -44,35 +44,29 @@
               - this
 {%- endmacro %}
 
+{%- macro flag(image, position) -%}
+      - type: image
+        image: /local/images/flags/{{ image }}
+        style:
+          top: {{ '32%' if 'full' in position else '55%' }}
+          left: 44%
+          max-width: 10%
+          height: auto
+          transform: translate(-50%, -50%) rotate(20deg) skew(20deg)
+{%- endmacro %}
+
 title: System
 icon: mdi:test-tube
 panel: false
 cards:
 
-  - !include
-    - cards/main/slides/countdown.yaml
-    - image_url: "/local/images/backgrounds/copenhagen_5x2.jpg"
-      countdown_text: "København"
-      countdown_entity: "sensor.holiday_reffen"
+  - type: picture-elements
+    image: /local/images/flags/Flagstang.jpg
+    elements:
+      # FAROE ISLANDS
+      {{ flag("Greenland.png", "half") }}
 
-  - type: custom:auto-entities
-    card:
-      type: entities
-      title: Transport
-      show_header_toggle: false
-    filter:
-      include:
-        - type: section
-          label: Busser
-        - domain: light
-          name: "/Spisebord/"
-        - type: section
-          label: Toge
-        - domain: light
-          name: "/Bade/"
-    sort:
-      method: state
-      
+  - !include cards/test/flag_card.yaml
 
   - type: custom:tv-card
     entity: sun.sun
@@ -101,42 +95,4 @@ cards:
     volume_mute:
       {{ ir_command("Mute") }}
 
-  - type: custom:rejseplanen-card
-    entity: sensor.odense
-#    max_entries: 5 # Optional
-
   - type: custom:gui-sandbox
-
-  - type: glance
-    title: Køkken
-    show_state: false
-    columns: 4
-    entities:
-    {%- for light in rooms["Køkken"] %}
-      {%- if not loop.first %}
-      - entity: {{ light }}
-        tap_action:
-          action: toggle
-        hold_action:
-          {{ open_slider("Køkken") }}
-      {%- endif %}  
-    {%- endfor %}
-
-  - type: custom:stack-in-card
-    mode: horizontal
-    cards:
-    {% for name in persons %}
-      - type: picture-entity
-        entity: person.{{ name | lower }}
-        image: /local/images/persons/{{ name }}.jpg
-        show_name: false
-        show_state: false
-        state_filter:
-          "home": brightness(110%) saturate(1.2)
-          "not_home": brightness(50%) hue-rotate(45deg)
-    {% endfor %}
-
-  - type: media-control
-    entity: media_player.kokken_skaerm
-  - type: media-control
-    entity: media_player.stuens_tv

@@ -40,10 +40,6 @@ countdowns:
         unit_of_measurement: ""
 
       # Holidays
-      - name: Reffen
-        date: "2020-07-07"
-        id_prefix: "holiday_"
-        unit_of_measurement: ""
       - name: Benidorm
         date: "2020-10-12"
         id_prefix: "holiday_"

@@ -31,7 +31,13 @@ source /config/shell/tools.sh
 source /config/shell_secrets.txt
 
 GOOD_FRIDAY="Langfredag"
-GERMAN_OCCUPATION_DAY="09-04"
+GERMAN_OCCUPATION_DAY="9-4"
+GREENLAND="Grønland"
+FAROE_ISLANDS="Færø"
+FLAG_IMAGE_PATH="/local/images/flags/"
+DENMARK_IMAGE="Denmark.png"
+GREENLAND_IMAGE="Greenland.png"
+FAROE_ISLANDS_IMAGE="Faroe_Islands.png"
 
 # Have we provided a "Days in advance"?
 # No, then 0
@@ -103,8 +109,36 @@ while read line; do
       STATE=$NEW_STATE
       
       # Prepare the main part of the query
-      # ( substract days in advsnce )
-      QUERY="{ \"state\": \"$(($NEW_STATE - $DAYS_IN_ADVANCE))\", \"attributes\": { \"next_date\": \"$DATE\", \"next_event\": \"$EVENT\", \"next_timestamp\": \"$TIMESTAMP\", \"days_in_advance\": \"$DAYS_IN_ADVANCE\", \"icon\": \"mdi:flag\""
+      # ( substract days in advance )
+      QUERY="{ \"state\": \"$(($NEW_STATE - $DAYS_IN_ADVANCE))\", \"attributes\": { \"date\": \"$DATE\", \"event\": \"$EVENT\", \"timestamp\": \"$TIMESTAMP\", \"days_in_advance\": \"$DAYS_IN_ADVANCE\", \"icon\": \"mdi:flag\", \"friendly_name\": \"`echo $EVENT | cut -d'.' -f1`\""
+
+      # IMAGE
+      QUERY="$QUERY, \"entity_picture\": \"$FLAG_IMAGE_PATH"
+      if [[ `echo $EVENT | grep $GREENLAND; echo $?` ]]; then
+        if [[ `echo $EVENT | grep $FAROE_ISLANDS; echo $?` ]]; then
+          QUERY="$QUERY$DENMARK_IMAGE\""
+        else
+          QUERY="$QUERY$FAROE_ISLANDS_IMAGE\""
+        fi
+      else
+        QUERY="$QUERY$GREENLAND_IMAGE\""
+      fi
+
+      # GOOd FRIDAY...?
+      QUERY="$QUERY, \"half_mast_all_day\": "
+      if [[ `echo $EVENT | grep $GOOD_FRIDAY; echo $?` ]]; then
+        QUERY="$QUERY false"
+      else
+        QUERY="$QUERY true"
+      fi
+
+      # GERMAN_OCCUPATION_DAY
+      QUERY="$QUERY, \"half_mast_end_time\": "
+      if [ "$DAY-$MONTH" = $GERMAN_OCCUPATION_DAY ]; then
+        QUERY="$QUERY \"12:00:00\""
+      else
+        QUERY="$QUERY false"
+      fi
     fi
   fi
 
@@ -113,18 +147,29 @@ while read line; do
 
   # GOOd FRIDAY...?
   ATTR="$ATTR, \"half_mast_all_day\": "
-  if [[ `echo $EVENT | grep $GOOD_FRIDAY` ]]; then
-    ATTR="$ATTR true"
-  else
+  if [ `echo $EVENT | grep $GOOD_FRIDAY; echo $?` ]; then
     ATTR="$ATTR false"
+  else
+    ATTR="$ATTR true"
   fi
 
   # GERMAN_OCCUPATION_DAY
   ATTR="$ATTR, \"half_mast_end_time\": "
-  if [[ "$DAY-$MONTH" -eq $GERMAN_OCCUPATION_DAY ]]; then
+  if [ "$DAY-$MONTH" = $GERMAN_OCCUPATION_DAY ]; then
     ATTR="$ATTR \"12:00:00\""
   else
     ATTR="$ATTR false"
+  fi
+
+  ATTR="$ATTR, \"entity_picture\": \"$FLAG_IMAGE_PATH"
+  if [[ `echo $EVENT | grep $GREENLAND; echo $?` ]]; then
+    if [[ `echo $EVENT | grep $FAROE_ISLANDS; echo $?` ]]; then
+      ATTR="$ATTR$DENMARK_IMAGE\""
+    else
+      ATTR="$ATTR$FAROE_ISLANDS_IMAGE\""
+    fi
+  else
+    ATTR="$ATTR$GREENLAND_IMAGE\""
   fi
 
   ATTR="$ATTR },"

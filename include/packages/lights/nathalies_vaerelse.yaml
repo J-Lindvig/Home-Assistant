@@ -23,4 +23,4 @@ nathalies_vaerelse:
         icon: mdi:ceiling-light
       light.nathalies_sengelamper:
         friendly_name: Sengelamper
-        icon: mdi:hotel
+        icon: mdi:bed

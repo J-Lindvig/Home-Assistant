@@ -31,7 +31,7 @@ homeassistant:
 
 ##### L
 logger:
-  default: debug
+  default: error
   logs:
     homeassistant.components.script: error
     homeassistant.components.automation: error
@@ -67,6 +67,7 @@ remote_homeassistant:
 rest_command: !include_dir_merge_named include/rest_commands/
 
 #### S
+saver:
 shell_command: !include_dir_merge_named include/shell_commands/
 
 #### T
