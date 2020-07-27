@@ -39,14 +39,6 @@ DENMARK_IMAGE="Denmark.png"
 GREENLAND_IMAGE="Greenland.png"
 FAROE_ISLANDS_IMAGE="Faroe_Islands.png"
 
-# Have we provided a "Days in advance"?
-# No, then 0
-if [ -z "$1" ]; then
-  DAYS_IN_ADVANCE=0
-else
-  DAYS_IN_ADVANCE=$1
-fi
-
 # Initial cleanup
 rm -f $TEMP_PATH/flag_tmp_file $TEMP_PATH/combined_file
 
@@ -110,7 +102,7 @@ while read line; do
       
       # Prepare the main part of the query
       # ( substract days in advance )
-      QUERY="{ \"state\": \"$(($NEW_STATE - $DAYS_IN_ADVANCE))\", \"attributes\": { \"date\": \"$DATE\", \"event\": \"$EVENT\", \"timestamp\": \"$TIMESTAMP\", \"days_in_advance\": \"$DAYS_IN_ADVANCE\", \"icon\": \"mdi:flag\", \"friendly_name\": \"`echo $EVENT | cut -d'.' -f1`\""
+      QUERY="{ \"state\": \"$NEW_STATE\", \"attributes\": { \"date\": \"$DATE\", \"event\": \"$EVENT\", \"timestamp\": \"$TIMESTAMP\", \"icon\": \"mdi:flag\", \"friendly_name\": \"`echo $EVENT | cut -d'.' -f1`\""
 
       # IMAGE
       QUERY="$QUERY, \"entity_picture\": \"$FLAG_IMAGE_PATH"
