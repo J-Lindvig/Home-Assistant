@@ -30,10 +30,15 @@ source /config/shell/tools.sh
 # Load the secrets
 source /config/shell_secrets.txt
 
+# HALF MAST DAYS
 GOOD_FRIDAY="Langfredag"
 GERMAN_OCCUPATION_DAY="9-4"
+
+# NORDIC NATIONALDAYS
 GREENLAND="Grønland"
 FAROE_ISLANDS="Færø"
+
+# IMAGES
 FLAG_IMAGE_PATH="/local/images/flags/"
 DENMARK_IMAGE="Denmark.png"
 GREENLAND_IMAGE="Greenland.png"
