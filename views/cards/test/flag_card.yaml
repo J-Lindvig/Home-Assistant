@@ -39,3 +39,4 @@ entities:
   - sensor.flagday_dk
   - sensor.flag_day
   - input_boolean.half_mast
+  - automation.flaget_er_hejst
