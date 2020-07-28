@@ -3,25 +3,39 @@ card:
   type: picture-elements
   image: /local/images/flags/Flagstang.jpg
   elements:
-    - type: custom:text-element
-      text_template: "{{ states('sensor.flagday_dk') }}"
-      style:
-        font-size: 2.5vh
-        top: 59.6%
-        left: 26.8%
-    - type: custom:text-element
-      text_template: "{{ state_attr('sensor.flagday_dk', 'friendly_name') }}"
-      style:
-        font-size: 3vh
-        top: 10%
-        left: 50%
+  
     - type: image
-      image_template: "{{ state_attr('sensor.flagday_dk', 'entity_picture') }}"
+      image_template: "{{ state_attr('sensor.flag_day', 'entity_picture') }}"
       style:
-        top: 32%
-        left: 44%
-        max-width: 10%
-        height: auto
-        transform: translate(-50%, -50%) rotate(20deg) skew(20deg)
+        top: 65%
+        left: 70%
+        max-width: 15%
+        heigth: auto
+    - type: custom:text-element
+      text_template: "{{ state_attr('sensor.flag_day', 'friendly_name') }} er {{ states('sensor.flag_day') }}"
+      style:
+        font-size: 1.2vw
+        top: 25%
+        left: 70%
+    - type: conditional
+      conditions:
+        - entity: automation.flaget_er_hejst
+          state: 'on'
+      elements:
+      - type: image
+        image_template: >-
+          {%- if is_state_attr('sensor.flag_day', 'days', '0') %}
+            {{ state_attr('sensor.flag_day', 'entity_picture') }}
+          {% else %}
+            {{ state_attr('sensor.flagday_dk', 'default_flag') }}
+          {% endif %}
+        style:
+          top_template: "{{ '32%' if is_state('input_boolean.half_mast', 'off') else '55%' }}"
+          left: 44%
+          max-width: 10%
+          height: auto
+          transform: translate(-50%, -50%) rotate(20deg) skew(20deg)
 entities:
   - sensor.flagday_dk
+  - sensor.flag_day
+  - input_boolean.half_mast

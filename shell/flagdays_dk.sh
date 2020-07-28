@@ -43,6 +43,7 @@ FLAG_IMAGE_PATH="/local/images/flags/"
 DENMARK_IMAGE="Denmark.png"
 GREENLAND_IMAGE="Greenland.png"
 FAROE_ISLANDS_IMAGE="Faroe_Islands.png"
+DEFAULT_FLAG=$DENMARK_IMAGE
 
 # Initial cleanup
 rm -f $TEMP_PATH/flag_tmp_file $TEMP_PATH/combined_file
@@ -107,7 +108,7 @@ while read line; do
       
       # Prepare the main part of the query
       # ( substract days in advance )
-      QUERY="{ \"state\": \"$NEW_STATE\", \"attributes\": { \"date\": \"$DATE\", \"event\": \"$EVENT\", \"timestamp\": \"$TIMESTAMP\", \"icon\": \"mdi:flag\", \"friendly_name\": \"`echo $EVENT | cut -d'.' -f1`\""
+      QUERY="{ \"state\": \"$NEW_STATE\", \"attributes\": { \"date\": \"$DATE\", \"event\": \"$EVENT\", \"timestamp\": \"$TIMESTAMP\", \"icon\": \"mdi:flag\", \"friendly_name\": \"`echo $EVENT | cut -d'.' -f1`\", \"default_flag\": \"$FLAG_IMAGE_PATH$DEFAULT_FLAG\""
 
       # IMAGE
       QUERY="$QUERY, \"entity_picture\": \"$FLAG_IMAGE_PATH"
@@ -121,7 +122,7 @@ while read line; do
         QUERY="$QUERY$GREENLAND_IMAGE\""
       fi
 
-      # GOOd FRIDAY...?
+      # GOOD FRIDAY...?
       QUERY="$QUERY, \"half_mast_all_day\": "
       if [[ `echo $EVENT | grep $GOOD_FRIDAY; echo $?` ]]; then
         QUERY="$QUERY false"

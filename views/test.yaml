@@ -44,27 +44,10 @@
               - this
 {%- endmacro %}
 
-{%- macro flag(image, position) -%}
-      - type: image
-        image: /local/images/flags/{{ image }}
-        style:
-          top: {{ '32%' if 'full' in position else '55%' }}
-          left: 44%
-          max-width: 10%
-          height: auto
-          transform: translate(-50%, -50%) rotate(20deg) skew(20deg)
-{%- endmacro %}
-
 title: System
 icon: mdi:test-tube
 panel: false
 cards:
-
-  - type: picture-elements
-    image: /local/images/flags/Flagstang.jpg
-    elements:
-      # FAROE ISLANDS
-      {{ flag("Greenland.png", "half") }}
 
   - !include cards/test/flag_card.yaml
 
