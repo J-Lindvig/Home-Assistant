@@ -1,3 +1,10 @@
+############################################################
+####             flagdays view by J-Lindvig             ####
+############################################################
+
+#### PLUGINS NEEDED ####
+# Lovelace Card Templater, https://github.com/gadgetchnnel/lovelace-card-templater
+
 type: custom:card-templater
 card:
   type: picture-elements
@@ -11,17 +18,20 @@ card:
         left: 70%
         max-width: 15%
         heigth: auto
+
     - type: custom:text-element
       text_template: "{{ state_attr('sensor.flag_day', 'friendly_name') }} er {{ states('sensor.flag_day') }}"
       style:
         font-size: 1.2vw
         top: 25%
         left: 70%
+
     - type: conditional
       conditions:
         - entity: automation.flaget_er_hejst
           state: 'on'
       elements:
+
       - type: image
         image_template: >-
           {%- if is_state_attr('sensor.flag_day', 'days', '0') %}
@@ -35,6 +45,7 @@ card:
           max-width: 10%
           height: auto
           transform: translate(-50%, -50%) rotate(20deg) skew(20deg)
+
 entities:
   - sensor.flagday_dk
   - sensor.flag_day
