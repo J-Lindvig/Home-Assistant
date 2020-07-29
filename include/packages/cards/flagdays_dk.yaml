@@ -36,20 +36,14 @@ flagdays_dk:
             days: "{{ states('sensor.flagday_dk') }}"
 
             flag_up_time: >-
-              # Calculate the timestamp of the next rising
               {% set sunrise_ts = as_timestamp(state_attr('sun.sun', 'next_rising')) | int %}
-              # Calculate the timestamp on the date at 08:00 ( + 28800 )
-              {% set at_0800_ts = state_attr('sensor.flagday_dk', 'timestamp') | int + 28800 %}
-              
-              # If the sunrise is earlier than 08:00, set it to 08:00
-              # else set it to the sunrise
-              {%- if sunrise_ts <= at_0800_ts %}
+              {% set sunrise_min = ( sunrise_ts | timestamp_custom('%-H', true) | int * 60 ) + (sunrise_ts | timestamp_custom('%-H', true) | int) %}
+              {%- if sunrise_min <= 480 %}
                 08:00
               {% else %}
-                {{ sunrise | timestamp_custom('%H:%M', true) }}
+                {{ ( sunrise_ts | timestamp_custom('%-H', true) | int * 60 ) + (sunrise_ts | timestamp_custom('%-H', true) | int) }}
               {% endif -%}
 
-            # Create a time (HH:MM) from the sun.sun next setting
             flag_down_time: >-
               {{ as_timestamp(state_attr('sun.sun', 'next_setting')) | int | timestamp_custom('%H:%M', true) }}
 
