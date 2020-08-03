@@ -1,5 +1,6 @@
 
 # Home Assistant by J-Lindvig
+![Main screen](https://github.com/J-Lindvig/Home-Assistant-Master/raw/master/www/images/screenshots/scr_main.png)
 This is my implementation of Home Assistant, it may not be for the faint of heart - but it is mine and I like it....
 Please enjoy my madness and use what you can.
 ## Introduction
@@ -53,7 +54,4 @@ Since it is the master that is the **brain** of my setup I will solely focus on 
 My setup is heavily divided with `!include` and *packages* in multiple directories.
 ### Files
 [configuration.yaml](https://github.com/J-Lindvig/Home-Assistant-Master/blob/master/configuration.yaml)
-
-
-
 > Written with [StackEdit](https://stackedit.io/).
