@@ -1,35 +1,72 @@
-############################################################
-####      HomeAssistant Configuration by J-Lindvig      ####
-############################################################
+#      __  __                        ___              _      __              __ 
+#     / / / /___  ____ ___  ___     /   |  __________(_)____/ /_____ _____  / /_
+#    / /_/ / __ \/ __ `__ \/ _ \   / /| | / ___/ ___/ / ___/ __/ __ `/ __ \/ __/
+#   / __  / /_/ / / / / / /  __/  / ___ |(__  |__  ) (__  ) /_/ /_/ / / / / /_  
+#  /_/ /_/\____/_/ /_/ /_/\___/  /_/  |_/____/____/_/____/\__/\__,_/_/ /_/\__/  
+#                                                                  by J-Lindvig
 
-#### A
+#      ___ 
+#     /   |
+#    / /| |
+#   / ___ |
+#  /_/  |_|
+#
 automation: !include automations.yaml
 automation old: !include_dir_merge_list include/automations/
 
-#### C
+#     ______
+#    / ____/
+#   / /     
+#  / /___   
+#  \____/   
+#
 config:
 
-#### D
+#      ____ 
+#     / __ \
+#    / / / /
+#   / /_/ / 
+#  /_____/  
+#
 default_config:
-#demo:
 device_tracker: !include include/device_trackers.yaml
 
-#### F
+#      ______
+#     / ____/
+#    / /_    
+#   / __/    
+#  /_/       
+#
 ffmpeg:
 frontend:
   themes: !include_dir_merge_named themes
 
-#### G
+#     ______
+#    / ____/
+#   / / __  
+#  / /_/ /  
+#  \____/   
+#
 google:
   client_id: !secret GOOGLE_CLIENT_ID
   client_secret: !secret GOOGLE_CLIENT_SECRET
 
-#### H
+#      __  __
+#     / / / /
+#    / /_/ / 
+#   / __  /  
+#  /_/ /_/   
+#
 homeassistant:
   customize: !include_dir_merge_named include/customize/
   packages: !include_dir_merge_named include/packages/
 
-##### L
+#      __ 
+#     / / 
+#    / /  
+#   / /___
+#  /_____/
+#
 logger:
   default: error
   logs:
@@ -45,7 +82,12 @@ lovelace:
 
 lovelace_gen:
 
-#### P
+#      ____ 
+#     / __ \
+#    / /_/ /
+#   / ____/ 
+#  /_/      
+#
 panel_iframe:
   homeassistant_slave:
     title: Home Assistant - Slave
@@ -53,7 +95,12 @@ panel_iframe:
     url: https://ha-slave.skovtrolden.duckdns.org
     require_admin: true
 
-#### R
+#      ____ 
+#     / __ \
+#    / /_/ /
+#   / _, _/ 
+#  /_/ |_|  
+# 
 recorder:
   db_url: !secret MYSQL_URL
   purge_keep_days: 7
@@ -74,20 +121,40 @@ remote_homeassistant:
 
 rest_command: !include_dir_merge_named include/rest_commands/
 
-#### S
+#     _____
+#    / ___/
+#    \__ \ 
+#   ___/ / 
+#  /____/  
+# 
 saver:
 shell_command: !include_dir_merge_named include/shell_commands/
 spotify:
   client_id: !secret SPOTIFY_CLIENT_ID
   client_secret: !secret SPOTIFY_CLIENT_SECRET
 
-#### T
+#    ______
+#   /_  __/
+#    / /   
+#   / /    
+#  /_/     
+#
 tts:
   - platform: google_translate
     language: "da"
 
-#### V
+#   _    __
+#  | |  / /
+#  | | / / 
+#  | |/ /  
+#  |___/   
+#
 var: !include_dir_merge_named include/variables/
 
-#### W
+#   _       __
+#  | |     / /
+#  | | /| / / 
+#  | |/ |/ /  
+#  |__/|__/   
+#
 wake_on_lan:
