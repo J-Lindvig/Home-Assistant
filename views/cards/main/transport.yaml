@@ -15,8 +15,14 @@ card:
     image: /local/images/headers/fynbus.jpg
 filter:
   include:
+    - entity_id: "sensor.bil_mod_*"
+      sort:
+        method: attribute
+        numeric: true
+        attribute: sort_value_minutes
+    - type: section
     - entity_id: "sensor.bus_mod_*"
-sort:
-  method: attribute
-  numeric: true
-  attribute: due_in
+      sort:
+        method: attribute
+        numeric: true
+        attribute: sort_value_minutes

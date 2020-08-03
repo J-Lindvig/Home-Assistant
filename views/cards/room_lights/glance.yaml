@@ -27,7 +27,8 @@
   "Nathalie": ["light.nathalies_vaerelse", "light.nathalies_loftslamper", "light.nathalies_sengelamper"],
   "Badeværelser": ["light.badevaerelser_samlet", "light.badevaerelse_lille", "light.badevaerelse_stort"],
   "Indgang": ["light.indgang", "light.loftlampe_i_indgang", "light.lys_over_skabe"],
-  "Havegang": ["light.havegang"]
+  "Havegang": ["light.havegang"],
+  "Husnummer": ["light.husnummer"]
 } %}
 
 # Macro that makes a Glance card
@@ -148,3 +149,5 @@ cards:
         {{ glance("Indgang") }}
       Havegang:
         {{ glance("Havegang") }}
+      Husnummer:
+        {{ glance("Husnummer") }}

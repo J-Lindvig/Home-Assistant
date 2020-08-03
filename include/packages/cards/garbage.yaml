@@ -66,6 +66,9 @@ garbage:
               om {{ ((time_stamp - as_timestamp(now())) / ( 60 * 60 * 24 )) | round(0, 'ceil') }} dage (
               {{- states("var.weekdays_dk").split(",")[time_stamp | timestamp_custom('%w') | int - 1] }}dag den {{ time_stamp | timestamp_custom('%-d.') }}{{ states("var.months_dk").split(",")[time_stamp | timestamp_custom('%-m') | int - 1] }})
             {%- endif -%}
+          attribute_templates:
+            days: >-
+              {{ state_attr('sensor.affald', 'days') }}
 
         genbrug_hentes:
           friendly_name: "Genbrug:"
@@ -80,3 +83,6 @@ garbage:
               om {{ ((time_stamp - as_timestamp(now())) / ( 60 * 60 * 24 )) | round(0, 'ceil') }} dage (
               {{- states("var.weekdays_dk").split(",")[time_stamp | timestamp_custom('%w') | int - 1] }}dag den {{ time_stamp | timestamp_custom('%-d.') }}{{ states("var.months_dk").split(",")[time_stamp | timestamp_custom('%-m') | int - 1] }})
             {%- endif -%}
+          attribute_templates:
+            days: >-
+              {{ state_attr('sensor.genbrug', 'days') }} 

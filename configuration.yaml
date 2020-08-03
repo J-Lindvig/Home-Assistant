@@ -45,6 +45,14 @@ lovelace:
 
 lovelace_gen:
 
+#### P
+panel_iframe:
+  homeassistant_slave:
+    title: Home Assistant - Slave
+    icon: mdi:home-assistant    
+    url: https://ha-slave.skovtrolden.duckdns.org
+    require_admin: true
+
 #### R
 recorder:
   db_url: !secret MYSQL_URL
@@ -69,6 +77,9 @@ rest_command: !include_dir_merge_named include/rest_commands/
 #### S
 saver:
 shell_command: !include_dir_merge_named include/shell_commands/
+spotify:
+  client_id: !secret SPOTIFY_CLIENT_ID
+  client_secret: !secret SPOTIFY_CLIENT_SECRET
 
 #### T
 tts:

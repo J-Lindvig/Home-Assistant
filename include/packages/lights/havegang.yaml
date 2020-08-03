@@ -18,7 +18,9 @@ havegang:
   homeassistant:
     customize:
       light.havegang:
-        icon: mdi:wall-sconce-flat
+        icon: mdi:wall-sconce-round
+      light.husnummer:
+        icon: mdi:wall-sconce-round
 
   input_datetime:
     patio_off_time:
@@ -57,11 +59,15 @@ havegang:
           from: "off"
           to: "on"
       action:
-        - service_template: >-
-            {%- if is_state("binary_sensor.night", "off") %}
-              light.turn_off
-            {% else %}
-              light.turn_on
-            {% endif -%}
+        - service_template: "light.turn_{{ 'off' if is_state('binary_sensor.night', 'off') else 'on' }}"
           entity_id:
             - light.havegang
+
+    - alias: Husnummer tændes om natten
+      trigger:
+        - platform: state
+          entity_id: sun.sun
+      action:
+        - service_template: "light.turn_{{ 'on' if is_state('sun.sun', 'below_horizon') else 'off' }}"
+          entity_id:
+            - light.husnummer

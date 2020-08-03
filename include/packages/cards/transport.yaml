@@ -1,0 +1,101 @@
+transport:
+  sensor:
+
+    - platform: waze_travel_time
+      name: Herstedvester Fængsel
+      origin: zone.home
+      destination: zone.herstedvester_faengsel
+      region: 'EU'
+
+    - platform: waze_travel_time
+      name: Margarita og Rolf
+      origin: zone.home
+      destination: zone.farmor_og_farfar
+      region: 'EU'
+
+    - platform: rejseplanen
+      name: Odense 110
+      stop_id: 430276300
+      direction:
+        - 'Odense'
+      route: 'Bus 110'
+
+    - platform: rejseplanen
+      name: Assens 110
+      stop_id: 430276300
+      direction:
+        - 'Assens'
+      route: 'Bus 110'
+
+    - platform: rejseplanen
+      name: Odense
+      stop_id: '430268500'
+      direction:
+        - 'Odense'
+    
+    - platform: rejseplanen
+      name: Faaborg
+      stop_id: '430268500'
+      direction:
+        - 'Faaborg'
+
+    - platform: rejseplanen
+      name: Glamsbjerg
+      stop_id: '430267600'
+      route: 'Bus 851U'
+
+    - platform: template
+      sensors:
+        #####   BIL  #####
+        bil_mod_margarita_og_rolf:
+          friendly_name_template: "{{ state_attr('sensor.margarita_og_rolf', 'friendly_name' ) }}:"
+          icon_template: mdi:car
+          value_template: >-
+            {{ states('sensor.margarita_og_rolf') }} minutter ({{ state_attr('sensor.margarita_og_rolf', 'distance' ) | round }} km. af {{ state_attr('sensor.margarita_og_rolf', 'route') }})
+          attribute_templates:
+            sort_value_minutes: "{{ states('sensor.margarita_og_rolf') }}"
+
+        bil_mod_herstedvester:
+          friendly_name_template: "{{ state_attr('sensor.herstedvester_faengsel', 'friendly_name' ) }}:"
+          icon_template: mdi:car
+          value_template: >-
+            {{ states('sensor.herstedvester_faengsel') }} minutter ({{ state_attr('sensor.herstedvester_faengsel', 'distance' ) | round }} km. af {{ state_attr('sensor.herstedvester_faengsel', 'route') }})
+          attribute_templates:
+            sort_value_minutes: "{{ states('sensor.herstedvester_faengsel') }}"
+
+        ##### BUSSER #####
+        bus_mod_faaborg:
+          friendly_name_template: >-
+            {{ state_attr('sensor.faaborg', 'route') }} mod {{ state_attr('sensor.faaborg', 'direction') }} om:
+          icon_template: mdi:bus-clock
+          value_template: >-
+            {{ states('sensor.faaborg') }} minut{% if states('sensor.faaborg') | int > 1 %}ter{%- endif %} ({{ state_attr('sensor.faaborg', 'due_at').split(' ')[1] }})
+          attribute_templates:
+            sort_value_minutes: "{{ state_attr('sensor.faaborg', 'due_in') }}"
+    
+        bus_mod_odense:
+          friendly_name_template: >-
+            {{ state_attr('sensor.odense', 'route') }} mod {{ state_attr('sensor.odense', 'direction') }} om:
+          icon_template: mdi:bus-clock
+          value_template: >-
+            {{ states('sensor.odense') }} minut{% if states('sensor.odense') | int > 1 %}ter{%- endif %} ({{ state_attr('sensor.odense', 'due_at').split(' ')[1] }})
+          attribute_templates:
+            sort_value_minutes: "{{ state_attr('sensor.odense', 'due_in') }}"
+
+        bus_mod_odense_110:
+          friendly_name_template: >-
+            {{ state_attr('sensor.odense_110', 'route') }} mod {{ state_attr('sensor.odense', 'direction') }} om:
+          icon_template: mdi:bus-clock
+          value_template: >-
+            {{ states('sensor.odense_110') }} minut{% if states('sensor.odense_110') | int > 1 %}ter{%- endif %} ({{ state_attr('sensor.odense_110', 'due_at').split(' ')[1] }})
+          attribute_templates:
+            sort_value_minutes: "{{ state_attr('sensor.odense_110', 'due_in') }}"
+
+        bus_mod_assens_110:
+          friendly_name_template: >-
+            {{ state_attr('sensor.assens_110', 'route') }} mod {{ state_attr('sensor.assens_110', 'direction') }} om:
+          icon_template: mdi:bus-clock
+          value_template: >-
+            {{ states('sensor.assens_110') }} minut{% if states('sensor.assens_110') | int > 1 %}ter{%- endif %} ({{ state_attr('sensor.assens_110', 'due_at').split(' ')[1] }})
+          attribute_templates:
+            sort_value_minutes: "{{ state_attr('sensor.assens_110', 'due_in') }}"
