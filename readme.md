@@ -1,6 +1,6 @@
 
 # Home Assistant by J-Lindvig
-![Main screen](https://github.com/J-Lindvig/Home-Assistant-Master/raw/master/www/images/screenshots/scr_main.png)
+![Main screen](https://github.com/J-Lindvig/Home-Assistant-Master/raw/master/www/images/screenshots/scr_main_1.png)
 This is my implementation of Home Assistant, it may not be for the faint of heart - but it is mine and I like it....
 Please enjoy my madness and use what you can.
 ## Introduction
