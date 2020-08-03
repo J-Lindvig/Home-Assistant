@@ -12,6 +12,7 @@ Furthermore it is the master who is serving the nicely formed GUI.
 ### Hardware
  - Raspberry Pi 3B+
    - PNY 240 GB SSD USB3.1
+ - Xiaomi Roborock S50 vacuum
  - IKEA TRÅDFRI Gateway
 	 - 35 Bulbs
 	 - 1 Driver
