@@ -13,12 +13,12 @@ Furthermore it is the master who is serving the nicely formed GUI.
  - Raspberry Pi 3B+
    - PNY 240 GB SSD USB3.1
  - IKEA TRÅDFRI Gateway
-	 - 34 Bulbs
+	 - 35 Bulbs
 	 - 1 Driver
 	 - 4 Plugs
 	 - 9 Remotes
 	 - 1 Sensor
-	 - 2 Dimmers
+	 - 3 Dimmers
  - 2 Tuya Smartswitches
  - 3 Broadlink 3 rm mini
 ### Software
@@ -36,7 +36,6 @@ I have the following add-ons installed:
    - Kingston A1 32 GB microSD card
  - IKEA TRÅDFRI Gateway
 	 - 36 Bulbs
-	 - 1 Driver
 	 - 5 Plugs
 	 - 7 Remotes
 	 - 4 Sensor
