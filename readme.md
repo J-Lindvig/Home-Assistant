@@ -12,13 +12,14 @@ Furthermore it is the master who is serving the nicely formed GUI.
 ### Hardware
  - Raspberry Pi 3B+
    - PNY 240 GB SSD USB3.1
+ - Xiaomi Roborock S50 vacuum
  - IKEA TRÅDFRI Gateway
-	 - 34 Bulbs
+	 - 35 Bulbs
 	 - 1 Driver
 	 - 4 Plugs
 	 - 9 Remotes
 	 - 1 Sensor
-	 - 2 Dimmers
+	 - 3 Dimmers
  - 2 Tuya Smartswitches
  - 3 Broadlink 3 rm mini
 ### Software
@@ -36,7 +37,6 @@ I have the following add-ons installed:
    - Kingston A1 32 GB microSD card
  - IKEA TRÅDFRI Gateway
 	 - 36 Bulbs
-	 - 1 Driver
 	 - 5 Plugs
 	 - 7 Remotes
 	 - 4 Sensor
@@ -55,3 +55,6 @@ My setup is heavily divided with `!include` and *packages* in multiple directori
 ### Files
 [configuration.yaml](https://github.com/J-Lindvig/Home-Assistant-Master/blob/master/configuration.yaml)
 > Written with [StackEdit](https://stackedit.io/).
+<!--stackedit_data:
+eyJoaXN0b3J5IjpbODI0MDAwNTY0XX0=
+-->
