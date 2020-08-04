@@ -1,26 +1,57 @@
-############################################################
-####     HACS Resources Configuration by J-Lindvig      ####
-############################################################
+#      __  _____   ___________    ____                                           
+#     / / / /   | / ____/ ___/   / __ \___  _________  __  _______________  _____
+#    / /_/ / /| |/ /    \__ \   / /_/ / _ \/ ___/ __ \/ / / / ___/ ___/ _ \/ ___/
+#   / __  / ___ / /___ ___/ /  / _, _/  __(__  ) /_/ / /_/ / /  / /__/  __(__  ) 
+#  /_/ /_/_/  |_\____//____/  /_/ |_|\___/____/\____/\__,_/_/   \___/\___/____/  
+#                                                                                
+#                                                                     by J-Lindvig
 
-#### A
+#      ___ 
+#     /   |
+#    / /| |
+#   / ___ |
+#  /_/  |_|
+#          
 - type: module
   url: /hacsfiles/lovelace-auto-entities/auto-entities.js
 
-#### B
+#      ____ 
+#     / __ )
+#    / __  |
+#   / /_/ / 
+#  /_____/  
+#           
 - type: module
   url: /hacsfiles/bar-card/bar-card.js
 
-#### C
+#     ______
+#    / ____/
+#   / /     
+#  / /___   
+#  \____/   
+#           
 - type: module
   url: /hacsfiles/lovelace-card-mod/card-mod.js
 - type: module
+  url: /hacsfiles/lovelace-clock-card/clock-card.js
+- type: module
   url: /hacsfiles/custom-header/custom-header.js
 
-#### F
+#      ______
+#     / ____/
+#    / /_    
+#   / __/    
+#  /_/       
+#            
 - type: module
   url: /hacsfiles/lovelace-fold-entity-row/fold-entity-row.js
 
-#### G
+#     ______
+#    / ____/
+#   / / __  
+#  / /_/ /  
+#  \____/   
+#           
 - type: module
   url: /hacsfiles/lovelace-gap-card/gap-card.js
 - type: module
@@ -28,23 +59,43 @@
 - type: module
   url: /hacsfiles/lovelace-gui-sandbox/gui-sandbox.js
   
-#### L
+#      __ 
+#     / / 
+#    / /  
+#   / /___
+#  /_____/
+#         
 - type: module
   url: /hacsfiles/lovelace-layout-card/layout-card.js
 - type: module
   url: /hacsfiles/lovelace-card-templater/lovelace-card-templater.js
 
-#### M
+#      __  ___
+#     /  |/  /
+#    / /|_/ / 
+#   / /  / /  
+#  /_/  /_/   
+#             
 - type: module
   url: /hacsfiles/mini-graph-card/mini-graph-card-bundle.js
 - type: module
   url: /hacsfiles/lovelace-multiple-entity-row/multiple-entity-row.js
 
-#### R
+#      ____ 
+#     / __ \
+#    / /_/ /
+#   / _, _/ 
+#  /_/ |_|  
+#           
 - type: module
   url: /hacsfiles/restriction-card/restriction-card.js
 
-#### S
+#     _____
+#    / ___/
+#    \__ \ 
+#   ___/ / 
+#  /____/  
+#          
 - type: module
   url: /hacsfiles/select-list-card/select-list-card.js
 - type: module
@@ -56,7 +107,12 @@
 - type: module
   url: /hacsfiles/lovelace-state-switch/state-switch.js
   
-#### T
+#    ______
+#   /_  __/
+#    / /   
+#   / /    
+#  /_/     
+#          
 - type: module
   url: /hacsfiles/text-element/text-element.js
 - type: module
@@ -64,6 +120,11 @@
 - type: module
   url: /hacsfiles/tv-card/tv-card.js
 
-#### W
+#   _       __
+#  | |     / /
+#  | | /| / / 
+#  | |/ |/ /  
+#  |__/|__/   
+#             
 - type: module
   url: /hacsfiles/weather-card/weather-card.js
