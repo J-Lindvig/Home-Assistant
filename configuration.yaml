@@ -92,7 +92,7 @@ panel_iframe:
   homeassistant_slave:
     title: Home Assistant - Slave
     icon: mdi:home-assistant    
-    url: https://ha-slave.skovtrolden.duckdns.org
+    url: !secret HA_SLAVE_URL
     require_admin: true
 
 #      ____ 
