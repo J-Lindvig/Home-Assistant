@@ -32,17 +32,21 @@ transport:
       stop_id: '430268500'
       direction:
         - 'Odense'
+      route: 'Bus 111'
     
     - platform: rejseplanen
       name: Faaborg
       stop_id: '430268500'
       direction:
         - 'Faaborg'
+      route: 'Bus 111'
 
     - platform: rejseplanen
       name: Glamsbjerg
-      stop_id: '430267600'
+      stop_id: '430269400'
       route: 'Bus 851U'
+      direction:
+        - 'Vestfyns Uddannelsescenter'
 
     - platform: template
       sensors:
@@ -64,6 +68,15 @@ transport:
             sort_value_minutes: "{{ states('sensor.herstedvester_faengsel') }}"
 
         ##### BUSSER #####
+        bus_mod_glamsbjerg:
+          friendly_name_template: >-
+            {{ state_attr('sensor.glamsbjerg', 'route') }} mod {{ state_attr('sensor.glamsbjerg', 'direction') }} om:
+          icon_template: mdi:bus-clock
+          value_template: >-
+            {{ states('sensor.glamsbjerg') }} minut{% if states('sensor.glamsbjerg') | int > 1 %}ter{%- endif %} ({{ state_attr('sensor.glamsbjerg', 'due_at').split(' ')[1] }})
+          attribute_templates:
+            sort_value_minutes: "{{ state_attr('sensor.glamsbjerg', 'due_in') }}"
+
         bus_mod_faaborg:
           friendly_name_template: >-
             {{ state_attr('sensor.faaborg', 'route') }} mod {{ state_attr('sensor.faaborg', 'direction') }} om:
