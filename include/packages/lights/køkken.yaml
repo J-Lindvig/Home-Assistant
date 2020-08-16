@@ -13,26 +13,21 @@ kokken:
         - light.kaffebar_2
     
     - platform: group
-      name: Køkkenø
-      entities:
-        - light.kokkeno_1
-        - light.kokkeno_2
-        - light.kokkeno_3
-    
-    - platform: group
       name: Køkkenbord
       entities:
         - light.kokkenbord_1
         - light.kokkenbord_2
+        - light.kokkeno_1
+        - light.kokkeno_2
+        - light.kokkeno_3
+        - light.kokkenskabe
 
     - platform: group
       name: Køkken
       entities:
         - light.spisebord
         - light.kaffebar
-        - light.kokkeno
         - light.kokkenbord
-        - light.kokkenskabe
         - light.maleri
         - light.legekokken
 
@@ -41,10 +36,6 @@ kokken:
       light.spisebord:
         icon: mdi:ceiling-light
       light.kaffebar:
-        icon: mdi:ceiling-light
-      light.kokkeno:
-        icon: mdi:ceiling-light
-      light.kokkenskabe:
         icon: mdi:ceiling-light
       light.kokkenbord:
         icon: mdi:ceiling-light

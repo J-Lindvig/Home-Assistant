@@ -1,0 +1,15 @@
+- id: '1597308422055'
+  alias: ZHA
+  description: ''
+  trigger:
+  - event_data:
+      command: 'on'
+      device_ieee: 00:0d:6f:ff:fe:bc:cb:b5
+    event_type: zha_event
+    platform: event
+  condition: []
+  action:
+  - data: {}
+    entity_id: light.sandbox_bulb
+    service: light.turn_on
+  mode: single

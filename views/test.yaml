@@ -56,6 +56,9 @@ icon: mdi:test-tube
 panel: false
 cards:
 
+  - type: custom:clock-card
+
+
   - !include cards/test/flag_card.yaml
 
   - type: custom:tv-card

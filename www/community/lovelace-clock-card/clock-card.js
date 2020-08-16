@@ -10,12 +10,17 @@ function leadingZero(numberString) {
 Date.prototype.format = function (formatString) {
     var dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
     var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-    formatString = formatString.replace(/hh/g, leadingZero(this.getHours()));
-    formatString = formatString.replace(/h/g, this.getHours());
+    var twlv = this.getHours() == 0 ? 12 : this.getHours() > 12 ? this.getHours() - 12 : this.getHours();
+    var ampm = this.getHours() >= 12 ? "PM" : "AM";
+
+    formatString = formatString.replace(/hh/g, leadingZero(twlv));
+    formatString = formatString.replace(/h/g, twlv);
     formatString = formatString.replace(/mm/g, leadingZero(this.getMinutes()));
     formatString = formatString.replace(/m/g, this.getMinutes());
     formatString = formatString.replace(/ss/g, leadingZero(this.getSeconds()));
     formatString = formatString.replace(/s/g, this.getSeconds());
+    formatString = formatString.replace(/HH/g, leadingZero(this.getHours()));
+    formatString = formatString.replace(/H/g, this.getHours());
     formatString = formatString.replace(/YYYY/g, this.getFullYear());
     formatString = formatString.replace(/YY/g, this.getFullYear().toString().substr(2));
     formatString = formatString.replace(/MMMM/g, 'ZZZZ');
@@ -27,6 +32,7 @@ Date.prototype.format = function (formatString) {
     formatString = formatString.replace(/DD/g, leadingZero(this.getDate()));
     formatString = formatString.replace(/D/g, this.getDate());
 
+    formatString = formatString.replace(/a/g, ampm);
     formatString = formatString.replace(/ZZZZ/g, monthNames[this.getMonth() + 12]);
     formatString = formatString.replace(/ZZZ/g, monthNames[this.getMonth()]);
     formatString = formatString.replace(/XXXX/g, dayNames[this.getDay() + 7]);
@@ -34,21 +40,9 @@ Date.prototype.format = function (formatString) {
     return formatString;
 };
 
-function timezoneTime(date, time_zone) {
-
-    // suppose the date is 12:00 UTC
-    var indate = new Date(date.toLocaleString('en-US', {
-        timeZone: time_zone
-    }));
-
-    // then invdate will be 07:00 in Toronto
-    // and the diff is 5 hours
-    var diff = date.getTime() - indate.getTime();
-
-    // so 12:00 in Toronto is 17:00 UTC
-    return new Date(date.getTime() + diff);
+function timezoneTime(time_zone) {
+    return new Date((new Date()).toLocaleString('en-US', {timeZone: time_zone}));
 }
-
 
 class ClockCard extends HTMLElement {
 
@@ -76,13 +70,13 @@ class ClockCard extends HTMLElement {
                     (config.show_city ? formatted_timezone.substr(formatted_timezone.indexOf("/") + 1) : "");
             }
             var timezone_html = caption ? `<p id="time_caption" style="font-size:20px">${caption}</p>` : "";
-            var now = config.time_zone ? timezoneTime(new Date(), config.time_zone) : new Date();
+            var now = config.time_zone ? timezoneTime(config.time_zone) : new Date();
             timezone_html = config.display_date ? timezone_html + `<p id="display_date" style="font-size:20px">${now.format(config.display_date)}</p>` : timezone_html;
             this.content.innerHTML = `<canvas width="${clock_size}px" height="${clock_size}px"></canvas>${timezone_html}`;
             card.appendChild(this.content);
             this.appendChild(card);
             var canvas = this.content.children[0];
-            var dateTimeP = config.display_date ? caption ? this.content.children[2] : this.content[1] : null;
+            var dateTimeP = config.display_date ? caption ? this.content.children[2] : this.content.children[1] : null;
             var ctx = canvas.getContext("2d");
             var radius = canvas.height / 2;
             ctx.translate(radius, radius);
@@ -141,7 +135,7 @@ class ClockCard extends HTMLElement {
                     }
                 }
                 if (dateTimeP != null) {
-                    var now = config.time_zone ? timezoneTime(new Date(), config.time_zone) : new Date();
+                    var now = config.time_zone ? timezoneTime(config.time_zone) : new Date();
                     dateTimeP.innerHTML = now.format(config.display_date);
                 }
                 var hour = local_hour;
