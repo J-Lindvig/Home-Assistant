@@ -1,4 +1,17 @@
 zha_remotes:
+  automation:
+    - alias: IKEA Remote
+      id: 'ikea_remote'
+      mode: restart
+      trigger:
+        - platform: event
+          event_type: zha_event
+      action:
+        - service: script.zha_exec
+          data_template:
+            device: "{{ trigger.event.data.device_ieee }}"
+            command: "{{ trigger.event.data.command }}"
+
   script:
     zha_exec:
       sequence:
