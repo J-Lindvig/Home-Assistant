@@ -7,8 +7,9 @@ zha_remotes:
         - platform: event
           event_type: zha_event
       action:
-        - service: script.zha_exec
+        - service: script.turn_on
           data_template:
+            entity_id: script.zha_exec
             device: "{{ trigger.event.data.device_ieee }}"
             command: "{{ trigger.event.data.command }}"
 
