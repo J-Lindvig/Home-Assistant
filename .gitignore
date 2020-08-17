@@ -16,6 +16,7 @@
 .cloud
 .google.token
 tts
+neighbours
 
 # Ensure these files are ignored, otherwise your secret data/credentials will leak.
 ip_bans.yaml
