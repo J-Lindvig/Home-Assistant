@@ -23,6 +23,7 @@ secrets.yaml
 shell_secrets.txt
 known_devices.yaml
 home-assistant.log
+zigbee.db
 .db
 home-assistant_v2.db
 .uuid
