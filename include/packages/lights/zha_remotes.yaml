@@ -9,7 +9,13 @@ zha_remotes:
       action:
         - service: script.zha_exec
           data_template:
-            device: "{{ trigger.event.data.device_ieee }}"
+            light: >-
+              {% set device_light_list = {
+                '90:fd:9f:ff:fe:9c:5b:fc': 'light.spisebord',
+                'd0:cf:5e:ff:fe:0f:3e:9a': 'light.kaffebar',
+                'd0:cf:5e:ff:fe:0d:7d:d0': 'light.kokkenbord'
+              } %}
+              {{ device_light_list[trigger.event.data.device_ieee] }}
             command: "{{ trigger.event.data.command }}"
 
   script:
@@ -26,14 +32,7 @@ zha_remotes:
               script.zha_5_btn_long_press_dim
             {%- endif %}
           data_template:
-            light: >-
-              {% if device == "90:fd:9f:ff:fe:9c:5b:fc" %}
-                light.spisebord
-              {% elif device == "d0:cf:5e:ff:fe:0f:3e:9a" %}
-                light.kaffebar
-              {% elif device == "d0:cf:5e:ff:fe:0d:7d:d0" %}
-                light.kokkenbord
-              {% endif %}
+            light: "{{ light  }}"
             dim_direction: >-
               {%- if 'step' in command %}
                 {{ '-20' if command == 'step' else '20' }}
