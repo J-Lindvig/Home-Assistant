@@ -10,10 +10,13 @@ zha_remotes:
         - service: script.zha_exec
           data_template:
             light: >-
+              # List in key:value format.
+              # Key is device_ieee and value is the light
               {% set device_light_list = {
                 '90:fd:9f:ff:fe:9c:5b:fc': 'light.spisebord',
                 'd0:cf:5e:ff:fe:0f:3e:9a': 'light.kaffebar',
-                'd0:cf:5e:ff:fe:0d:7d:d0': 'light.kokkenbord'
+                'd0:cf:5e:ff:fe:0d:7d:d0': 'light.kokkenbord',
+                '00:0d:6f:ff:fe:bc:cb:b5': 'light.sandbox_bulb'
               } %}
               {{ device_light_list[trigger.event.data.device_ieee] }}
             command: "{{ trigger.event.data.command }}"
@@ -23,16 +26,18 @@ zha_remotes:
       sequence:
         - service_template: >-
             {%- if command == "toggle" %}
-              script.zha_5_btn_short_press_power
-            {% elif command == "move_to_level_with_on_off" %}
-              script.zha_5_btn_long_press_power
+              script.zha_remote_short_press_power
+            {% elif command == "off" %}
+              script.zha_dimmer_short_press_off
+            {% elif command == "move_to_level_with_on_off" or command == "on" %}
+              script.zha_remote_long_press_power
             {% elif 'step' in command %}
-              script.zha_5_btn_short_press_dim
+              script.zha_remote_short_press_dim
             {% elif 'move' in command %}
-              script.zha_5_btn_long_press_dim
+              script.zha_remote_long_press_dim
             {%- endif %}
           data_template:
-            light: "{{ light  }}"
+            light: "{{ light }}"
             dim_direction: >-
               {%- if 'step' in command %}
                 {{ '-20' if command == 'step' else '20' }}
@@ -40,13 +45,13 @@ zha_remotes:
                 {{ '-10' if command == 'move' else '10' }}
               {% endif %}
 
-    zha_5_btn_short_press_power:
+    zha_remote_short_press_power:
       sequence:
         - service: light.toggle
           data_template:
             entity_id: "{{ light }}"
 
-    zha_5_btn_short_press_dim:
+    zha_remote_short_press_dim:
       sequence:
         - service: light.turn_on
           data_template:
@@ -54,7 +59,7 @@ zha_remotes:
             brightness_step_pct: "{{ dim_direction }}"
             transition: 0.5
 
-    zha_5_btn_long_press_dim:
+    zha_remote_long_press_dim:
       sequence:
         - repeat:
             while: []
@@ -67,9 +72,15 @@ zha_remotes:
               - delay:
                   milliseconds: 500
 
-    zha_5_btn_long_press_power:
+    zha_remote_long_press_power:
       sequence:
         - service: light.turn_on
           data_template:
             entity_id: "{{ light }}"
             brightness: 254
+
+    zha_dimmer_short_press_off:
+      sequence:
+        - service: light.turn_off
+          data_template:
+            entity_id: "{{ light }}"

@@ -145,7 +145,7 @@ var LS_Meta = {"v":"6.0.5"};
 <script type='text/javascript' src='https://designflag.dk/wp-content/plugins/responsive-lightbox/assets/infinitescroll/infinite-scroll.pkgd.min.js?ver=5.5' id='responsive-lightbox-infinite-scroll-js'></script>
 <script type='text/javascript' id='responsive-lightbox-js-extra'>
 /* <![CDATA[ */
-var rlArgs = {"script":"swipebox","selector":"lightbox","customEvents":"","activeGalleries":"1","animation":"1","hideCloseButtonOnMobile":"0","removeBarsOnMobile":"0","hideBars":"1","hideBarsDelay":"5000","videoMaxWidth":"1080","useSVG":"1","loopAtEnd":"0","woocommerce_gallery":"1","ajaxurl":"https:\/\/designflag.dk\/wp-admin\/admin-ajax.php","nonce":"2643df9bb1"};
+var rlArgs = {"script":"swipebox","selector":"lightbox","customEvents":"","activeGalleries":"1","animation":"1","hideCloseButtonOnMobile":"0","removeBarsOnMobile":"0","hideBars":"1","hideBarsDelay":"5000","videoMaxWidth":"1080","useSVG":"1","loopAtEnd":"0","woocommerce_gallery":"1","ajaxurl":"https:\/\/designflag.dk\/wp-admin\/admin-ajax.php","nonce":"c927ee424f"};
 /* ]]> */
 </script>
 <script type='text/javascript' src='https://designflag.dk/wp-content/plugins/responsive-lightbox/js/front.js?ver=2.2.3' id='responsive-lightbox-js'></script>
@@ -224,7 +224,7 @@ Installed: enfold
 AviaFramework Version: 5.0
 AviaBuilder Version: 0.9.5
 aviaElementManager Version: 1.0.1
-ML:256-PU:30-PLA:25
+ML:256-PU:26-PLA:25
 WP:5.5
 Compress: CSS:disabled - JS:disabled
 Updates: disabled
@@ -613,7 +613,7 @@ var mailchimp_public_data = {"site_url":"https:\/\/designflag.dk","ajax_url":"ht
 <script type='text/javascript' src='https://designflag.dk/wp-content/themes/enfold/framework/js/conditional_load/avia_google_maps_front.js?ver=4.6' id='avia_google_maps_front_script-js'></script>
 <script type='text/javascript' id='avia_google_recaptcha_front_script-js-extra'>
 /* <![CDATA[ */
-var AviaReCAPTCHA_front = {"version":"avia_recaptcha_v3","site_key2":"6LcsFsUUAAAAALH5_sd6XcBxx9MjpDHplznI_5se","site_key3":"6Lc3FsUUAAAAAEA-VT7XRiJX91ItwY88bmlxHkND","api":"https:\/\/www.google.com\/recaptcha\/api.js","avia_api_script":"https:\/\/designflag.dk\/wp-content\/themes\/enfold\/framework\/js\/conditional_load\/avia_google_recaptcha_api.js","theme":"light","score":"0.5","verify_nonce":"4c0207f2ee","cannot_use":"<h3 class=\"av-recaptcha-error-main\">Sorry, a problem occured trying to communicate with Google reCAPTCHA API. You are currently not able to submit the contact form. Please try again later - reload the page and also check your internet connection.<\/h3>","init_error_msg":"Initial setting failed. Sitekey 2 and\/or sitekey 3 missing in frontend.","v3_timeout_pageload":"Timeout occured connecting to V3 API on initial pageload","v3_timeout_verify":"Timeout occured connecting to V3 API on verifying submit","v2_timeout_verify":"Timeout occured connecting to V2 API on verifying you as human. Please try again and check your internet connection. It might be necessary to reload the page.","verify_msg":"Verify....","connection_error":"Could not connect to the internet. Please reload the page and try again.","validate_first":"Please validate that you are a human first","validate_submit":"Before submitting we validate that you are a human first.","no_token":"Missing internal token on valid submit - unable to proceed.","invalid_version":"Invalid reCAPTCHA version found.","api_load_error":"Google reCAPTCHA API could not be loaded."};
+var AviaReCAPTCHA_front = {"version":"avia_recaptcha_v3","site_key2":"6LcsFsUUAAAAALH5_sd6XcBxx9MjpDHplznI_5se","site_key3":"6Lc3FsUUAAAAAEA-VT7XRiJX91ItwY88bmlxHkND","api":"https:\/\/www.google.com\/recaptcha\/api.js","avia_api_script":"https:\/\/designflag.dk\/wp-content\/themes\/enfold\/framework\/js\/conditional_load\/avia_google_recaptcha_api.js","theme":"light","score":"0.5","verify_nonce":"539067bdb6","cannot_use":"<h3 class=\"av-recaptcha-error-main\">Sorry, a problem occured trying to communicate with Google reCAPTCHA API. You are currently not able to submit the contact form. Please try again later - reload the page and also check your internet connection.<\/h3>","init_error_msg":"Initial setting failed. Sitekey 2 and\/or sitekey 3 missing in frontend.","v3_timeout_pageload":"Timeout occured connecting to V3 API on initial pageload","v3_timeout_verify":"Timeout occured connecting to V3 API on verifying submit","v2_timeout_verify":"Timeout occured connecting to V2 API on verifying you as human. Please try again and check your internet connection. It might be necessary to reload the page.","verify_msg":"Verify....","connection_error":"Could not connect to the internet. Please reload the page and try again.","validate_first":"Please validate that you are a human first","validate_submit":"Before submitting we validate that you are a human first.","no_token":"Missing internal token on valid submit - unable to proceed.","invalid_version":"Invalid reCAPTCHA version found.","api_load_error":"Google reCAPTCHA API could not be loaded."};
 /* ]]> */
 </script>
 <script type='text/javascript' src='https://designflag.dk/wp-content/themes/enfold/framework/js/conditional_load/avia_google_recaptcha_front.js?ver=4.6' id='avia_google_recaptcha_front_script-js'></script>
@@ -650,4 +650,4 @@ tvc_smd={"tvc_wcv":"3.9.2","tvc_wpv":"5.5","tvc_eev":"2.3.2","tvc_cnf":{"t_ee":"
 </body>
 </html>
 
-<!-- Page generated by LiteSpeed Cache 3.2.3.1 on 2020-08-16 02:23:14 -->
+<!-- Page generated by LiteSpeed Cache 3.2.3.1 on 2020-08-17 06:48:36 -->
