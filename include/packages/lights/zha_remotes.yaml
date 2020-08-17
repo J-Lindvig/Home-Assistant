@@ -62,6 +62,19 @@ zha_remotes:
           data_template:
             entity_id: "{{ light }}"
 
+    zha_remote_long_press_power:
+      sequence:
+        - service: light.turn_on
+          data_template:
+            entity_id: "{{ light }}"
+            brightness: 254
+
+    zha_dimmer_short_press_off:
+      sequence:
+        - service: light.turn_off
+          data_template:
+            entity_id: "{{ light }}"
+
     zha_remote_short_press_dim:
       sequence:
         - service: light.turn_on
@@ -127,16 +140,3 @@ zha_remotes:
                   transition: 0.5
               - delay:
                   milliseconds: 500
-
-    zha_remote_long_press_power:
-      sequence:
-        - service: light.turn_on
-          data_template:
-            entity_id: "{{ light }}"
-            brightness: 254
-
-    zha_dimmer_short_press_off:
-      sequence:
-        - service: light.turn_off
-          data_template:
-            entity_id: "{{ light }}"
