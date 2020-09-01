@@ -5,12 +5,6 @@ nathalies_vaerelse:
       entity_id: switch.sengelamper
     
     - platform: group
-      name: Nathalies Loftslamper
-      entities:
-        - light.loftlampe_hoj
-        - light.loftlampe_lav
-    
-    - platform: group
       name: Nathalies værelse
       entities:
         - light.nathalies_sengelamper
@@ -18,9 +12,6 @@ nathalies_vaerelse:
 
   homeassistant:
     customize:
-      light.nathalies_loftslamper:
-        friendly_name: Loftslamper
-        icon: mdi:ceiling-light
       light.nathalies_sengelamper:
         friendly_name: Sengelamper
         icon: mdi:bed

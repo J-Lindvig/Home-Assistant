@@ -1,0 +1,8 @@
+type: custom:weather-card
+name: Brobyværk
+entity: weather.brobyvaerk
+current: false
+details: false
+forecast: true
+hourly_forecast: true
+number_of_forecasts: 12

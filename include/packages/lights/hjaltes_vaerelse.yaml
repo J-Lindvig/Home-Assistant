@@ -1,20 +1,7 @@
 hjaltes_vaerelse:
   light:
     - platform: group
-      name: Hjaltes Loftslampe
-      entities:
-        - light.loftlampe_1_hjalte
-        - light.loftlampe_2_hjalte
-        - light.loftlampe_3_hjalte
-    
-    - platform: group
       name: Hjaltes værelse
       entities:
-        - light.hjaltes_loftslampe
+        - light.loftlampe_hjalte
         - light.nanoleaf_hjalte
-
-  homeassistant:
-    customize:
-      light.hjaltes_loftslampe:
-        friendly_name: Loftlamper
-        icon: mdi:track-light

@@ -4,14 +4,8 @@ legevaerelse:
       name: Gulvlampe i legeværelse
       entities:
         - light.gulvlampe_nederst
-        - light.gulvlampe_midt
+        - light.gulvlampe_midterst
         - light.gulvlampe_overst
-    
-    - platform: group
-      name: Legeværelse
-      entities:
-        - light.uplight
-        - light.gulvlampe_i_legevaerelse
 
   homeassistant:
     customize:

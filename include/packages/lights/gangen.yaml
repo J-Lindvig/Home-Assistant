@@ -1,47 +1,17 @@
 gangen:
-  light:
-    - platform: group
-      name: Gangen 1-7
-      entities:
-        - light.gangen_1
-        - light.gangen_2
-        - light.gangen_3
-        - light.gangen_4
-        - light.gangen_5
-        - light.gangen_6
-        - light.gangen_7
-
-    - platform: group
-      name: Gangen 8-14
-      entities:
-        - light.gangen_8
-        - light.gangen_9
-        - light.gangen_10
-        - light.gangen_11
-        - light.gangen_12
-        - light.gangen_13
-        - light.gangen_14
-
-    - platform: group
-      name: Gangen
-      entities:
-        - light.gangen_1_7
-        - light.gangen_8_14
-
-  homeassistant:
-    customize:
-      light.gangen:
-        icon: mdi:track-light
-
   automation:
-    - alias: "Sync gangens lys"
+    - alias: "Tænd lyset i gangen"
+      initial_state: true
+      mode: single
       trigger:
         - platform: state
           entity_id:
-            - light.gangen_1_7
-            - light.gangen_8_14
+            - binary_sensor.gangen_sensor_1
+            - binary_sensor.gangen_sensor_2
+          from: "off"
+          to: "on"
       action:
-        - service_template: "script.sync_light_{{ trigger.to_state.state }}"
+        - service: light.turn_on
           data_template:
-            entity: light.gangen
-            brightness: "{{ (states('input_number.dim_low') | int) if is_state('binary_sensor.night', 'on') else (states('input_number.dim_high') | int) }}"
+            entity_id: light.gangen
+            brightness: "{{ 255 if is_state('binary_sensor.night', 'off') else 10 }}"

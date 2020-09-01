@@ -29,11 +29,12 @@ tools:
         - service: var.set
           data_template:
             entity_id: var.prev_volume
-            value: "{{ state_attr(entity_id, 'volume_level') }}"
+            value: >-
+              {{ state_attr(entity_id, 'volume_level') }}
         - service: media_player.volume_set
           data_template:
             entity_id: "{{ entity_id }}"
-            volume_level: "{{ volume }}"
+            volume_level: "{{ volume | float }}"
 
     reset_volume:
       alias: "Restore old volume"
@@ -41,7 +42,8 @@ tools:
         - service: media_player.volume_set
           data_template:
             entity_id: "{{ entity_id}}"
-            volume_level: "{{ states('var.prev_volume') | float }}"
+            volume_level: >-
+              {{ states('var.prev_volume') | float }}
   
     # Find selected value and selects the value at same index in another list
     # Variables: haystack and result_list

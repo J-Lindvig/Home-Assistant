@@ -22,6 +22,32 @@ automation old: !include_dir_merge_list include/automations/
 #
 config:
 
+camera:
+
+  - platform: generic
+    name: Indgang SD
+    still_image_url: !secret INDGANG_STILL_URL
+    stream_source: !secret INDGANG_STREAM_URL
+    verify_ssl: false
+
+  - platform: generic
+    name: Terrasse SD
+    still_image_url: !secret TERRASSE_STILL_URL
+    stream_source: !secret TERRASSE_STREAM_URL
+    verify_ssl: false
+
+  - platform: generic
+    name: Extra 1 SD
+    still_image_url: !secret EXTRA_1_STILL_URL
+    stream_source: !secret EXTRA_1_STREAM_URL
+    verify_ssl: false
+
+  - platform: generic
+    name: Extra 2 SD
+    still_image_url: !secret EXTRA_2_STILL_URL
+    stream_source: !secret EXTRA_2_STREAM_URL
+    verify_ssl: false
+
 #      ____ 
 #     / __ \
 #    / / / /
@@ -73,7 +99,6 @@ logger:
     homeassistant.components.script: error
     homeassistant.components.automation: error
     homeassistant.core: fatal
-    homeassistant.components.mqtt: debug
     homeassistant.helpers.service: critical
 
 lovelace:
@@ -88,12 +113,6 @@ lovelace_gen:
 #   / ____/ 
 #  /_/      
 #
-panel_iframe:
-  homeassistant_slave:
-    title: Home Assistant - Slave
-    icon: mdi:home-assistant    
-    url: !secret HA_SLAVE_URL
-    require_admin: true
 
 #      ____ 
 #     / __ \
@@ -106,19 +125,6 @@ recorder:
   purge_keep_days: 7
   auto_purge: true
 
-remote_homeassistant:
-  instances:
-  - host: 192.168.0.13
-    port: 8123
-    secure: false
-    verify_ssl: false
-    access_token: !secret REMOTE_HA_API
-    include:
-      domains:
-      - light
-      - switch
-      - sensor
-
 rest_command: !include_dir_merge_named include/rest_commands/
 
 #     _____
@@ -127,7 +133,6 @@ rest_command: !include_dir_merge_named include/rest_commands/
 #   ___/ / 
 #  /____/  
 # 
-saver:
 sensor:
   - platform: seventeentrack
     username: !secret 17TRACK_USER
@@ -164,16 +169,3 @@ var: !include_dir_merge_named include/variables/
 #  |__/|__/   
 #
 wake_on_lan:
-
-#   _____
-#  /__  /
-#    / / 
-#   / /__
-#  /____/
-#
-zha:
-  zigpy_config:
-    ota:
-      ikea_provider: true
-
-zha_map:

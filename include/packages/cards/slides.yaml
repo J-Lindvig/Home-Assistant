@@ -4,9 +4,6 @@ slides:
       name: "Kort til skifte mellem"
       options:
         - birthday
-        - benidorm
-        - copenhagen
-        - weddingday
 
   automation:
     - alias: "Next slide"

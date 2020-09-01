@@ -1,12 +1,6 @@
 stuen:
   light:
     - platform: group
-      name: Stuelampe
-      entities:
-        - light.stuelampe_1
-        - light.stuelampe_2
-
-    - platform: group
       name: Stuen
       entities:
         - light.stuelampe
@@ -15,9 +9,5 @@ stuen:
 
   homeassistant:
     customize:
-      light.stuelampe:
-        icon: mdi:lamp
       light.gulvlampe:
-        icon: mdi:floor-lamp
-      light.laeselampe:
         icon: mdi:floor-lamp

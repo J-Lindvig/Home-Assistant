@@ -1,0 +1,41 @@
+- alias: "Ringklokke"
+  description: Der er nogen som ringer på døren
+  initial_state: true
+  mode: queued
+  trigger:
+    - platform: event
+      event_type: deconz_event
+      event_data:
+        unique_id: 00:15:8d:00:05:2b:96:3e
+        event: 1002
+  action:
+    - service: notify.mobile_app_motorola_one_action
+      data_template:
+        title: "Dørklokke"
+        message: >
+          Der er nogen ved døren
+        data:
+          channel: Dørklokke
+          importance: high
+          image: "https://ha.skovtrolden.duckdns.org/{{ state_attr('camera.indgang_sd', 'entity_picture') }}"
+    - service: script.store_volume
+      data:
+        entity_id: media_player.kokken
+        volume: 1
+    - service: camera.play_stream
+      data:
+        entity_id: camera.indgang_sd
+        media_player: media_player.kokken_skaerm
+        format: hls
+    - service: media_player.play_media
+      data:
+        entity_id:
+          - media_player.kokken
+          - media_player.indgang
+          - media_player.pigernes_stue
+        media_content_id: "https://ha.skovtrolden.duckdns.org/local/audio/doorbell.mp3"
+        media_content_type: music
+    - delay: "00:00:10"
+    - service: script.reset_volume
+      data:
+        entity_id: media_player.kokken

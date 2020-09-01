@@ -1,35 +1,11 @@
 emilios_vaerelse:
   light:
-    - platform: group
-      name: Emilios værelse
-      entities:
-        - light.loftlampe_emilio
-        - light.stjernelampe_emilio
-
     - platform: switch
-      name: Stjernelampe, Emilio
+      name: Stjernelampe
       entity_id: switch.stjernelampe_emilio
 
   homeassistant:
     customize:
-      light.loftlampe_emilio:
-        friendly_name: Loftlampe
-        icon: mdi:ceiling-light
-      light.stjernelampe_emilio:
+      light.stjernelampe:
         friendly_name: Stjernelampe
         icon: mdi:star-face
-
-  input_datetime:
-    emilio_track_start:
-      name: Emilio fra
-      icon: mdi:clock
-      initial: "04:30"
-      has_date: false
-      has_time: true
-    
-    emilio_track_end:
-      name: Emilio til
-      icon: mdi:clock
-      initial: "08:00"
-      has_date: false
-      has_time: true

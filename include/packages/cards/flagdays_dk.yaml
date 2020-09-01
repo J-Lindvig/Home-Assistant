@@ -58,7 +58,9 @@ flagdays_dk:
 
   automation:
     - alias: Opdater flagdage
+      description: Opdater nedtællingen til næste officielle flagdag
       initial_state: true
+      mode: single
       trigger:
         - platform: time
           at: "00:38:00"
@@ -69,7 +71,9 @@ flagdays_dk:
 
     # It is flagday
     - alias: Flaget skal hejses
+      description: Reminder om at hejse flaget
       initial_state: true
+      mode: single
       trigger:
         - platform: template
           value_template: "{{ states('sensor.time') == state_attr('sensor.flag_day', 'flag_up_time') }}"
@@ -108,7 +112,9 @@ flagdays_dk:
 
     # On a half mast day  with a end time
     - alias: Flaget skal helt til tops
+      description: Reminder om at hejse flaget helt til tops
       initial_state: true
+      mode: single
       trigger:
         - platform: template
           value_template: "{{ states('sensor.time') == state_attr('sensor.flag_day', 'half_mast') }}"
@@ -129,7 +135,9 @@ flagdays_dk:
 
     # Time to take the flag down
     - alias: Flaget er hejst
+      description: Reminder om at tage flaget ned
       initial_state: false
+      mode: single
       trigger:
         - platform: sun
           event: sunset
@@ -155,6 +163,9 @@ flagdays_dk:
 
     # Receiver of the actions from the phone
     - alias: Opdater flagets status
+      description: Modtager af kommandoer fra notifikationer
+      initial_state: true
+      mode: single
       trigger:
         - platform: event
           event_type: mobile_app_notification_action

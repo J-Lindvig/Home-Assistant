@@ -1,38 +1,7 @@
 badevaerelser:
   light:
     - platform: group
-      name: Badeværelse, lille
-      entities:
-        - light.lille_1_1
-        - light.lille_1_2
-        - light.lille_2_1
-        - light.lille_2_2
-        - light.lille_3_1
-        - light.lille_3_2
-
-    - platform: group
-      name: Badeværelse, stort
-      entities:
-        - light.stort_1_1
-        - light.stort_1_3
-        - light.stort_2_1
-        - light.stort_2_3
-        - light.stort_3_1
-        - light.stort_3_2
-        - light.stort_3_3
-
-    - platform: group
       name: Badeværelser, samlet
       entities:
-        - light.badevaerelse_lille
-        - light.badevaerelse_stort
-
-  homeassistant:
-    customize:
-      light.badevaerelse_lille:
-        friendly_name: Lille
-        icon: mdi:shower-head
-
-      light.badevaerelse_stort:
-        friendly_name: Stort
-        icon: mdi:shower
+        - light.lille_badevarelse
+        - light.stort_badevarelse

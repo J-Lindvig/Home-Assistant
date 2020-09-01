@@ -1,9 +1,12 @@
 library:
   shell_command:
-    library_update: 'source /config/shell/library.sh; library_update'
+    library_update: 'source /config/shell/library.sh; library_update  > /dev/null 2>&1 &'
 
   automation:
     - alias: Opdater bibliotekslån
+      description: Opdater status på udlån
+      initial_state: true
+      mode: single
       trigger:
         - platform: time
           at: "00:17:00"

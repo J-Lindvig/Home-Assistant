@@ -24,4 +24,3 @@ views:
   - !include views/gauges.yaml
   - !include views/weather.yaml
   - !include views/test.yaml
-  - !include views/zha_map.yaml

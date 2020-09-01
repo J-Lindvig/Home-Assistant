@@ -15,7 +15,7 @@
 # light.kokken is a light group which contains all lights in the kitchen
 # If a room only has 1 light, then there is only 1 element int the list
 {% set rooms = {
-  "Køkken": ["light.kokken", "light.spisebord", "light.maleri", "light.legekokken", "light.kaffebar", "light.kokkeno", "light.kokkenskabe", "light.kokkenbord"],
+  "Køkken": ["light.kokken", "light.spisebord", "light.maleri", "light.legekokken", "light.kaffebar", "light.kokkenskabe", "light.kokkenbord"],
   "Stuen": ["light.stuen", "light.gulvlampe", "light.stuelampe", "light.laeselampe"],
   "Legeværelse": ["light.legevaerelse", "light.uplight", "light.gulvlampe_i_legevaerelse"],
   "Gangen": ["light.gangen"],
@@ -101,11 +101,13 @@
                       {%- if not loop.first %}
                     - type: custom:slider-entity-row
                       entity: {{ light }}
+                      toggle: true
                       {%- endif %}
                     {%- endfor %}
                   {% else %}
                     - type: custom:slider-entity-row
                       entity: {{ rooms[room][0] }}
+                      toggle: true
                   {% endif %}  
                 deviceID:
                   - this

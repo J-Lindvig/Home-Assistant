@@ -41,6 +41,9 @@ greentel:
 
   automation:
     - alias: "Greentel hent værdier"
+      description: Udtræk taletid m.m. fra scraping af Greentel
+      initial_state: true
+      mode: single
       trigger:
         - platform: time_pattern
           minutes: "/52"
@@ -50,6 +53,9 @@ greentel:
         - service: shell_command.greentel_get
 
     - alias: "Greentel scrape"
+      description: Scrape data fra Greentel
+      initial_state: true
+      mode: single
       trigger:
         - platform: time_pattern
           minutes: "/42"

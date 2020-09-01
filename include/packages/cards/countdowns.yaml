@@ -15,7 +15,7 @@ countdowns:
         date: "2007-03-22"
         id_prefix: "birthday_"
       - name: Emilio fødselsdag
-        date: "2014-09-23"
+        date: "2014-09-17"
         id_prefix: "birthday_"
       - name: Colin fødselsdag
         date: "2016-04-23"
@@ -37,12 +37,6 @@ countdowns:
       - name: Nytårsaften
         date: "12-31"
         id_prefix: "annual_"
-        unit_of_measurement: ""
-
-      # Holidays
-      - name: Benidorm
-        date: "2020-10-12"
-        id_prefix: "holiday_"
         unit_of_measurement: ""
 
   group:
@@ -111,6 +105,9 @@ countdowns:
 
   automation:
     - alias: Birthday Update
+      description: Opdater nedtællingen til næste fødselsdag
+      initial_state: true
+      mode: single
       trigger:
       - platform: time
         at: 00:01:00
