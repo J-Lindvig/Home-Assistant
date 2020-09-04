@@ -96,28 +96,13 @@ light_control:
             }}
 
   automation:
-    - alias: "Natsænkning"
-      trigger:
-        # Trigger to turn on and off - binary sensor
-        - platform: state
-          entity_id: binary_sensor.night
-      action:
-        - service: script.night_brightness
-          data_template:
-            brightness: >-
-              {%- if is_state("binary_sensor.night", "on") %}
-                {{ states("input_number.dim_low") | int }}
-              {%- else -%}
-                {{ states("input_number.dim_high") | int }}
-              {%- endif %}
-
     - alias: "Sluk glemt lys på værelser"
       trigger:
         # Trigger - state of the group of lights i the wanted rooms
         - platform: state
           entity_id:
-            - light.colins_vaerelse
-            - light.emilios_vaerelse
+            - light.colins_varelse
+            - light.emilios_varelse
           from: "off"
           to: "on"
           # Timeout value
@@ -128,60 +113,3 @@ light_control:
         # Turn the entity that was the trigger
         data_template:
           entity_id: "{{ trigger.entity_id }}"
-
-  script:
-    sync_light_on:
-      alias: "Synkroniser lysgrupper - ON"
-      sequence:
-        - service: light.turn_on
-          data_template:
-            entity_id: "{{ entity }}"
-            brightness: "{{ brightness | int }}"
-
-    sync_light_off:
-      alias: "Synkroniser lysgrupper - OFF"
-      sequence:
-        - service: light.turn_off
-          data_template:
-            entity_id: "{{ entity }}"
-
-    # OBSOLETE....?
-    # sync_light:
-    #   alias: "Synkroniser lysgrupper"
-    #   sequence:
-    #     - service_template: >-
-    #         light.turn_{{ state }}
-    #       data_template:
-    #         entity_id: "{{ entity }}"
-    #         brightness: "{{ brightness | int }}"
-
-    # Dim/undim lights when called
-    # Var: brightness
-    night_brightness:
-      alias: "Skru ned/op om aftenen"
-      sequence:
-        # Wait till lights are off in the bathrooms
-        # Wait max. 10 minutes and the continue
-        - wait_template: >-
-            {{ is_state("light.badevaerelser_samlet", "off") }}
-          timeout:
-            minutes: 10
-          continue_on_timeout: "true"
-    
-        # Turn on the lights with the new brigthness
-        # Wait 10 seconds for all the lights
-        - service: light.turn_on
-          data_template:
-            entity_id:
-              - light.badevaerelser_samlet
-              - light.gangen
-            brightness: "{{ brightness | int }}"
-        - delay:
-            seconds: 10
-
-        # Turn off the lights
-        - service: light.turn_off
-          data:
-            entity_id:
-              - light.badevaerelser_samlet
-              - light.gangen

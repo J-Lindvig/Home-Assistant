@@ -1,7 +1,0 @@
-restart_remote_ha:
-  url: !secret REMOTE_HA_START_URL
-  method: POST
-  headers:
-    Accept: 'application/json'
-    Authorization: !secret REMOTE_HA_RESTART
-  content_type:  'application/json'

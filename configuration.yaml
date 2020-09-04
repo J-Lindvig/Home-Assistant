@@ -23,7 +23,6 @@ automation old: !include_dir_merge_list include/automations/
 config:
 
 camera:
-
   - platform: generic
     name: Indgang SD
     still_image_url: !secret INDGANG_STILL_URL
