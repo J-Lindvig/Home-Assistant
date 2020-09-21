@@ -41,7 +41,7 @@ flagdays_dk:
               {%- if sunrise_min <= 480 %}
                 08:00
               {% else %}
-                {{ ( sunrise_ts | timestamp_custom('%-H', true) | int * 60 ) + (sunrise_ts | timestamp_custom('%-H', true) | int) }}
+                {{ sunrise_ts | timestamp_custom('%H:%M', true) }}
               {% endif -%}
 
             flag_down_time: >-
@@ -63,7 +63,7 @@ flagdays_dk:
       mode: single
       trigger:
         - platform: time
-          at: "00:38:00"
+          at: "05:00:00"
         - platform: homeassistant
           event: start
       action:
@@ -77,13 +77,11 @@ flagdays_dk:
       trigger:
         - platform: template
           value_template: "{{ states('sensor.time') == state_attr('sensor.flag_day', 'flag_up_time') }}"
-      condition:
-        condition: template
-        value_template: "{{ ( state_attr('sensor.flag_day', 'days') | int ) == 0 }}"
+      condition: "{{ ( state_attr('sensor.flag_day', 'days') | int ) == 0 }}"
       action:
 
         # Update the boolean switch whether it is a half mast
-        - service_template: >-
+        - service: >-
             {%- if is_state_attr('sensor.flagday_dk', 'half_mast_all_day', true) %}
               input_boolean.turn_on
             {% elif is_state_attr('sensor.flagday_dk', 'half_mast_end_time', false) %}
@@ -96,7 +94,7 @@ flagdays_dk:
 
         # Send a actionable notification to my phone
         - service: notify.mobile_app_motorola_one_action
-          data_template:
+          data:
             title: "Besked fra din flagstang"
             message: >
               Husk at hejse flaget i anledning af {{ state_attr('sensor.flag_day', 'friendly_name') }}.
@@ -125,7 +123,7 @@ flagdays_dk:
             entity_id: input_boolean.half_mast
 
         - service: notify.mobile_app_motorola_one_action
-          data_template:
+          data:
             title: "Besked fra din flagstang"
             message: >
               Det er nu tid til at flaget skal helt til tops.
@@ -136,7 +134,6 @@ flagdays_dk:
     # Time to take the flag down
     - alias: Flaget er hejst
       description: Reminder om at tage flaget ned
-      initial_state: false
       mode: single
       trigger:
         - platform: sun
@@ -145,7 +142,7 @@ flagdays_dk:
       action:
 
         - service: notify.mobile_app_motorola_one_action
-          data_template:
+          data:
             title: "Besked fra din flagstang"
             message: >
               Husk at tage flaget ned. Solen går ned kl. {{ state_attr('sensor.flag_day', 'flag_down_time') }}.

@@ -45,14 +45,14 @@ movies:
     # List of synchronized URLs of the movies
     # HIDDEN
     movie_url:
-      name: "Movie URL"
+      name: "PRIVATE -  - Movie URL"
       options:
         - DUMMY
 
     # List of synchronized URLs of the moviecover
     # HIDDEN
     movie_cover:
-      name: "Movie Covers URL"
+      name: "PRIVATE -  - Movie Covers URL"
       options:
         - DUMMY
 
@@ -60,14 +60,14 @@ movies:
     # Used as slider and buttons
     # HIDDEN
     movie_chapters:
-      name: "Movie Chapters"
+      name: "PRIVATE -  - Movie Chapters"
       options:
         - DUMMY
 
     # List of timecodes of the moviechapters
     # HIDDEN
     movie_timecodes:
-      name: "Movie timecodes"
+      name: "PRIVATE -  - Movie timecodes"
       options:
         - DUMMY
 
@@ -81,7 +81,7 @@ movies:
     # List of synchronized entity of chromecasts
     # HIDDEN
     chromecasts_entities:
-      name: "Chromecasts entities"
+      name: "PRIVATE -  - Chromecasts entities"
       options:
         - DUMMY
 
@@ -100,7 +100,7 @@ movies:
     play_pause_movie:
       alias: "Start/Pause film"
       sequence:
-        - service_template: >-
+        - service: >-
             {%- if is_state(states('input_select.chromecasts_entities'), "off") or is_state(states('input_select.chromecasts_entities'), "idle") -%}
               script.play_movie
             {%- elif is_state(states('input_select.chromecasts_entities'), "playing") or is_state(states('input_select.chromecasts_entities'), "paused") -%}
@@ -112,7 +112,7 @@ movies:
       alias: "Start afspilning"
       sequence:
         - service: media_player.play_media
-          data_template:
+          data:
             entity_id: "{{ states('input_select.chromecasts_entities') }}"
             media_content_id: "{{- states('input_select.movie_url') -}}"
             media_content_type: video
@@ -122,7 +122,7 @@ movies:
       alias: "Pause/Play"
       sequence:
         - service: media_player.media_play_pause
-          data_template:
+          data:
             entity_id: "{{ states('input_select.chromecasts_entities') }}"
 
     # End movie
@@ -130,7 +130,7 @@ movies:
       alias: "stop afspilning"
       sequence:
         - service: media_player.media_stop
-          data_template:
+          data:
             entity_id: "{{ states('input_select.chromecasts_entities') }}"
 
   #   # Find selected value and selects the value at same index in another list
@@ -143,7 +143,7 @@ movies:
   #     alias: "VLOOKUP-gen"
   #     sequence:
   #       - service: input_select.select_option
-  #         data_template:
+  #         data:
   #           # From which list should we select the new value
   #           entity_id: "{{ result_list }}"
   #           # Go through every options (needles) in the haystack
@@ -183,7 +183,7 @@ movies:
             haystack: "input_select.movie_chapters"
             result_list: "input_select.movie_timecodes"
         - service: media_player.media_seek
-          data_template:
+          data:
             entity_id: "{{ states('input_select.chromecasts_entities') }}"
             seek_position: "{{ states('input_select.movie_timecodes') }}"
 
@@ -230,13 +230,13 @@ movies:
 
         # Load the chapters into the dropdown from the timecodes
         - service: rest_command.set_options_fix
-          data_template:
+          data:
             payload: >-
               {"entity_id":"input_select.movie_chapters","options":[{% for n in range(1, states('sensor.timecodes').split(',') | length) %}{% if not loop.first %},{% endif %}"{{ loop.index }}"{% endfor %}]}
 
         # Load the timecodes into the slider
         - service: rest_command.set_options_fix
-          data_template:
+          data:
             payload: >-
               {"entity_id":"input_select.movie_timecodes","options":[{% for timecode in states('sensor.timecodes').split(',') %}{% if not loop.first %},{% endif %}"{{ timecode }}"{% endfor %}]}
 

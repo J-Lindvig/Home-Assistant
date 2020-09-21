@@ -1,4 +1,14 @@
 browsers:
+  input_number:
+    default_view_timeout:
+      name: Timeout før der skal skiftes til default view
+      icon: mdi:timer-sand
+      unit_of_measurement: "sekunder"
+      initial: 30
+      min: 10
+      max: 120
+      step: 10
+
   var:
     main_path_touchpanel:
       initial_value: "/lovelace/0"
@@ -23,27 +33,34 @@ browsers:
     touchscreen_suspend: "source /config/shell/tools.sh; screen_suspend"
 
   automation:
-    - alias: "Update prev_path_touchpanel"
+    - alias: "PRIVATE Update prev_path_touchpanel"
+      description: "Opdaterer var.prev_path_touchpanel ved skift af view"
+      mode: single
+      initial_state: true
       trigger:
         platform: template
         value_template: >-
           {{ not is_state_attr('sensor.touchpanel', 'path', states('var.prev_path_touchpanel')) }}
       action:
         service: var.set
-        data_template:
+        data:
           entity_id: var.prev_path_touchpanel
           value: >-
             {{ state_attr('sensor.touchpanel', 'path') }}
 
-    - alias: "Go to default tab touchpanel"
+    - alias: "PRIVATE Go to default tab touchpanel"
+      description: "Gå til default view på touchpanel efter timeout"
+      mode: single
+      initial_state: true
       trigger:
         platform: template
         value_template: >-
           {{ is_state_attr('sensor.touchpanel', 'path', states('var.prev_path_touchpanel')) }}
-        for: "00:00:30"
+        for:
+          seconds: "{{ states('input_number.default_view_timeout') | int }}"
       action:
         service: browser_mod.navigate
-        data_template:
+        data:
           deviceID: TouchPanel
           navigation_path: >-
             {{ states('var.main_path_touchpanel') }}

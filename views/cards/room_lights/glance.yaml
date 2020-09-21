@@ -15,20 +15,20 @@
 # light.kokken is a light group which contains all lights in the kitchen
 # If a room only has 1 light, then there is only 1 element int the list
 {% set rooms = {
-  "Køkken": ["light.kokken", "light.spisebord", "light.maleri", "light.legekokken", "light.kaffebar", "light.kokkenskabe", "light.kokkenbord"],
-  "Stuen": ["light.stuen", "light.gulvlampe", "light.stuelampe", "light.laeselampe"],
-  "Legeværelse": ["light.legevaerelse", "light.uplight", "light.gulvlampe_i_legevaerelse"],
-  "Gangen": ["light.gangen"],
-  "Hjalte": ["light.hjaltes_vaerelse", "light.hjaltes_loftslampe", "light.nanoleaf_hjalte"],
-  "Emilio": ["light.emilios_vaerelse", "light.loftlampe_emilio", "light.stjernelampe_emilio"],
-  "Colin": ["light.colins_vaerelse", "light.lampe_colin", "light.loftlampe_colin", "light.colins_manelampe"],
-  "Pigernes stue": ["light.pigernes_stue"],
-  "Cornelie": ["light.cornelies_vaerelse", "light.gulvlampe_cornelie"],
-  "Nathalie": ["light.nathalies_vaerelse", "light.nathalies_loftslamper", "light.nathalies_sengelamper"],
-  "Badeværelser": ["light.badevaerelser_samlet", "light.badevaerelse_lille", "light.badevaerelse_stort"],
-  "Indgang": ["light.indgang", "light.loftlampe_i_indgang", "light.lys_over_skabe"],
-  "Havegang": ["light.havegang"],
-  "Husnummer": ["light.husnummer"]
+  "Køkken": ["group.koekken", "light.spisebord", "light.kaffebar", "light.kokkenbord", "light.maleri", "light.legekokken"],
+  "Stuen": ["group.stuen", "light.stuelampe", "light.stuen_gulvlampe", "light.laeselampe"],
+  "Legeværelse": ["group.legevaerelse", "light.legevaerelse_gulvlampe", "light.legevaerelse_uplight"],
+  "Gangen": ["group.gangen"],
+  "Indgang": ["group.indgang"],
+  "Hjalte": ["group.hjaltes_vaerelse", "light.hjaltes_loftlampe", "light.hjaltes_nanoleaf"],
+  "Emilio": ["group.emilios_vaerelse", "light.emilios_loftlampe", "light.emilios_stjernelampe"],
+  "Colin": ["group.colins_vaerelse", "light.colins_manelampe", "light.colins_lampe", "light.colins_loftlampe"],
+  "Pigernes stue": ["group.pigernes_stue"],
+  "Cornelie": ["group.cornelies_vaerelse", "light.cornelies_gulvlampe"],
+  "Nathalie": ["group.nathalies_vaerelse", "light.nathalies_sengelamper", "light.nathalies_loftlamper"],
+  "Badeværelser": ["", "group.lille_badevaerelse", "group.stort_badevaerelse"],
+  "Havegang": ["group.havegangen"],
+  "Husnummer": ["group.husnummer"]
 } %}
 
 # Macro that makes a Glance card
@@ -36,9 +36,6 @@
 {%- macro glance(room) %}
         type: glance
         show_state: false
-        {%- if (rooms[room] | length) > 4 %}
-        columns: 4
-        {%- endif %}
         entities:
         # If the list contains more than 1 element
         # Loop all elements - except the first,
@@ -57,6 +54,15 @@
         {%- else -%}
           {{ entity(room, rooms[room][0]) }}
         {%- endif %}
+{% endmacro %}
+
+{%- macro glance_new() %}
+        type: glance
+        show_state: false
+        entities:
+        {% for light in expand('group.koekken') %}
+          - {{ light.entity_id }}
+        {% endfor %}
 {% endmacro %}
 
 # Macro entity takes a string og the wanted room
@@ -110,7 +116,7 @@
                       toggle: true
                   {% endif %}  
                 deviceID:
-                  - this
+                  -z this
 {%- endmacro %}
 
 # Stack the vertical

@@ -236,7 +236,7 @@ vacuum:
       alias: "Gem DND timer"
       sequence:
         - service: rest_command.vacuum_command
-          data_template:
+          data:
             entity: vacuum.r2_d2
             command: set_dnd_timer
             # Prepare the time settings for the vacuum
@@ -257,7 +257,7 @@ vacuum:
       alias: "Støvsug rum"
       sequence:
         - service: var.set
-          data_template:
+          data:
             entity_id: var.cleaning_room_id
             value: >-
               {%- for room in state_attr("input_select.vacuum_room", "options") -%}
@@ -266,7 +266,7 @@ vacuum:
                 {%- endif %}
               {%- endfor %}
         - service: rest_command.vacuum_command
-          data_template:
+          data:
             entity: vacuum.r2_d2
             command: app_segment_clean
             # Find the selected room and use the index to find the room number
@@ -291,7 +291,7 @@ vacuum:
             params: [20000,30500]
         - wait_template: "{{ is_state('vacuum.r2_d2', 'idle') }}"
         - service: tts.google_translate_say
-          data_template:
+          data:
             entity_id: media_player.kokken
             message: >-
               "{{ state_attr("vacuum.r2_d2", "friendly_name") }} er klar til at blive serviceret..."
@@ -320,12 +320,10 @@ vacuum:
             (status_lower == 'returning') or
             (status_lower == 'returning home')
           }}
-      condition:
-        condition: template
-        value_template: "{{ not is_state('var.cleaning_room_id', 'null') }}"
+      condition: "{{ not is_state('var.cleaning_room_id', 'null') }}"
       action:
         - service: var.set
-          data_template:
+          data:
             entity_id: var.cleaning_room_id
             value: 'null'
 
@@ -347,7 +345,7 @@ vacuum:
         entity_id: input_select.vacuum_power
       action:
         - service: vacuum.set_fan_speed
-          data_template:
+          data:
             entity_id: vacuum.r2_d2
             # Find the index of the selected option (index starting from 1)
             # Append this digit to 10 - ex. 101
@@ -370,7 +368,7 @@ vacuum:
           entity_id: sensor.vacuum_fan_speed
       action:
         - service: input_select.select_option
-          data_template:
+          data:
             entity_id: input_select.vacuum_power
             # Get the last digit of the vacuums settings ( ex. 103 = 3 )
             # Substract 1 and use this value as index on the options
@@ -389,21 +387,21 @@ vacuum:
       action:
         # Get the DND start from the vacuum and set the timepicker
         - service: input_datetime.set_datetime
-          data_template:
+          data:
             entity_id: input_datetime.vacuum_dnd_start
             time: "{{ state_attr('vacuum.r2_d2', 'do_not_disturb_start') }}"
         # Get the DND end from the vacuum and set the timepicker
         - service: input_datetime.set_datetime
-          data_template:
+          data:
             entity_id: input_datetime.vacuum_dnd_end
             time: "{{ state_attr('vacuum.r2_d2', 'do_not_disturb_end') }}"
         # Send the default fanspeed to the vacuum
         - service: vacuum.set_fan_speed
-          data_template:
+          data:
             entity_id: vacuum.r2_d2
             # Send default fan speed to vacuum
             fan_speed: "{{ states('var.vacuum_default_fanspeed') | int }}"
         - delay: "00:00:20"
         - service: automation.trigger
-          data_template:
+          data:
             entity_id: automation.match_suge_menuen_til_stovsugeren

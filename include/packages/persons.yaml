@@ -1,37 +1,72 @@
 persons:
-  homeassistant:
-    customize:
-      person.jacob:
-        entity_picture: /local/images/persons/Jacob.jpg
-      person.rikke:
-        entity_picture: /local/images/persons/Rikke.jpg
-      person.cornelie:
-        entity_picture: /local/images/persons/Cornelie.jpg
-      person.nathalie:
-        entity_picture: /local/images/persons/Nathalie.jpg
-      person.hjalte:
-        entity_picture: /local/images/persons/Hjalte.jpg
+  # homeassistant:
+  #   customize:
+  #     person.jacob:
+  #       entity_picture: /local/images/persons/Jacob.jpg
+  #     person.rikke:
+  #       entity_picture: /local/images/persons/Rikke.jpg
+  #     person.cornelie:
+  #       entity_picture: /local/images/persons/Cornelie.jpg
+  #     person.nathalie:
+  #       entity_picture: /local/images/persons/Nathalie.jpg
+  #     person.hjalte:
+  #       entity_picture: /local/images/persons/Hjalte.jpg
   
   group:
-    persons:
-      name: Personer
+    family:
+      name: Familie
+      icon: mdi:account-group
       entities:
         - person.jacob
         - person.rikke
         - person.cornelie
         - person.nathalie
         - person.hjalte
-      icon: mdi:account-group
 
   automation:
+    - alias: "Sluk lys på et værelse når personen er gået"  
+      trigger:
+        platform: state
+        entity_id:
+          - person.jacob
+          - person.cornelie
+          - person.nathalie
+          - person.hjalte
+        from: "home"
+        to: "not_home"
+      action:
+        - service: homeassistant.turn_off
+          data:
+            entity_id: >-
+              {%- if trigger.entity_id == "person.jacob" %}
+                group.kontor
+              {%- elif trigger.entity_id == "person.cornelie" %}
+                group.cornelies_vaerelse
+              {%- elif trigger.entity_id == "person.nathalie" %}
+                group.nathalies_vaerelse
+              {%- else %}
+                group.hjaltes_vaerelse
+              {% endif %}
+
     - alias: "Sluk lys m.m. når huset er tomt"
       trigger:
         - platform: state
-          entity_id: group.persons
-          from: 'home'
-          to: 'not_home'
+          entity_id: group.family
       action:
-        # Sluk lyset
-        - service: light.turn_off
-          data:
-            entity_id: all
+        - choose:
+            - conditions: "{{ is_state('group.family', 'not_home') }}"
+              sequence:
+                # Sluk lyset
+                - service: homeassistant.turn_off
+                  data:
+                    entity_id:
+                      - group.alle_rum
+                      - switch.pump
+                      - light.touchpanel
+
+          default:
+            - service: homeassistant.turn_on
+              data:
+                entity_id:
+                  - switch.pump
+                  - light.touchpanel

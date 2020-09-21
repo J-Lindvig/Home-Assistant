@@ -7,11 +7,30 @@ hal_9000:
     trash:
     recycle:
 
+  input_datetime:
+    announce_at_time:
+      name: Tidspunkt for oplæsning
+      icon: mdi:clock-outline
+      has_date: false
+      has_time: true
+      initial: "09:00"
+
+  input_number:
+    announce_volume:
+      name: Lydstyrke ved oplæsning
+      initial: 0.4
+      min: 0.1
+      max: 1
+      step: 0.1
+
   automation:
     - alias: "Godmorgen"
+      description: "Oplæsning af hilsen, vejret og om der skal hentes affald/genbrug"
+      initial_state: true
+      mode: single
       trigger:
-        - platform: time
-          at: "09:00:00"
+        - platform: template
+          value_template: "{{ states('sensor.time') == states('input_datetime.announce_at_time' ) }}"
       action:
         - service: homeassistant.update_entity
           data:
@@ -19,9 +38,9 @@ hal_9000:
               - sensor.tid_naturlig
 
         - service: script.store_volume
-          data_template:
+          data:
             entity_id: media_player.kokken
-            volume: 0.4
+            volume: "{{ states('input_number.announce_volume') }}"
 
         - service: media_player.play_media
           entity_id: media_player.kokken
@@ -31,7 +50,7 @@ hal_9000:
 
         - service: tts.google_translate_say
           entity_id: media_player.kokken
-          data_template:
+          data:
             message: >-
               {% set len = states('var.greetings').split("|") | length %}
               {% set ran_idx = range(0, len) | random() %}
@@ -53,5 +72,5 @@ hal_9000:
               {% endif -%}
 
         - service: script.reset_volume
-          data_template:
+          data:
             entity_id: media_player.kokken

@@ -1,7 +1,0 @@
-hjaltes_vaerelse:
-  light:
-    - platform: group
-      name: Hjaltes værelse
-      entities:
-        - light.loftlampe_hjalte
-        - light.nanoleaf_hjalte

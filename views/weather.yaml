@@ -23,8 +23,6 @@ cards:
     max_width: 99%
     cards:
       - !include cards/weather/uv-index.yaml
-      - !include cards/weather/reffen.yaml
       - break
       - !include cards/weather/brobyvaerk.yaml
       - !include cards/weather/brobyvaerk_hourly.yaml
-      - !include cards/weather/benidorm.yaml        

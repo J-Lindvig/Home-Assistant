@@ -1,0 +1,23 @@
+- platform: generic
+  name: Indgang SD
+  still_image_url: !secret INDGANG_STILL_URL
+  stream_source: !secret INDGANG_STREAM_URL
+  verify_ssl: false
+
+- platform: generic
+  name: Terrasse SD
+  still_image_url: !secret TERRASSE_STILL_URL
+  stream_source: !secret TERRASSE_STREAM_URL
+  verify_ssl: false
+
+- platform: generic
+  name: Extra 1 SD
+  still_image_url: !secret EXTRA_1_STILL_URL
+  stream_source: !secret EXTRA_1_STREAM_URL
+  verify_ssl: false
+
+- platform: generic
+  name: Extra 2 SD
+  still_image_url: !secret EXTRA_2_STILL_URL
+  stream_source: !secret EXTRA_2_STREAM_URL
+  verify_ssl: false

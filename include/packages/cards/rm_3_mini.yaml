@@ -1,17 +1,85 @@
-rm_3_mini:
-  remote:
-    - platform: broadlink
-      host: !secret RM_3_MINI_IP_LIVINGROOM
-      mac: !secret RM_3_MINI_MAC_LIVINGROOM
-      type: rm_mini
-      name: RM Mini 3 Stuen
-    - platform: broadlink
-      host: !secret RM_3_MINI_IP_YOUTH
-      mac: !secret RM_3_MINI_MAC_YOUTH
-      type: rm_mini
-      name: RM Mini 3 Ungdomsstue
-    - platform: broadlink
-      host: !secret RM_3_MINI_IP_HJALTE
-      mac: !secret RM_3_MINI_MAC_HJALTE
-      type: rm_mini
-      name: RM Mini 3 Hjalte
+#rm_3_mini:
+  # remote:
+  #   - platform: broadlink
+  #     host: !secret RM_3_MINI_IP_LIVINGROOM
+  #     mac: !secret RM_3_MINI_MAC_LIVINGROOM
+  #     type: rm_mini
+  #     name: RM Mini 3 Stuen
+  #   - platform: broadlink
+  #     host: !secret RM_3_MINI_IP_YOUTH
+  #     mac: !secret RM_3_MINI_MAC_YOUTH
+  #     type: rm_mini
+  #     name: RM Mini 3 Ungdomsstue
+  #   - platform: broadlink
+  #     host: !secret RM_3_MINI_IP_HJALTE
+  #     mac: !secret RM_3_MINI_MAC_HJALTE
+  #     type: rm_mini
+  #     name: RM Mini 3 Hjalte
+
+  # binary_sensor:
+  #   - platform: ping
+  #     host: !secret RM_3_MINI_IP_LIVINGROOM
+  #     name: RM Mini 3 Stuen
+  #   - platform: ping
+  #     host: !secret RM_3_MINI_IP_YOUTH
+  #     name: RM Mini 3 Ungdomsstue
+  #   - platform: ping
+  #     host: !secret RM_3_MINI_IP_HJALTE
+  #     name: RM Mini 3 Hjalte
+  #     scan_interval: 30
+
+  # automation:
+  #   - alias: "Broadlink koblet fra"
+  #     description: Der er en Broadlink som er blevet koblet fra
+  #     initial_state: true
+  #     mode: single
+  #     trigger:
+  #       - platform: state
+  #         entity_id:
+  #           - binary_sensor.rm_mini_3_hjalte
+  #           - binary_sensor.rm_mini_3_stuen
+  #           - binary_sensor.rm_mini_3_ungdomsstue
+  #         from: "on"
+  #         to: "off"
+  #         for: "00:10:00"
+  #     action:
+  #       - service: script.turn_on
+  #         data:
+  #           entity_id: script.generic_replug_warning
+  #           variables:
+  #             media_player: >-
+  #               {%- if trigger.entity_id == "binary_sensor.rm_mini_3_hjalte" %}
+  #                 media_player.hjalte
+  #               {%- elif trigger.entity_id == "binary_sensor.rm_mini_3_stuen" %}
+  #                 media_player.stuen
+  #               {%- elif trigger.entity_id == "binary_sensor.rm_mini_3_ungdomsstue" %}
+  #                 media_player.pigernes_stue
+  #               {% endif %}
+  #             message: "Hey.... Du får præcis 10 sekunder til at putte det stik tilbage....!!"
+
+  # script:
+  #   generic_replug_warning:
+  #     alias: "Generic warning to reinsert plug"
+  #     icon: mdi:alert
+  #     description: "Skru helt op for den givne Google Nest og giv en besked til den som har taget strømmen fra en RM 3"
+  #     fields:
+  #       media_player:
+  #         description: "Entity_id på den Google Nest som er i samme rum"
+  #         example: "media_player.kokken"
+  #       message:
+  #         description: "Den besked som skal sendes ud vedkommende."
+  #         example: "Hej med dig..."
+  #     mode: single
+  #     sequence:
+  #       - service: script.store_volume
+  #         data:
+  #           entity_id: "{{ media_player }}"
+  #           volume: 1
+  #       - service: tts.google_translate_say
+  #         data:
+  #           entity_id: "{{ media_player }}"
+  #           message: "{{ message }}"
+  #       - delay: "00:00:10"
+  #       - service: script.reset_volume
+  #         data:
+  #           entity_id: "{{ media_player }}"

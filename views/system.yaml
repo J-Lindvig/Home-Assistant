@@ -22,7 +22,6 @@ cards:
     min_width: 33%
     max_width: 99%
     cards:
-      - !include cards/system/restart_gateways.yaml
       - !include cards/system/batteries.yaml
 #      - !include cards/system/greentel.yaml
 #      - !include cards/system/automations.yaml

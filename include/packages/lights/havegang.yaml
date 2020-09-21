@@ -36,7 +36,7 @@ havegang:
           from: "off"
           to: "on"
       action:
-        - service_template: "light.turn_{{ 'off' if is_state('binary_sensor.night', 'off') else 'on' }}"
+        - service: "homeassistant.turn_{{ 'off' if is_state('binary_sensor.night', 'off') else 'on' }}"
           entity_id:
             - light.havegang
 
@@ -45,6 +45,6 @@ havegang:
         - platform: state
           entity_id: sun.sun
       action:
-        - service_template: "light.turn_{{ 'on' if is_state('sun.sun', 'below_horizon') else 'off' }}"
+        - service: "homeassistant.turn_{{ 'on' if is_state('sun.sun', 'below_horizon') else 'off' }}"
           entity_id:
             - light.husnummer

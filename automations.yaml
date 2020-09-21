@@ -1,9 +1,1 @@
-- id: '1598474575625'
-  alias: Navn
-  description: Beskrivelse
-  trigger:
-  - event: sunrise
-    platform: sun
-  condition: []
-  action: []
-  mode: single
+[]

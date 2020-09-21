@@ -8,7 +8,6 @@
     rikke_telefon: 192.168.0.130
     rikke_ur: 192.168.0.131
     cornelie_telefon: 192.168.0.150
-    nathalie_telefon: 192.168.0.160
 
 #### NMAP
 # IP-scopes with non-iOS units
@@ -16,6 +15,8 @@
   hosts: 192.168.0.100-129
 - platform: nmap_tracker
   hosts: 192.168.0.140-149
+- platform: nmap_tracker
+  hosts: 192.168.0.160-169
 
 #### Ping
 - platform: ping

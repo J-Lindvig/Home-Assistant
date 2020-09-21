@@ -1,0 +1,148 @@
+room_groups_lights:
+  light:
+    - platform: group
+      name: Legeværelse Gulvlampe
+      entities:
+        - light.gulvlampe_nederst
+        - light.gulvlampe_midterst
+        - light.gulvlampe_overst
+
+    - platform: switch
+      name: Colins månelampe
+      entity_id: switch.colins_maanelampe
+
+    - platform: switch
+      name: Emilios stjernelampe
+      entity_id: switch.emilios_stjernelampe
+
+    - platform: switch
+      name: Pigernes stue kuglelampe
+      entity_id: switch.pigernes_stue_kuglelampe
+
+    - platform: switch
+      name: Nathalies sengelamper
+      entity_id: switch.nathalies_sengelamper
+
+  group:
+    alle_rum:
+      name: Alle rum
+      entities:
+        - group.koekken
+        - group.kontor
+        - group.stuen
+        - group.legevaerelse
+        - group.gangen
+        - group.indgang
+        - group.hjaltes_vaerelse
+        - group.colins_vaerelse
+        - group.lille_badevaerelse
+        - group.stort_badevaerelse
+        - group.emilios_vaerelse
+        - group.pigernes_stue
+        - group.cornelies_vaerelse
+        - group.nathalies_vaerelse
+
+    koekken:
+      name: Køkken
+      entities:
+        - light.spisebord
+        - light.kaffebar
+        - light.kokkenbord
+        - light.maleri
+        - light.legekokken
+
+    kontor:
+      name: Kontor
+      entities:
+        - light.sandbox_bulb
+
+    stuen:
+      name: Stuen
+      entities:
+        - light.stuelampe
+        - light.stuen_gulvlampe
+        - light.laeselampe
+
+    legevaerelse:
+      name: Legeværelse
+      entities:
+        - light.legevaerelse_gulvlampe
+        - light.legevaerelse_uplight
+
+    gangen:
+      name: Gangen
+      icon: mdi:track-light
+      entities:
+        - light.gangen
+
+    indgang:
+      name: Indgang
+      icon: mdi:track-light
+      entities:
+        - light.indgang_loftlampe
+
+    hjaltes_vaerelse:
+      name: Hjaltes værelse
+      entities:
+        - light.hjaltes_loftlampe
+        - light.hjaltes_nanoleaf
+
+    colins_vaerelse:
+      name: Colins værelse
+      entities:
+        - light.colins_manelampe
+        - light.colins_lampe
+        - light.colins_loftlampe
+
+    lille_badevaerelse:
+      name: Lille badeværelse
+      icon: mdi:shower-head
+      entities:
+        - light.lille_badevarelse
+
+    stort_badevaerelse:
+      name: Stort badeværelse
+      icon: mdi:shower
+      entities:
+        - light.stort_badevarelse
+
+    emilios_vaerelse:
+      name: Emilios værelse
+      entities:
+        - light.emilios_stjernelampe
+        - light.emilios_loftlampe
+
+    pigernes_stue:
+      name: Pigernes stue
+      icon: mdi:crystal-ball
+      entities:
+        - light.pigernes_stue_kuglelampe
+
+    cornelies_vaerelse:
+      name: Cornelies værelse
+      entities:
+        - light.cornelies_gulvlampe
+
+    nathalies_vaerelse:
+      name: Nathalies værelse
+      entities:
+        - light.nathalies_sengelamper
+        - light.nathalies_loftslamper
+
+    havegangen:
+      name: Havegangen
+      icon: mdi:wall-sconce-round
+      entities:
+        - light.havegangen
+
+    husnummer:
+      name: Husnummer
+      icon: mdi:wall-sconce-round
+      entities:
+        - light.husnummer
+
+  homeassistant:
+    customize:
+      light.legevaerelse_gulvlampe:
+        friendly_name: Gulvlampe
+        icon: mdi:floor-lamp-dual

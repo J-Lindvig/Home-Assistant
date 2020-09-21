@@ -74,10 +74,7 @@ uv_index:
       trigger:
         platform: time_pattern
         minutes: "/30"
-      condition:
-        condition: state
-        entity_id: sun.sun
-        state: "above_horizon"
+      condition: "{{ is_state('sun.sun', 'above_horizon') }}"
       action:
         service: openuv.update_uv_index_data
 

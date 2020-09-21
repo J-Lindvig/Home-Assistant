@@ -62,8 +62,7 @@ grep '<td style="text-align: left;" valign="top" width="102">\|<td style="text-a
 STATE=-1
 QUERY=""
 ATTR="\"events\": [ "
-NOW_DATE=$(date +"%Y-%m-%d 00:00:00" )
-NOW_IN_DAYS=$(date -d "$DATE" +"%s)
+NOW_IN_DAYS=$(( ($(date +"%s") / 86400) -1 ))
 
 while read line; do
 

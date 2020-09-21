@@ -1,4 +1,3 @@
-# lovelace_gen
 #    ______          __           _             
 #   /_  __/__  _____/ /_   _   __(_)__ _      __
 #    / / / _ \/ ___/ __/  | | / / / _ \ | /| / /
@@ -12,45 +11,6 @@
 #  /_//_/\__/_/  \__/  |__,__/_/_/_/ /_.__/\__/  \_,_/_/  \_,_/\_, /\___/_//_/___/
 #                                                             /___/               
 
-{% set persons = ['Jacob', 'Rikke', 'Cornelie', 'Nathalie', 'Hjalte'] %}
-
-{% set rooms = {
-  "Køkken": ["light.kokken", "light.spisebord", "light.maleri", "light.legekokken", "light.kaffebar", "light.kokkeno", "light.kokkenskabe", "light.kokkenbord"]
-} %}
-
-{%- macro ir_command(command) -%}
-      service: remote.send_command
-      service_data:
-        entity_id: remote.rm_mini_3_stuen
-        device: Vestel TV
-        command: {{ command }}
-{%- endmacro %}
-
-{%- macro open_slider(room) -%}
-          action: call-service
-          service: browser_mod.popup
-          service_data:
-            title: Indstilling af lys
-            style:
-              border-radius: 20px
-              --ha-card-border-radius: 20px
-            card:
-              type: entities
-              title: {{ room }}
-              show_header_toggle: true
-              entities:
-              {%- for light in rooms[room] %}
-                {%- if not loop.first %}
-                - type: custom:slider-entity-row
-                  entity: {{ light }}
-                  #full_row: false
-                  toggle: true
-                {%- endif %}
-              {% endfor %}
-            deviceID:
-              - this
-{%- endmacro %}
-
 title: System
 icon: mdi:test-tube
 panel: false
@@ -58,34 +18,6 @@ cards:
 
   - type: custom:clock-card
 
-
   - !include cards/test/flag_card.yaml
-
-  - type: custom:tv-card
-    entity: sun.sun
-    name: Vestel TV
-    tv: false
-    power:
-      {{ ir_command("Power") }}
-    menu:
-      {{ ir_command("Menu") }}
-    select:
-      {{ ir_command("OK") }}
-    back:
-      {{ ir_command("Back") }}
-    up:
-      {{ ir_command("Up") }}
-    left:
-      {{ ir_command("Left") }}
-    right:
-      {{ ir_command("Right") }}
-    down:
-      {{ ir_command("Down") }}
-    volume_up:
-      {{ ir_command("Volume Up") }}
-    volume_down:
-      {{ ir_command("Volume Down") }}
-    volume_mute:
-      {{ ir_command("Mute") }}
 
   - type: custom:gui-sandbox

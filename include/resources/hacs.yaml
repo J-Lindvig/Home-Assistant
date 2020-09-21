@@ -58,7 +58,7 @@
   url: /hacsfiles/gauge-card/gauge-card.js
 - type: module
   url: /hacsfiles/lovelace-gui-sandbox/gui-sandbox.js
-  
+
 #      __ 
 #     / / 
 #    / /  
@@ -128,14 +128,3 @@
 #             
 - type: module
   url: /hacsfiles/weather-card/weather-card.js
-
-#   _____
-#  /__  /
-#    / / 
-#   / /__
-#  /____/
-#
-- type: module
-  url: /hacsfiles/zha-network-card/zha-network-card.js
-- type: module
-  url: /local/non-hacs/zha-network-visualization-card/zha-network-visualization-card.js

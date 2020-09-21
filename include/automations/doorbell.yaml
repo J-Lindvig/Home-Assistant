@@ -1,5 +1,5 @@
 - alias: "Ringklokke"
-  description: Der er nogen som ringer på døren
+  description: "Der er nogen som ringer på døren"
   initial_state: true
   mode: queued
   trigger:
@@ -9,12 +9,12 @@
         unique_id: 00:15:8d:00:05:2b:96:3e
         event: 1002
   action:
-    - service: light.turn_on
-      data_template:
+    - service: homeassistant.turn_on
+      data:
         entity_id: light.husnummer
         brightness: "{{ 254 if is_state('binary_sensor.night', 'on') else 0 }}"
     - service: notify.mobile_app_motorola_one_action
-      data_template:
+      data:
         title: "Dørklokke"
         message: >
           Der er nogen ved døren

@@ -1,9 +1,0 @@
-- alias: "Sluk/tænd for pumpen"
-  trigger:
-    - platform: state
-      entity_id: group.persons
-  action:
-    - service_template: >-
-        switch.turn_{{ 'off' if trigger.to_state.state == 'not_home' else 'on' }}
-      data:
-        entity_id: switch.cirkulationspumpe

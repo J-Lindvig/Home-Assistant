@@ -6,7 +6,7 @@ countdowns:
         date: "1975-03-24"
         id_prefix: "birthday_"
       - name: Rikke fødselsdag
-        date: "1976-03-10"
+        date: "1976-10-03"
         id_prefix: "birthday_"
       - name: Cornelie & Nathalie fødselsdag
         date: "2003-08-22"
@@ -65,11 +65,7 @@ countdowns:
                 {%- set ns.prev = states(birthday) | int -%}
               {% endif -%}
             {% endfor %}
-            {%- if state_attr(ns.entity_id, "friendly_name").endswith('fødselsdag') -%}
-              {{ state_attr(ns.entity_id, "friendly_name")[:-11] -}}
-            {% else %}
-              {{ state_attr(ns.entity_id, "friendly_name") -}}
-            {% endif %}
+            {{ state_attr(ns.entity_id, "friendly_name")[:-11] -}}
           value_template: >-
             {%- set ns = namespace(entity_id="", prev=1000) -%}
             {% for birthday in states.group.birthdays.attributes.entity_id -%}

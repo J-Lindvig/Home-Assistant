@@ -1,5 +1,7 @@
 - alias: Boot
-  description: 'Load lists and other important stuff'
+  description: 'Indlæs diverse lister m.m. ved opstart'
+  initial_state: true
+  mode: single
   trigger:
     - platform: homeassistant
       event: start
@@ -8,10 +10,10 @@
     - service: shell_command.select_set_options
     - service: shell_command.text_set_values
     - service: rest_command.set_options_fix
-      data_template:
+      data:
         payload: >-
           {"entity_id":"input_select.chromecasts","options":[{% for chromecast in state_attr('group.chromecasts','entity_id') %}{% if not loop.first %},{% endif %}"{{ state_attr(chromecast, 'friendly_name') }}"{% endfor %}]}
     - service: rest_command.set_options_fix
-      data_template:
+      data:
         payload: >-
           {"entity_id":"input_select.chromecasts_entities","options":[{% for chromecast in state_attr('group.chromecasts','entity_id') %}{% if not loop.first %},{% endif %}"{{ chromecast }}"{% endfor %}]}

@@ -1,4 +1,5 @@
 media_players:
+
   group:
     chromecasts:
       name: Chromecasts
@@ -10,56 +11,157 @@ media_players:
         - media_player.sovetryne_tv
 
   media_player:
-    - platform: lg_netcast
+    - platform: universal
+      name: Vestel TV
+      children:
+        - media_player.stuens_tv
+      state_template: "{{ states('binary_sensor.vestel_tv') }}"
+      commands:
+        turn_on:
+          service: script.turn_on
+          data:
+            entity_id: script.power_with_remote
+            variables:
+              remote: remote.rm_mini_3_stuen
+              device: Vestel TV
+              ping_sensor: binary_sensor.vestel_tv
+        turn_off:
+          service: script.turn_on
+          data:
+            entity_id: script.power_with_remote
+            variables:
+              remote: remote.rm_mini_3_stuen
+              device: Vestel TV
+              ping_sensor: binary_sensor.vestel_tv
+        volume_up:
+          service: remote.send_command
+          data:
+            entity_id: remote.rm_mini_3_stuen
+            device: Vestel TV
+            command: Volume Up
+        volume_down:
+          service: remote.send_command
+          data:
+            entity_id: remote.rm_mini_3_stuen
+            device: Vestel TV
+            command: Volume Down
+        volume_mute:
+          service: script.turn_on
+          data:
+            entity_id: script.mute_with_remote
+            variables:
+              remote: remote.rm_mini_3_stuen
+              device: Vestel TV
+              boolean: input_boolean.vestel_tv_on_mute
+      attributes:
+        is_volume_muted: input_boolean.vestel_tv_on_mute
+
+    - platform: universal
       name: LG TV
-      host: 192.168.0.170
-      access_token: "901887"
-      turn_on_action:
-        service: remote.send_command
-        data:
-          entity_id: remote.rm_mini_3_ungdomsstue
-          device: LG TV
-          command: Power
+      children:
+        - media_player.pigernes_stue
+      state_template: "{{ states('binary_sensor.lg_tv') }}"
+      commands:
+        turn_on:
+          service: script.turn_on
+          data:
+            entity_id: script.power_with_remote
+            variables:
+              remote: remote.rm_mini_3_ungdomsstue
+              device: LG TV
+              ping_sensor: binary_sensor.lg_tv
+        turn_off:
+          service: script.turn_on
+          data:
+            entity_id: script.power_with_remote
+            variables:
+              remote: remote.rm_mini_3_ungdomsstue
+              device: LG TV
+              ping_sensor: binary_sensor.lg_tv
+        volume_up:
+          service: remote.send_command
+          data:
+            entity_id: remote.rm_mini_3_ungdomsstue
+            device: LG TV
+            command: Volume Up
+        volume_down:
+          service: remote.send_command
+          data:
+            entity_id: remote.rm_mini_3_ungdomsstue
+            device: LG TV
+            command: Volume Down
+        volume_mute:
+          service: script.turn_on
+          data:
+            entity_id: script.mute_with_remote
+            variables:
+              remote: remote.rm_mini_3_ungdomsstue
+              device: LG TV
+              boolean: input_boolean.lg_tv_on_mute
+      attributes:
+        is_volume_muted: input_boolean.lg_tv_on_mute
+
+  script:
+    power_with_remote:
+      alias: "Power med en RM 3"
+      description: "Script til at tænde/slukke med en remote"
+      icon: mdi:power
+      sequence:
+        - service: remote.send_command
+          data:
+            entity_id: "{{ remote }}"
+            device: "{{ device }}"
+            command: Power
+        - delay: "00:00:30"
+        - service: homeassistant.update_entity
+          data:
+            entity_id: "{{ ping_sensor }}"
+
+    mute_with_remote:
+      alias: "Mute/Unmute med en RM 3"
+      description: "Script til at mute/unmute med en remote + toggler en boolean"
+      icon: mdi:volume-mute
+      sequence:
+        - service: remote.send_command
+          data:
+            entity_id: "{{ remote }}"
+            device: "{{ device }}"
+            command: Mute
+        - service: input_boolean.toggle
+          data:
+            entity_id: "{{ boolean }}"
+
+  input_boolean:
+    vestel_tv_on_mute:
+      name: Vestel TV er på mute via remote
+      icon: mdi:volume-mute
+
+    lg_tv_on_mute:
+      name: LG TV er på mute via remote
+      icon: mdi:volume-mute
 
   binary_sensor:
     - platform: ping
       host: 192.168.0.110
       name: Vestel TV
-    # - platform: ping
-    #   host: 192.168.0.170
-    #   name: LG TV
+
+    - platform: ping
+      host: 192.168.0.170
+      name: LG TV
 
   switch:
     - platform: template
       switches:
-        vestel_tv:
-          friendly_name: "Vestel TV"
-          value_template: "{{ states('binary_sensor.vestel_tv') }}"
+        cctv:
+          friendly_name: "CCTV"
+          value_template: "{{ is_state('media_player.kokken_skaerm', 'playing') }}"
           turn_on:
-            service: remote.send_command
+            service: camera.play_stream
             data:
-              entity_id: remote.rm_mini_3_stuen
-              device: Vestel TV
-              command: Power
+              entity_id: camera.indgang_sd
+              media_player: media_player.kokken_skaerm
+              format: hls
           turn_off:
-            service: remote.send_command
+            service: media_player.turn_off
             data:
-              entity_id: remote.rm_mini_3_stuen
-              device: Vestel TV
-              command: Power
-
-        # lg_tv:
-        #   friendly_name: "Vestel TV"
-        #   value_template: "{{ states('binary_sensor.lg_tv') }}"
-        #   turn_on:
-        #     service: remote.send_command
-        #     data:
-        #       entity_id: remote.rm_mini_3_ungdomsstue
-        #       device: LG TV
-        #       command: Power
-        #   turn_off:
-        #     service: remote.send_command
-        #     data:
-        #       entity_id: remote.rm_mini_3_ungdomsstue
-        #       device: LG TV
-        #       command: Power
+              entity_id: media_player.kokken_skaerm

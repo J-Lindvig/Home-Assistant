@@ -1,4 +1,12 @@
 systemmonitor:
+
+  binary_sensor:
+    - platform: ping
+      name: Router
+      host: 192.168.0.1
+      count: 1
+      scan_interval: 60
+
   sensor:
     - platform: systemmonitor
       resources:

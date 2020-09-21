@@ -27,12 +27,12 @@ tools:
       alias: "Save old volume and set a new"
       sequence:
         - service: var.set
-          data_template:
+          data:
             entity_id: var.prev_volume
             value: >-
               {{ state_attr(entity_id, 'volume_level') }}
         - service: media_player.volume_set
-          data_template:
+          data:
             entity_id: "{{ entity_id }}"
             volume_level: "{{ volume | float }}"
 
@@ -40,7 +40,7 @@ tools:
       alias: "Restore old volume"
       sequence:
         - service: media_player.volume_set
-          data_template:
+          data:
             entity_id: "{{ entity_id}}"
             volume_level: >-
               {{ states('var.prev_volume') | float }}
@@ -56,7 +56,7 @@ tools:
       alias: "VLOOKUP-gen"
       sequence:
         - service: input_select.select_option
-          data_template:
+          data:
             # From which list should we select the new value
             entity_id: "{{ result_list }}"
             # Go through every options (needles) in the haystack
@@ -80,7 +80,7 @@ tools:
       alias: "VLOOKUP-needle"
       sequence:
         - service: input_select.select_option
-          data_template:
+          data:
             # From which list should we select the new value
             entity_id: "{{ result_list }}"
             # Go through every options (needles) in the haystack
@@ -98,9 +98,9 @@ tools:
       alias: "Generic Loop"
       sequence:
         - service: system_log.write
-          data_template:
+          data:
             message: 'Generic loop: {{ delay }}'
             level: error
         - delay: >-
             {{ delay }}
-        - service_template: "{{ caller }}"
+        - service: "{{ caller }}"

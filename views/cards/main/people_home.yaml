@@ -13,17 +13,24 @@
 #             /_/                                       
 # lovelace_gen, https://github.com/thomasloven/hass-lovelace_gen
 
-{% set persons = ['Jacob', 'Rikke', 'Cornelie', 'Nathalie', 'Hjalte'] %}
+{% set person_images = {
+  "Jacob": "af1410210ca6d4b819bb188d8bd2fad1",
+  "Rikke": "3f3f5347347471e34ac0a2d0228fcef2",
+  "Cornelie": "2cf187b250d9b1ed7f178604c759b6ba",
+  "Nathalie": "d5c987c43b388e3806a636452b52a094",
+  "Hjalte": "6287e820ab516ef85f58b2018dee2016"
+} %}
+
 type: custom:stack-in-card
 mode: horizontal
 cards:
-{% for name in persons %}
+{%- for name in person_images %}
   - type: picture-entity
     entity: person.{{ name | lower }}
-    image: /local/images/persons/{{ name }}.jpg
+    image: /api/image/serve/{{ person_images[name] }}/512x512
     show_name: false
     show_state: false
     state_filter:
       "home": brightness(110%) saturate(1.2)
       "not_home": brightness(50%) grayscale(100%)
-{% endfor %}
+{%- endfor %}

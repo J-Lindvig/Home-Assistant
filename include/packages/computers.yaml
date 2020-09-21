@@ -2,8 +2,8 @@ computers:
   switch:
     - platform: wake_on_lan
       name: PC-J-Lindvig-Windows
-      host: 192.168.0.122
-      mac: 8c:89:a5:e4:6b:53
+      host: !secret PC_J_LINDVIG_WINDOWS_HOST
+      mac: !secret PC_J_LINDVIG_WINDOWS_MAC
       turn_off:
         service: hassio.addon_stdin
         data:
@@ -12,8 +12,8 @@ computers:
 
     - platform: wake_on_lan
       name: PC-H-Lindvig
-      host: 192.168.0.141
-      mac: 2C:44:FD:22:C1:52
+      host: !secret PC_H_LINDVIG_HOST
+      mac: ! secret PC_H_LINDVIG_MAC
       turn_off:
         service: hassio.addon_stdin
         data:

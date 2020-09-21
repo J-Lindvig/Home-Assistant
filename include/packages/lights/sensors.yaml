@@ -1,0 +1,64 @@
+gangen:
+  group:
+    sensors_gangen:
+      name: Sensorer i gangen
+      entities:
+        - binary_sensor.gangen_sensor_1
+        - binary_sensor.gangen_sensor_2
+
+  automation:
+    - alias: "Tænd lyset ved bevægelse"
+      initial_state: true
+      mode: parallel
+      trigger:
+        - platform: state
+          entity_id:
+            - binary_sensor.sandbox_sensor
+            - binary_sensor.lillebadevarelse_sensor
+            - binary_sensor.stort_badevarelse_sensor
+            - group.sensors_gangen
+            - binary_sensor.camera_indgang
+          from: "off"
+          to: "on"
+      action:
+        - service: script.turn_on
+          data:
+            entity_id: script.generic_sensor_dimmer
+            variables:
+              sensor: "{{ trigger.entity_id }}"
+              light: >-
+                {%- if trigger.entity_id == "binary_sensor.sandbox_sensor" %}
+                  light.sandbox_bulb
+                {%- elif trigger.entity_id == "binary_sensor.lillebadevarelse_sensor" %}
+                  light.lille_badevarelse
+                {%- elif trigger.entity_id == "binary_sensor.stort_badevarelse_sensor" %}
+                  light.stort_badevarelse
+                {%- elif trigger.entity_id == "group.sensors_gangen" %}
+                  light.gangen
+                {%- elif trigger.entity_id == "binary_sensor.camera_indgang" %}
+                  light.indgang
+                {% endif %}
+
+  script:
+    generic_sensor_dimmer:
+      alias: "Generic dimmer on sensor"
+      mode: parallel
+      sequence:
+        - service: light.turn_on
+          data:
+            entity_id: "{{ light }}"
+            brightness: >-
+              {%- if is_state("binary_sensor.night", "on") %}
+                {{ states("input_number.dim_low") | int }}
+              {%- else -%}
+                {{ states("input_number.dim_high") | int }}
+              {%- endif %}
+            transition: 1
+        - wait_template: "{{ is_state(sensor, 'off') }}"
+        - delay:
+            seconds: "{{ 30 if is_state('binary_sensor.night', 'off') else 0 }}"
+        - service: light.turn_on
+          data:
+            entity_id: "{{ light }}"
+            brightness: 0
+            transition: 3

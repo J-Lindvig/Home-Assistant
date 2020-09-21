@@ -101,8 +101,8 @@ light_control:
         # Trigger - state of the group of lights i the wanted rooms
         - platform: state
           entity_id:
-            - light.colins_varelse
-            - light.emilios_varelse
+            - group.colins_vaerelse
+            - group.emilios_vaerelse
           from: "off"
           to: "on"
           # Timeout value
@@ -111,5 +111,5 @@ light_control:
       action:
         service: light.turn_off
         # Turn the entity that was the trigger
-        data_template:
+        data:
           entity_id: "{{ trigger.entity_id }}"

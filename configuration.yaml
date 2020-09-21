@@ -21,31 +21,7 @@ automation old: !include_dir_merge_list include/automations/
 #  \____/   
 #
 config:
-
-camera:
-  - platform: generic
-    name: Indgang SD
-    still_image_url: !secret INDGANG_STILL_URL
-    stream_source: !secret INDGANG_STREAM_URL
-    verify_ssl: false
-
-  - platform: generic
-    name: Terrasse SD
-    still_image_url: !secret TERRASSE_STILL_URL
-    stream_source: !secret TERRASSE_STREAM_URL
-    verify_ssl: false
-
-  - platform: generic
-    name: Extra 1 SD
-    still_image_url: !secret EXTRA_1_STILL_URL
-    stream_source: !secret EXTRA_1_STREAM_URL
-    verify_ssl: false
-
-  - platform: generic
-    name: Extra 2 SD
-    still_image_url: !secret EXTRA_2_STILL_URL
-    stream_source: !secret EXTRA_2_STREAM_URL
-    verify_ssl: false
+camera: !include include/cameras.yaml
 
 #      ____ 
 #     / __ \
@@ -109,13 +85,6 @@ lovelace_gen:
 #      ____ 
 #     / __ \
 #    / /_/ /
-#   / ____/ 
-#  /_/      
-#
-
-#      ____ 
-#     / __ \
-#    / /_/ /
 #   / _, _/ 
 #  /_/ |_|  
 # 
@@ -139,6 +108,11 @@ sensor:
     show_archived: true
     show_delivered: true
 shell_command: !include_dir_merge_named include/shell_commands/
+
+sonoff:
+  username: jacob@lindvig-henriksen.dk
+  password: Kar2ffel!
+
 spotify:
   client_id: !secret SPOTIFY_CLIENT_ID
   client_secret: !secret SPOTIFY_CLIENT_SECRET
